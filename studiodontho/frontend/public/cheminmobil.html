@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cheminmobil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="mobile-transition.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #d9f0f7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100vw, 201px);
+        height: min(100vh, 395px);
+        overflow: hidden;
+        background: #2f80ed;
+        border-radius: 11px;
+        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
+      }
+
+      .content {
+        position: absolute;
+        inset: 0 0 36px;
+        overflow-y: auto;
+        padding: 19px 13px 14px;
+        color: #ffffff;
+      }
+
+      .content::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .top-row {
+        display: grid;
+        grid-template-columns: 24px 1fr 24px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+
+      .back-link {
+        width: 24px;
+        height: 24px;
+        display: grid;
+        place-items: center;
+        color: #ffffff;
+        background: #58cc02;
+        border-radius: 50%;
+        font-size: 10px;
+        text-decoration: none;
+      }
+
+      .top-row h1 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1;
+        text-align: center;
+      }
+
+      .path-card {
+        padding: 12px 11px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 12px;
+        box-shadow: 0 8px 18px rgba(8, 47, 127, 0.14);
+      }
+
+      .path-card h2 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1.18;
+        text-align: center;
+      }
+
+      .path-card p {
+        margin: 7px 0 0;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 7.5px;
+        font-weight: 900;
+        line-height: 1.35;
+      }
+
+      .path-card .path-objective {
+        color: #ffffff;
+        font-size: 7.3px;
+      }
+
+      .steps {
+        display: grid;
+        gap: 7px;
+        margin: 12px 0;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 22px 1fr;
+        align-items: center;
+        gap: 7px;
+        min-height: 31px;
+        padding: 5px 7px;
+        color: #082f7f;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(8, 47, 127, 0.12);
+      }
+
+      .step.lesson-done {
+        color: #ffffff;
+        background: #58cc02;
+        box-shadow: 0 4px 0 #46a302, 0 8px 14px rgba(8, 47, 127, 0.16);
+      }
+
+      a.step {
+        text-decoration: none;
+      }
+
+      .step-icon {
+        width: 20px;
+        height: 20px;
+        display: grid;
+        place-items: center;
+        color: #ffffff;
+        background: #00a6a6;
+        border-radius: 50%;
+        font-size: 8px;
+      }
+
+      .step.lesson-done .step-icon {
+        color: #58cc02;
+        background: #ffffff;
+      }
+
+      .step span {
+        font-size: 7.4px;
+        font-weight: 900;
+        line-height: 1.2;
+      }
+
+      .activity-card {
+        margin: 0 0 11px;
+        padding: 10px 11px;
+        color: #082f7f;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(8, 47, 127, 0.12);
+      }
+
+      .activity-card h3 {
+        margin: 0 0 5px;
+        font-size: 8.5px;
+        font-weight: 900;
+        line-height: 1.1;
+        text-align: center;
+      }
+
+      .activity-card p {
+        margin: 0;
+        color: #31527f;
+        font-size: 7.2px;
+        font-weight: 900;
+        line-height: 1.35;
+      }
+
+      .exam-dialog {
+        position: absolute;
+        inset: 0;
+        z-index: 12;
+        display: grid;
+        place-items: center;
+        padding: 16px;
+        background: rgba(8, 47, 127, 0.42);
+      }
+
+      .exam-dialog[hidden] {
+        display: none;
+      }
+
+      .exam-panel {
+        width: 100%;
+        padding: 14px 13px;
+        color: #082f7f;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 12px 24px rgba(8, 47, 127, 0.28);
+      }
+
+      .exam-panel h2 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1.15;
+        text-align: center;
+      }
+
+      .exam-panel h3 {
+        margin: 10px 0 5px;
+        font-size: 9px;
+        font-weight: 900;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .exam-panel p {
+        margin: 0;
+        color: #31527f;
+        font-size: 7.5px;
+        font-weight: 900;
+        line-height: 1.35;
+        text-align: center;
+      }
+
+      .exam-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        margin-top: 12px;
+      }
+
+      .exam-actions button {
+        min-height: 28px;
+        border: 0;
+        border-radius: 9px;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .exam-cancel {
+        color: #082f7f;
+        background: #e8f6fb;
+      }
+
+      .exam-confirm {
+        color: #ffffff;
+        background: #58cc02;
+        box-shadow: 0 3px 0 #46a302;
+      }
+
+      .exam-note {
+        min-height: 9px;
+        margin-top: 8px !important;
+        color: #d64045 !important;
+        font-size: 6.8px !important;
+      }
+
+      .finish-button,
+      .locked-button {
+        width: 100%;
+        min-height: 33px;
+        border: 0;
+        border-radius: 10px;
+        font-size: 8.5px;
+        font-weight: 900;
+      }
+
+      .finish-button {
+        color: #ffffff;
+        background: #58cc02;
+        box-shadow: 0 3px 0 #46a302;
+        cursor: pointer;
+      }
+
+      .locked-button {
+        color: #ffffff;
+        background: #aeb8c5;
+      }
+
+      .done-note {
+        margin: 9px 0 0;
+        color: #dff4ff;
+        font-size: 7px;
+        font-weight: 900;
+        line-height: 1.25;
+        text-align: center;
+      }
+
+      .footer-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 36px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: center;
+        background: #ffffff;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 -4px 10px rgba(8, 47, 127, 0.08);
+      }
+
+      .footer-nav a {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        color: #4b5563;
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .footer-nav a.active {
+        color: #00a6a6;
+      }
+
+      .footer-icon-img {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        opacity: 0.78;
+      }
+
+      .footer-nav a.active .footer-icon-img {
+        opacity: 1;
+        filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
+      }
+
+      @media (min-width: 520px) {
+        .phone {
+          transform: scale(1.45);
+        }
+      }
+    </style>
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone" aria-label="Niveau mobile Studiodontho">
+      <section class="content">
+        <div class="top-row">
+          <a class="back-link" id="back-map" href="entrainementmobil.html" aria-label="Retour">
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+          <h1 id="path-heading">Lvl</h1>
+          <span aria-hidden="true"></span>
+        </div>
+
+        <article class="path-card">
+          <h2 id="path-title">Lvl</h2>
+          <p class="path-objective" id="path-objective"></p>
+          <p id="path-description"></p>
+        </article>
+
+        <div class="steps" id="path-steps"></div>
+        <article class="activity-card" id="path-activity-card" hidden>
+          <h3>Examen de validation</h3>
+          <p id="path-activity"></p>
+        </article>
+        <button class="finish-button" type="button" id="finish-path">Valider l'examen</button>
+        <p class="done-note" id="path-note"></p>
+      </section>
+
+      <div class="exam-dialog" id="exam-dialog" hidden>
+        <article class="exam-panel" role="dialog" aria-modal="true" aria-labelledby="exam-dialog-title">
+          <h2 id="exam-dialog-title">Examen de validation</h2>
+          <h3 id="exam-path-title"></h3>
+          <p id="exam-question"></p>
+          <div class="exam-actions">
+            <button class="exam-cancel" type="button" id="exam-cancel">Annuler</button>
+            <button class="exam-confirm" type="button" id="exam-confirm">Terminer l'examen</button>
+          </div>
+          <p class="exam-note" id="exam-note"></p>
+        </article>
+      </div>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script>
+      const defaultPathContent = {
+        decouverte: [
+          {
+            title: "Lvl 1",
+            description: "Comprendre la carie avec des bases simples.",
+            steps: ["Cas pratique", "Notions cl\u00e9", "Quiz rapide", "Mini examen"]
+          },
+          {
+            title: "Lvl 2",
+            description: "Proteger la dent pendant les soins.",
+            steps: ["TP instruments", "Cas d'ordre des etapes", "Notions cl\u00e9 digue", "Mini examen"]
+          },
+          {
+            title: "Lvl 3",
+            description: "Reparer une dent avec adhesion et composite.",
+            steps: ["TP adhesifs", "Cas pratique", "Notions cl\u00e9 composite", "Mini examen"]
+          },
+          {
+            title: "Lvl 4",
+            description: "Comprendre une douleur dentaire.",
+            steps: ["Cas douleur", "Notions cl\u00e9 diagnostic", "Quiz guide", "Mini examen"]
+          },
+          {
+            title: "Lvl 5",
+            description: "Lire une radio simplement.",
+            steps: ["Cas radio-clair", "Cas zone suspecte", "Notions cl\u00e9 radio", "Examen decouverte"]
+          }
+        ],
+        professionnel: [
+          {
+            title: "Lvl 1",
+            description: "Diagnostic carieux avance.",
+            steps: ["ED 1", "ED 2", "Cas clinique", "Notions cl\u00e9 SiSta ICDAS", "Examen"]
+          },
+          {
+            title: "Lvl 2",
+            description: "Champ operatoire et isolement.",
+            steps: ["TP 1", "TP 3", "Cas clinique", "Notions cl\u00e9 digue", "Examen"]
+          },
+          {
+            title: "Lvl 3",
+            description: "Adhesion, composites et protocoles.",
+            steps: ["TP 4", "TP 5", "Cas protocole", "Notions cl\u00e9 adhesion", "Examen"]
+          },
+          {
+            title: "Lvl 4",
+            description: "Consultation et diagnostic clinique.",
+            steps: ["ED 4", "Cas pulpaire", "Cas urgence", "Notions cl\u00e9 consultation", "Examen"]
+          },
+          {
+            title: "Lvl 5",
+            description: "Radiographie et interpretation.",
+            steps: ["Choix du cliche", "Lecture radio", "Cas clinique", "Notions cl\u00e9 radio", "Examen"]
+          },
+          {
+            title: "Lvl 6",
+            description: "Cavites site 2 et matrices.",
+            steps: ["TP 2", "TP 8", "Materiel Palodent", "Cas proximal", "Examen"]
+          }
+        ]
+      };
+      const worldPathContent = {
+        decouverte: {
+          1: [
+            {
+              title: "Découvrir le métier d'odontologue",
+              objective: "Objectif : comprendre qui soigne les dents.",
+              description: "Dans le jeu, l'élève entre dans un cabinet dentaire. Il découvre le dentiste, son rôle et l'importance de l'hygiène bucco-dentaire.",
+              steps: [
+                {
+                  label: "Le dentiste",
+                  href: "m1c1l1p1.html",
+                  lessonKey: "m1c1l1"
+                },
+                "Notions clé : dentiste, outils, soin et conseil",
+                "Quiz rapide : associer chaque outil à son rôle"
+              ],
+              activity: "Valider le lvl en aidant un patient à reconnaître le dentiste, son rôle et les outils de base."
+            },
+            {
+              title: "Connaître les différents types de dents",
+              objective: "Objectif : apprendre les noms et les rôles des dents.",
+              description: "Les dents sont présentées comme des personnages pour comprendre leur mission dans la bouche.",
+              steps: [
+                "Cas pratique : observer une bouche dessinée",
+                "Notions clé : incisives, canines, prémolaires, molaires",
+                "Quiz rapide : relier chaque dent à son rôle"
+              ],
+              activity: "Valider le lvl en plaçant les dents dans la bouche et en expliquant leur rôle."
+            },
+            {
+              title: "Comprendre la structure d'une dent",
+              objective: "Objectif : savoir de quoi une dent est composée.",
+              description: "Le joueur reconstitue une dent et comprend les parties visibles, cachées et sensibles.",
+              steps: [
+                "Cas pratique : reconstruire une dent en puzzle",
+                "Notions clé : couronne, racine, émail, dentine, pulpe",
+                "Quiz rapide : reconnaître chaque partie"
+              ],
+              activity: "Valider le lvl en reconstituant une dent et en nommant ses parties principales."
+            },
+            {
+              title: "Protéger ses dents",
+              objective: "Objectif : comprendre comment éviter les caries.",
+              description: "Le joueur aide un personnage à garder ses dents propres avec les bons gestes du quotidien.",
+              steps: [
+                "Cas pratique : aider un personnage à protéger ses dents",
+                "Notions clé : brossage, eau, sucre, dentiste",
+                "Quiz rapide : choisir les bons gestes"
+              ],
+              activity: "Valider le lvl en choisissant les bons gestes pour éviter les caries."
+            },
+            {
+              title: "Mission finale de dentiste",
+              objective: "Objectif : réviser tout ce qui a été appris.",
+              description: "Le joueur devient apprenti odontologue et doit aider un patient avec ses connaissances.",
+              finalExamOnly: true,
+              steps: [],
+              activity: "Mission : le patient a mal à une molaire. Quelle dent est-ce ? À quoi sert-elle ? Que doit-il faire pour éviter que cela recommence ?"
+            }
+          ]
+        }
+      };
+      const heading = document.querySelector("#path-heading");
+      const title = document.querySelector("#path-title");
+      const objective = document.querySelector("#path-objective");
+      const description = document.querySelector("#path-description");
+      const steps = document.querySelector("#path-steps");
+      const activityCard = document.querySelector("#path-activity-card");
+      const activity = document.querySelector("#path-activity");
+      const finishButton = document.querySelector("#finish-path");
+      const note = document.querySelector("#path-note");
+      const backMap = document.querySelector("#back-map");
+      const examDialog = document.querySelector("#exam-dialog");
+      const examPathTitle = document.querySelector("#exam-path-title");
+      const examQuestion = document.querySelector("#exam-question");
+      const examCancel = document.querySelector("#exam-cancel");
+      const examConfirm = document.querySelector("#exam-confirm");
+      const examNote = document.querySelector("#exam-note");
+      const worldCount = 3;
+      const maxLevelCount = 5;
+      let pendingExamValidation = null;
+      const defaultModeStats = {
+        decouverte: {
+          level: 1,
+          points: 0,
+          easyCasesDone: 0,
+          normalCasesDone: 0,
+          hardCasesDone: 0
+        },
+        professionnel: {
+          level: 1,
+          points: 0,
+          easyCasesDone: 0,
+          normalCasesDone: 0,
+          hardCasesDone: 0
+        }
+      };
+
+      function getCurrentMode() {
+        const mode = localStorage.getItem("studiodonthoMobileMode");
+
+        return mode === "professionnel" ? "professionnel" : "decouverte";
+      }
+
+      function getCurrentWorld() {
+        const requestedWorld = Number(new URLSearchParams(window.location.search).get("world"));
+
+        return requestedWorld >= 1 && requestedWorld <= worldCount ? requestedWorld : 1;
+      }
+
+      function getRequestedPathNumber(contentLength = maxLevelCount) {
+        const requestedPath = Number(new URLSearchParams(window.location.search).get("id")) || 1;
+
+        return Math.max(1, Math.min(requestedPath, contentLength));
+      }
+
+      function getStoredProfile() {
+        try {
+          return JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "null") || {};
+        } catch (error) {
+          localStorage.removeItem("studiodonthoMobileProfile");
+          return {};
+        }
+      }
+
+      function getProgressKey() {
+        const profile = getStoredProfile();
+
+        return `studiodonthoPathProgress:${profile.userId || "current"}:${getCurrentMode()}:world${getCurrentWorld()}`;
+      }
+
+      function getCompletedPaths() {
+        try {
+          const completedPaths = JSON.parse(localStorage.getItem(getProgressKey()) || "[]");
+
+          return Array.isArray(completedPaths) ? completedPaths.map(Number) : [];
+        } catch (error) {
+          localStorage.removeItem(getProgressKey());
+          return [];
+        }
+      }
+
+      function saveCompletedPaths(completedPaths) {
+        localStorage.setItem(getProgressKey(), JSON.stringify([...new Set(completedPaths)].sort((a, b) => a - b)));
+      }
+
+      async function loadServerProgress() {
+        try {
+          const response = await fetch(`/api/path-progress?mode=${getCurrentMode()}&world=${getCurrentWorld()}`, {
+            credentials: "same-origin"
+          });
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok || !Array.isArray(result.completedPaths)) {
+            return;
+          }
+
+          saveCompletedPaths(result.completedPaths);
+        } catch (error) {
+        }
+      }
+
+      function getLessonProgressKey(pathNumber = getRequestedPathNumber()) {
+        const profile = getStoredProfile();
+
+        return `studiodonthoLessonProgress:${profile.userId || "current"}:${getCurrentMode()}:world${getCurrentWorld()}:path${pathNumber}`;
+      }
+
+      function getCompletedLessons(pathNumber = getRequestedPathNumber()) {
+        try {
+          const completedLessons = JSON.parse(localStorage.getItem(getLessonProgressKey(pathNumber)) || "[]");
+
+          return Array.isArray(completedLessons) ? completedLessons.map(String) : [];
+        } catch (error) {
+          localStorage.removeItem(getLessonProgressKey(pathNumber));
+          return [];
+        }
+      }
+
+      function saveCompletedLessons(pathNumber, completedLessons) {
+        localStorage.setItem(getLessonProgressKey(pathNumber), JSON.stringify([...new Set(completedLessons.map(String))]));
+      }
+
+      async function loadServerLessonProgress(pathNumber) {
+        try {
+          const response = await fetch(`/api/lesson-progress?mode=${getCurrentMode()}&world=${getCurrentWorld()}&pathNumber=${pathNumber}`, {
+            credentials: "same-origin"
+          });
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok || !Array.isArray(result.completedLessons)) {
+            return;
+          }
+
+          saveCompletedLessons(pathNumber, result.completedLessons);
+        } catch (error) {
+        }
+      }
+
+      function getModeStatsKey(profile) {
+        return `studiodonthoModeStats:${profile.userId || "current"}`;
+      }
+
+      function getModeStats(profile) {
+        try {
+          const savedStats = JSON.parse(localStorage.getItem(getModeStatsKey(profile)) || "{}");
+
+          return {
+            decouverte: {
+              ...defaultModeStats.decouverte,
+              ...savedStats.decouverte
+            },
+            professionnel: {
+              ...defaultModeStats.professionnel,
+              ...savedStats.professionnel
+            }
+          };
+        } catch (error) {
+          localStorage.removeItem(getModeStatsKey(profile));
+          return defaultModeStats;
+        }
+      }
+
+      function saveModeStats(profile, modeStats) {
+        localStorage.setItem(getModeStatsKey(profile), JSON.stringify(modeStats));
+      }
+
+      function updateLocalPoints(pointsEarned, totalPoints) {
+        const profile = getStoredProfile();
+        const mode = getCurrentMode();
+        const modeStats = getModeStats(profile);
+        const safeEarned = Number(pointsEarned) || 0;
+        const safeTotal = Number(totalPoints);
+
+        modeStats[mode].points = Number.isFinite(safeTotal)
+          ? safeTotal
+          : Math.max(0, Number(modeStats[mode].points) || 0) + safeEarned;
+        saveModeStats(profile, modeStats);
+      }
+
+      async function syncCompletedPath(pathNumber, completedPaths) {
+        const response = await fetch("/api/path-progress/complete", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({
+            mode: getCurrentMode(),
+            world: getCurrentWorld(),
+            pathNumber,
+            completedPaths
+          })
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(result.message || "Impossible de sauvegarder les points.");
+        }
+
+        updateLocalPoints(result.pointsEarned, result.alltimePoints);
+
+        return result;
+      }
+
+      function navigateBackToWorld(currentWorld) {
+        if (window.navigateWithMobileTransition) {
+          window.navigateWithMobileTransition(`entrainementmobil.html?world=${currentWorld}`);
+        } else {
+          window.location.href = `entrainementmobil.html?world=${currentWorld}`;
+        }
+      }
+
+      function isUnlocked(pathNumber, completedPaths) {
+        if (pathNumber === 1) {
+          return true;
+        }
+
+        return completedPaths.includes(pathNumber - 1);
+      }
+
+      function renderStep(step, index) {
+        const isLinkedStep = typeof step === "object" && step.href;
+        const row = document.createElement(isLinkedStep ? "a" : "div");
+        const icon = document.createElement("span");
+        const label = document.createElement("span");
+        const stepLabel = typeof step === "object" ? step.label : step;
+
+        row.className = "step";
+        if (isLinkedStep) {
+          row.href = step.href;
+          if (step.lessonKey && getCompletedLessons().includes(step.lessonKey)) {
+            row.classList.add("lesson-done");
+            row.setAttribute("aria-label", `${stepLabel} termine`);
+          }
+        }
+        icon.className = "step-icon";
+        icon.textContent = index + 1;
+        label.textContent = stepLabel;
+        row.append(icon, label);
+
+        return row;
+      }
+
+      function isExamStep(step) {
+        const label = String(typeof step === "object" ? step.label : step || "").toLowerCase();
+
+        return label.startsWith("examen") || label.includes("mini examen");
+      }
+
+      function getVisibleSteps(currentPath) {
+        return (currentPath.steps || []).filter((step) => !isExamStep(step));
+      }
+
+      function getPathContent(mode, worldNumber) {
+        return worldPathContent[mode]?.[worldNumber] || defaultPathContent[mode] || defaultPathContent.decouverte;
+      }
+
+      function closeExamDialog() {
+        examDialog.hidden = true;
+        examNote.textContent = "";
+        examConfirm.disabled = false;
+        examConfirm.textContent = "Terminer l'examen";
+        pendingExamValidation = null;
+      }
+
+      function openExamDialog(currentPath, onValidate) {
+        examPathTitle.textContent = currentPath.title;
+        examQuestion.textContent = currentPath.activity || "Réponds à l'examen pour valider ce lvl.";
+        examNote.textContent = "";
+        examConfirm.disabled = false;
+        examConfirm.textContent = "Terminer l'examen";
+        pendingExamValidation = onValidate;
+        examDialog.hidden = false;
+      }
+
+      examCancel.addEventListener("click", closeExamDialog);
+      examDialog.addEventListener("click", (event) => {
+        if (event.target === examDialog) {
+          closeExamDialog();
+        }
+      });
+      examConfirm.addEventListener("click", async () => {
+        if (!pendingExamValidation) {
+          return;
+        }
+
+        examConfirm.disabled = true;
+        examConfirm.textContent = "Validation...";
+        examNote.textContent = "";
+
+        try {
+          await pendingExamValidation();
+        } catch (error) {
+          examConfirm.disabled = false;
+          examConfirm.textContent = "Terminer l'examen";
+          examNote.textContent = "Impossible de sauvegarder, réessaie.";
+        }
+      });
+
+      function renderPath() {
+        const mode = getCurrentMode();
+        const currentWorld = getCurrentWorld();
+        const content = getPathContent(mode, currentWorld).slice(0, maxLevelCount);
+        const pathNumber = getRequestedPathNumber(content.length);
+        const completedPaths = getCompletedPaths();
+        const currentPath = content[pathNumber - 1];
+        const unlocked = isUnlocked(pathNumber, completedPaths);
+        const done = completedPaths.includes(pathNumber);
+        const buttonLabel = currentPath.finalExamOnly ? "Faire l'examen" : "Valider l'examen";
+
+        backMap.href = `entrainementmobil.html?world=${currentWorld}`;
+        heading.textContent = `Lvl ${pathNumber}`;
+        title.textContent = currentPath.title;
+        objective.textContent = currentPath.objective || "";
+        objective.hidden = !currentPath.objective;
+        description.textContent = currentPath.description;
+        steps.replaceChildren(...getVisibleSteps(currentPath).map(renderStep));
+        steps.hidden = Boolean(currentPath.finalExamOnly);
+        activity.textContent = currentPath.activity || "Réponds à l'examen pour valider ce lvl.";
+        activityCard.hidden = false;
+
+        if (!unlocked) {
+          finishButton.className = "locked-button";
+          finishButton.disabled = true;
+          finishButton.textContent = "Lvl bloque";
+          note.textContent = "Termine le lvl precedent pour le debloquer.";
+          return;
+        }
+
+        finishButton.className = "finish-button";
+        finishButton.disabled = done;
+        finishButton.textContent = done ? "Examen deja valide" : buttonLabel;
+        note.textContent = done ? "Ce lvl est deja valide." : "";
+
+        if (done) {
+          return;
+        }
+
+        finishButton.addEventListener("click", () => {
+          openExamDialog(currentPath, async () => {
+            const nextCompletedPaths = getCompletedPaths();
+
+            finishButton.disabled = true;
+            finishButton.textContent = "Validation...";
+
+            try {
+              if (!nextCompletedPaths.includes(pathNumber)) {
+                nextCompletedPaths.push(pathNumber);
+              }
+
+              await syncCompletedPath(pathNumber, nextCompletedPaths);
+              saveCompletedPaths(nextCompletedPaths);
+
+              navigateBackToWorld(currentWorld);
+            } catch (error) {
+              finishButton.disabled = false;
+              finishButton.textContent = buttonLabel;
+              note.textContent = "Impossible de sauvegarder les points, réessaie.";
+              throw error;
+            }
+          });
+        });
+      }
+
+      async function initPath() {
+        await loadServerProgress();
+
+        const content = getPathContent(getCurrentMode(), getCurrentWorld()).slice(0, maxLevelCount);
+        const pathNumber = getRequestedPathNumber(content.length);
+
+        await loadServerLessonProgress(pathNumber);
+        renderPath();
+      }
+
+      initPath();
+    </script>
+    <script src="mobile-transition.js"></script>
+  </body>
+</html>

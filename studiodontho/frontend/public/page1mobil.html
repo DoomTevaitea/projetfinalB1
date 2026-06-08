@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>page1mobil</title>
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="mobile-transition.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #d9f0f7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100vw, 201px);
+        height: min(100vh, 395px);
+        overflow: hidden;
+        color: #082f7f;
+        background: #9edceb;
+        border-radius: 11px;
+        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
+      }
+
+      .status-bar {
+        position: relative;
+        z-index: 1;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px 14px 0;
+        font-size: 8px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        justify-items: center;
+        padding: 48px 21px 0;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 21px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .dental-scene {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 150 / 98;
+        height: auto;
+        margin-bottom: 13px;
+      }
+
+      .dental-scene img,
+      .scene-dots,
+      .scene-bubble {
+        position: absolute;
+      }
+
+      .scene-machine,
+      .scene-tooth,
+      .scene-table {
+        object-fit: contain;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      .scene-machine {
+        left: 0%;
+        top: 5%;
+        width: 52%;
+        z-index: 1;
+        opacity: 0.96;
+        filter: drop-shadow(0 4px 5px rgba(8, 47, 127, 0.16));
+      }
+
+      .scene-tooth {
+        left: 35%;
+        top: 63%;
+        width: 30%;
+        z-index: 4;
+        filter: drop-shadow(0 5px 6px rgba(8, 47, 127, 0.22));
+      }
+
+      .scene-table {
+        left: 65%;
+        top: 55%;
+        width: 25%;
+        z-index: 2;
+        opacity: 0.95;
+        filter: drop-shadow(0 4px 5px rgba(8, 47, 127, 0.16));
+      }
+
+      .scene-dots {
+        left: 63%;
+        top: 49%;
+        width: 13%;
+        height: 13%;
+        z-index: 3;
+      }
+
+      .scene-dots span {
+        position: absolute;
+        display: block;
+        background: #ffffff;
+        border: 0.7px solid rgba(8, 47, 127, 0.7);
+        border-radius: 50%;
+      }
+
+      .scene-dots span:nth-child(1) {
+        left: -35%;
+        top: 69%;
+        width: 21%;
+        height: 31%;
+      }
+
+      .scene-dots span:nth-child(2) {
+        left: 0%;
+        top: 25%;
+        width: 26%;
+        height: 38%;
+      }
+
+      .scene-dots span:nth-child(3) {
+        left: 45%;
+        top: -15%;
+        width: 32%;
+        height: 46%;
+      }
+
+      .scene-bubble {
+        left: 56%;
+        top: 8%;
+        width: 40%;
+        min-height: 29%;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 1px;
+        padding: 5px 7px;
+        color: #082f7f;
+        background: #ffffff;
+        border: 0.8px solid rgba(8, 47, 127, 0.45);
+        border-radius: 999px;
+        box-shadow: 0 3px 6px rgba(8, 47, 127, 0.12);
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 900;
+        line-height: 1.08;
+        text-align: center;
+      }
+
+      .scene-bubble strong,
+      .scene-bubble span {
+        display: block;
+      }
+
+      .scene-bubble strong {
+        font-size: 5.2px;
+      }
+
+      .scene-bubble span {
+        color: #00a6a6;
+        font-size: 4.2px;
+      }
+
+      h2 {
+        margin: 0 0 17px;
+        font-size: 21px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .description {
+        width: 158px;
+        margin: 0 0 17px;
+        font-size: 7.6px;
+        font-weight: 600;
+        line-height: 1.35;
+        color: #213c61;
+      }
+
+      .start-button {
+        width: 122px;
+        min-height: 34px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 15px;
+        color: #ffffff;
+        background: #58cc02;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 0 #46a302;
+        font-size: 11px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .small-text {
+        width: 142px;
+        margin: 0;
+        font-size: 6.2px;
+        font-weight: 600;
+        line-height: 1.45;
+        color: #4f6176;
+      }
+
+      @media (min-width: 520px) {
+        .phone {
+          transform: scale(1.45);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone" aria-label="Apercu Studiodontho">
+      <div class="status-bar" aria-hidden="true"></div>
+
+      <section class="content">
+        <h1>Studiodontho</h1>
+
+        <div class="dental-scene" role="img" aria-label="Scene dentaire Studiodontho">
+          <img class="scene-machine" src="/img/structure.png" alt="" />
+          <img class="scene-tooth" src="/img/Content.png" alt="" />
+          <img class="scene-table" src="/img/Table.png" alt="" />
+          <div class="scene-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="scene-bubble">
+            <strong>Viens t'entrainer !</strong>
+            <span>et surtout</span>
+            <span>Prends soin de ton sourire</span>
+          </div>
+        </div>
+
+        <h2>Bienvenue</h2>
+
+        <p class="description">
+          Plein de cas pratique et de cours adapt&eacute;e &agrave; tous les niveaux
+        </p>
+
+        <a class="start-button" href="page2mobil.html">c'est partie</a>
+
+        <p class="small-text">
+          Fait par Tevaitea Doom
+        </p>
+      </section>
+    </main>
+    <script src="mobile-transition.js"></script>
+  </body>
+</html>

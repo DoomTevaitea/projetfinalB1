@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>classementmobil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="mobile-transition.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #d9f0f7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      button {
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100vw, 201px);
+        height: min(100vh, 395px);
+        overflow: hidden;
+        background: #9edceb;
+        border-radius: 11px;
+        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
+      }
+
+      .leaderboard-top {
+        height: 150px;
+        padding: 24px 14px 0;
+        color: #ffffff;
+        background: #2f80ed;
+      }
+
+      .top-row {
+        display: grid;
+        grid-template-columns: 22px 1fr 22px;
+        align-items: center;
+      }
+
+      .back-link,
+      .top-spacer {
+        width: 22px;
+        height: 22px;
+      }
+
+      .back-link {
+        display: grid;
+        place-items: center;
+        color: #ffffff;
+        font-size: 10px;
+        text-decoration: none;
+      }
+
+      .top-row h1 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 900;
+        line-height: 1;
+        text-align: center;
+      }
+
+      .period-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .period-tabs button {
+        min-height: 29px;
+        color: rgba(255, 255, 255, 0.72);
+        background: transparent;
+        border: 0;
+        border-radius: 14px;
+        font-size: 8px;
+        font-weight: 900;
+      }
+
+      .period-tabs .active {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .period-tabs button:active {
+        transform: translateY(1px);
+      }
+
+      .user-rank {
+        min-height: 11px;
+        margin: 8px 0 0;
+        color: #ffffff;
+        font-size: 8px;
+        font-weight: 900;
+        line-height: 1;
+        text-align: center;
+      }
+
+      .leaderboard-board {
+        position: relative;
+        height: 234px;
+        margin: -25px 8px 0;
+        padding: 17px 8px 10px;
+        background: #f7fbff;
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -4px 14px rgba(8, 47, 127, 0.14);
+      }
+
+      .board-pin {
+        position: absolute;
+        left: 50%;
+        top: -7px;
+        width: 24px;
+        height: 24px;
+        display: grid;
+        place-items: center;
+        background: #f7fbff;
+        border-radius: 50%;
+        transform: translateX(-50%);
+      }
+
+      .board-pin span {
+        width: 5px;
+        height: 5px;
+        display: block;
+        background: #2f80ed;
+        border-radius: 50%;
+      }
+
+      .rank-list {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding-right: 1px;
+      }
+
+      .rank-list::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .rank-message {
+        margin: 20px 8px 0;
+        color: #6b7280;
+        font-size: 8px;
+        font-weight: 900;
+        line-height: 1.35;
+        text-align: center;
+      }
+
+      .rank-card {
+        min-height: 35px;
+        display: grid;
+        grid-template-columns: 18px 31px 1fr 23px;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 6px 4px 7px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 5px 11px rgba(8, 47, 127, 0.08);
+      }
+
+      .rank-number {
+        width: 15px;
+        height: 15px;
+        display: grid;
+        place-items: center;
+        color: #9ca3af;
+        background: #ffffff;
+        border: 1px solid #edf2f7;
+        border-radius: 50%;
+        font-size: 6px;
+        font-weight: 900;
+      }
+
+      .rank-avatar {
+        width: 26px;
+        height: 26px;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        color: #082f7f;
+        background: #d1d5db;
+        border-radius: 50%;
+        font-size: 9px;
+        font-weight: 900;
+      }
+
+      .rank-avatar img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .rank-info {
+        min-width: 0;
+      }
+
+      .rank-info h2 {
+        margin: 0 0 3px;
+        overflow: hidden;
+        color: #102033;
+        font-size: 7.6px;
+        font-weight: 900;
+        line-height: 1.05;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .rank-info p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 6.2px;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+
+      .rank-badge {
+        width: 18px;
+        height: 18px;
+        display: grid;
+        place-items: center;
+        color: #ffffff;
+        background: #d1d5db;
+        border-radius: 8px;
+        font-size: 8px;
+      }
+
+      .rank-card:nth-child(1) .rank-avatar {
+        background: #c7f4e5;
+      }
+
+      .rank-card:nth-child(1) .rank-badge {
+        background: #facc15;
+      }
+
+      .rank-card:nth-child(2) .rank-avatar {
+        background: #ffe2ea;
+      }
+
+      .rank-card:nth-child(2) .rank-badge {
+        background: #cfd5dc;
+      }
+
+      .rank-card:nth-child(3) .rank-avatar {
+        background: #dce9ff;
+      }
+
+      .rank-card:nth-child(3) .rank-badge {
+        background: #f4a261;
+      }
+
+      .rank-card:nth-child(n + 4) .rank-badge {
+        opacity: 0.55;
+      }
+
+      .footer-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        height: 36px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: center;
+        background: #ffffff;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 -4px 10px rgba(8, 47, 127, 0.08);
+      }
+
+      .footer-nav a {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        color: #6b7280;
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .footer-nav a.active {
+        color: #00a6a6;
+      }
+
+      .footer-icon-img {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        opacity: 0.78;
+      }
+
+      .footer-nav a.active .footer-icon-img {
+        opacity: 1;
+        filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
+      }
+
+      @media (min-width: 520px) {
+        .phone {
+          transform: scale(1.45);
+        }
+      }
+    </style>
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone" aria-label="Classement mobile Studiodontho">
+      <header class="leaderboard-top">
+        <div class="top-row">
+          <a class="back-link" href="profilmobil.html" aria-label="Retour">
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+          <h1>Classement</h1>
+          <span class="top-spacer" aria-hidden="true"></span>
+        </div>
+
+        <div class="period-tabs" aria-label="Periode du classement">
+          <button class="active" type="button" data-period="week">Semaine</button>
+          <button type="button" data-period="alltime">Tout temps</button>
+        </div>
+
+        <p class="user-rank" id="user-rank">#-- rank</p>
+      </header>
+
+      <section class="leaderboard-board" aria-label="Liste du classement">
+        <div class="board-pin" aria-hidden="true">
+          <span></span>
+        </div>
+
+        <div class="rank-list" id="rank-list"></div>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a class="active" href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script>
+      const rankList = document.querySelector("#rank-list");
+      const userRank = document.querySelector("#user-rank");
+      const periodButtons = document.querySelectorAll("[data-period]");
+
+      function initials(name) {
+        return name
+          .split(" ")
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+      }
+
+      function formatPoints(points) {
+        return points.toLocaleString("fr-FR").replace(/\u202f/g, " ");
+      }
+
+      function getCurrentMode() {
+        const mode = localStorage.getItem("studiodonthoMobileMode");
+
+        return mode === "professionnel" ? "professionnel" : "decouverte";
+      }
+
+      function getApiBaseUrl() {
+        const isLocalPage = window.location.protocol === "file:";
+        const isLiveServer = ["localhost", "127.0.0.1"].includes(window.location.hostname) && window.location.port !== "3000";
+
+        return isLocalPage || isLiveServer ? "http://localhost:3000" : "";
+      }
+
+      async function readJsonResponse(response) {
+        const contentType = response.headers.get("content-type") || "";
+
+        if (!contentType.includes("application/json")) {
+          throw new Error("Classement indisponible. Lance npm start puis ouvre http://localhost:3000/classementmobil.html.");
+        }
+
+        return response.json();
+      }
+
+      function getLoadingErrorMessage(error) {
+        if (error instanceof TypeError) {
+          return "Classement indisponible. Lance npm start puis ouvre http://localhost:3000/classementmobil.html.";
+        }
+
+        return error.message || "Impossible de charger le classement.";
+      }
+
+      function getStoredProfile() {
+        try {
+          return JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "null");
+        } catch (error) {
+          localStorage.removeItem("studiodonthoMobileProfile");
+          return null;
+        }
+      }
+
+      function getRankLabel(result) {
+        if (result.currentUserRank) {
+          return `#${result.currentUserRank.rank} rank`;
+        }
+
+        const profile = getStoredProfile();
+
+        if (!profile || !profile.userId || !result.users) {
+          return "#-- rank";
+        }
+
+        const userIndex = result.users.findIndex((user) => Number(user.id) === Number(profile.userId));
+
+        return userIndex >= 0 ? `#${userIndex + 1} rank` : "#-- rank";
+      }
+
+      function createMessage(text) {
+        const message = document.createElement("p");
+
+        message.className = "rank-message";
+        message.textContent = text;
+
+        return message;
+      }
+
+      function createRankCard(user, index) {
+        const rank = index + 1;
+        const name = user.prenom || "Compte";
+        const article = document.createElement("article");
+        const badgeLabel = rank === 1 ? "Premier" : rank === 2 ? "Deuxieme" : rank === 3 ? "Troisieme" : "";
+        const rankNumber = document.createElement("span");
+        const avatar = document.createElement("div");
+        const info = document.createElement("div");
+        const title = document.createElement("h2");
+        const points = document.createElement("p");
+        const badge = document.createElement("span");
+        const crown = document.createElement("i");
+
+        article.className = "rank-card";
+        rankNumber.className = "rank-number";
+        rankNumber.textContent = rank;
+        avatar.className = "rank-avatar";
+
+        if (user.profileImage) {
+          const avatarImage = document.createElement("img");
+
+          avatarImage.src = user.profileImage;
+          avatarImage.alt = "";
+          avatar.append(avatarImage);
+        } else {
+          avatar.textContent = initials(name);
+        }
+
+        info.className = "rank-info";
+        title.textContent = name;
+        points.textContent = `${formatPoints(user.points)} points`;
+        badge.className = "rank-badge";
+        crown.className = "fa-solid fa-crown";
+
+        if (badgeLabel) {
+          badge.setAttribute("aria-label", badgeLabel);
+        } else {
+          badge.setAttribute("aria-hidden", "true");
+        }
+
+        info.append(title, points);
+        badge.append(crown);
+        article.append(rankNumber, avatar, info, badge);
+
+        return article;
+      }
+
+      async function showRanking(period) {
+        periodButtons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.period === period);
+        });
+
+        userRank.textContent = "#-- rank";
+        rankList.replaceChildren(createMessage("Chargement du classement..."));
+        rankList.scrollTop = 0;
+
+        try {
+          const apiBaseUrl = getApiBaseUrl();
+          const response = await fetch(`${apiBaseUrl}/api/leaderboard?period=${period}&mode=${getCurrentMode()}`, {
+            credentials: apiBaseUrl ? "include" : "same-origin"
+          });
+          const result = await readJsonResponse(response);
+
+          if (!response.ok) {
+            throw new Error(result.message || "Impossible de charger le classement.");
+          }
+
+          if (!result.users || result.users.length === 0) {
+            rankList.replaceChildren(createMessage("Aucun compte dans le classement."));
+            return;
+          }
+
+          userRank.textContent = getRankLabel(result);
+          rankList.replaceChildren(...result.users.map(createRankCard));
+          rankList.scrollTop = 0;
+        } catch (error) {
+          rankList.replaceChildren(createMessage(getLoadingErrorMessage(error)));
+        }
+      }
+
+      periodButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          showRanking(button.dataset.period);
+        });
+      });
+
+      showRanking("week");
+    </script>
+    <script src="mobile-transition.js"></script>
+  </body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>entrainementmobil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="mobile-transition.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #d9f0f7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100vw, 201px);
+        height: min(100vh, 395px);
+        overflow: hidden;
+        background: #2f80ed;
+        border-radius: 11px;
+        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
+      }
+
+      .map-scroll {
+        position: absolute;
+        inset: 0 0 36px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        background: #2f80ed;
+      }
+
+      .map-scroll::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .map-header {
+        position: sticky;
+        top: 0;
+        z-index: 4;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+        gap: 4px 8px;
+        padding: 17px 13px 9px;
+        color: #ffffff;
+        background: #2f80ed;
+      }
+
+      .map-header h1 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .map-header p {
+        grid-column: 1;
+        margin: 5px 0 0;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 7px;
+        font-weight: 900;
+        line-height: 1.2;
+      }
+
+      .path-counter {
+        min-width: 27px;
+        min-height: 18px;
+        display: grid;
+        place-items: center;
+        color: #082f7f;
+        background: #ffffff;
+        border-radius: 999px;
+        box-shadow: 0 3px 0 rgba(8, 47, 127, 0.18);
+        font-size: 8px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .path-map {
+        position: relative;
+        min-height: 610px;
+        padding-bottom: 24px;
+      }
+
+      .route-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .route-shadow {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.24);
+        stroke-width: 27;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .route-main {
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 20;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .route-center {
+        fill: none;
+        stroke: #dff4ff;
+        stroke-width: 12;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .map-node {
+        position: absolute;
+        z-index: 2;
+        width: 39px;
+        height: 39px;
+        display: grid;
+        place-items: center;
+        color: #ffffff;
+        border: 3px solid rgba(255, 255, 255, 0.92);
+        border-radius: 50%;
+        box-shadow: 0 6px 0 rgba(8, 47, 127, 0.22), 0 8px 14px rgba(8, 47, 127, 0.2);
+        font-size: 14px;
+        font-weight: 900;
+        text-decoration: none;
+        transform: translate(-50%, -50%);
+      }
+
+      .map-node.done {
+        background: #58cc02;
+      }
+
+      .map-node.available {
+        background: #ffd43b;
+        color: #8a5a00;
+      }
+
+      .map-node.locked {
+        color: #ffffff;
+        background: #aeb8c5;
+        cursor: not-allowed;
+      }
+
+      .map-node.locked i {
+        font-size: 13px;
+      }
+
+      .node-label {
+        position: absolute;
+        z-index: 3;
+        min-width: 52px;
+        padding: 4px 6px;
+        color: #082f7f;
+        background: rgba(255, 255, 255, 0.93);
+        border-radius: 999px;
+        box-shadow: 0 4px 10px rgba(8, 47, 127, 0.12);
+        font-size: 6.5px;
+        font-weight: 900;
+        line-height: 1;
+        text-align: center;
+        transform: translate(-50%, -50%);
+      }
+
+      .world-button {
+        position: absolute;
+        bottom: 16px;
+        z-index: 3;
+        min-width: 62px;
+        min-height: 25px;
+        display: grid;
+        place-items: center;
+        color: #082f7f;
+        background: #ffffff;
+        border: 2px solid rgba(255, 255, 255, 0.88);
+        border-radius: 9px;
+        box-shadow: 0 4px 0 rgba(8, 47, 127, 0.22), 0 8px 13px rgba(8, 47, 127, 0.18);
+        font-size: 8px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .world-button.previous {
+        left: 13px;
+      }
+
+      .world-button.next {
+        right: 13px;
+      }
+
+      .world-button[hidden] {
+        display: none;
+      }
+
+      .footer-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 36px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: center;
+        background: #ffffff;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 -4px 10px rgba(8, 47, 127, 0.08);
+      }
+
+      .footer-nav a {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        color: #4b5563;
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .footer-nav a.active {
+        color: #00a6a6;
+      }
+
+      .footer-icon-img {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        opacity: 0.78;
+      }
+
+      .footer-nav a.active .footer-icon-img {
+        opacity: 1;
+        filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
+      }
+
+      @media (min-width: 520px) {
+        .phone {
+          transform: scale(1.45);
+        }
+      }
+    </style>
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone" aria-label="Entrainement mobile Studiodontho">
+      <section class="map-scroll" aria-label="Mondes d'entrainement">
+        <header class="map-header">
+          <h1 id="world-title">Monde 1</h1>
+          <span class="path-counter" id="path-counter">0/5</span>
+          <p id="map-mode">Mode decouverte</p>
+        </header>
+
+        <div class="path-map" id="path-map">
+          <svg class="route-svg" viewBox="0 0 201 610" preserveAspectRatio="none" aria-hidden="true">
+            <path class="route-shadow" id="route-shadow" d="M28 622 C40 593 54 574 45 560 C148 520 153 474 68 446 C-2 422 35 358 121 346 C201 334 194 271 103 256 C8 240 13 181 113 164 C199 150 181 86 74 72" />
+            <path class="route-main" id="route-main" d="M28 622 C40 593 54 574 45 560 C148 520 153 474 68 446 C-2 422 35 358 121 346 C201 334 194 271 103 256 C8 240 13 181 113 164 C199 150 181 86 74 72" />
+            <path class="route-center" id="route-center" d="M28 622 C40 593 54 574 45 560 C148 520 153 474 68 446 C-2 422 35 358 121 346 C201 334 194 271 103 256 C8 240 13 181 113 164 C199 150 181 86 74 72" />
+          </svg>
+
+          <a class="world-button previous" id="previous-world-button" href="entrainementmobil.html?world=1" aria-label="Monde 1" hidden>Monde 1</a>
+          <a class="world-button next" id="next-world-button" href="entrainementmobil.html?world=2" aria-label="Monde 2" hidden>Monde 2</a>
+
+        </div>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script>
+      const modeLabels = {
+        decouverte: "Mode decouverte",
+        professionnel: "Mode professionnel de sante"
+      };
+      const modeWorldTitles = {
+        decouverte: {
+          1: "Les dents"
+        }
+      };
+      const worldMaps = {
+        1: {
+          title: "Monde 1",
+          route: "M28 622 C40 593 54 574 45 560 C148 520 153 474 68 446 C-2 422 35 358 121 346 C201 334 194 271 103 256 C8 240 13 181 113 164 C199 150 181 86 74 72",
+          positions: [
+            { left: 22, top: 90, labelLeft: 47, labelTop: 90 },
+            { left: 72, top: 168, labelLeft: 45, labelTop: 168 },
+            { left: 34, top: 258, labelLeft: 62, labelTop: 258 },
+            { left: 74, top: 346, labelLeft: 46, labelTop: 346 },
+            { left: 41, top: 447, labelLeft: 68, labelTop: 447 }
+          ],
+          dots: [
+            { left: 73, top: 19 },
+            { left: 18, top: 48 },
+            { left: 67, top: 74 }
+          ],
+          previousWorld: null,
+          nextWorld: 2
+        },
+        2: {
+          title: "Monde 2",
+          route: "M172 624 C150 594 125 584 132 558 C150 500 28 505 39 445 C50 386 168 417 160 340 C153 275 49 291 53 229 C58 160 164 180 145 110 C139 88 118 76 93 66",
+          positions: [
+            { left: 70, top: 86, labelLeft: 43, labelTop: 86 },
+            { left: 28, top: 184, labelLeft: 55, labelTop: 184 },
+            { left: 79, top: 278, labelLeft: 52, labelTop: 278 },
+            { left: 25, top: 388, labelLeft: 52, labelTop: 388 },
+            { left: 66, top: 500, labelLeft: 39, labelTop: 500 }
+          ],
+          dots: [
+            { left: 27, top: 28 },
+            { left: 76, top: 56 },
+            { left: 34, top: 82 }
+          ],
+          previousWorld: 1,
+          nextWorld: 3
+        },
+        3: {
+          title: "Monde 3",
+          route: "M24 624 C60 590 92 582 82 548 C62 486 178 492 158 429 C139 368 35 397 44 327 C52 260 154 276 148 206 C142 144 42 159 67 98 C75 78 100 66 130 61",
+          positions: [
+            { left: 35, top: 82, labelLeft: 64, labelTop: 82 },
+            { left: 74, top: 176, labelLeft: 46, labelTop: 176 },
+            { left: 31, top: 278, labelLeft: 58, labelTop: 278 },
+            { left: 77, top: 392, labelLeft: 50, labelTop: 392 },
+            { left: 42, top: 506, labelLeft: 69, labelTop: 506 }
+          ],
+          dots: [
+            { left: 75, top: 26 },
+            { left: 22, top: 58 },
+            { left: 70, top: 85 }
+          ],
+          previousWorld: 2,
+          nextWorld: null
+        }
+      };
+      const pathCounts = {
+        decouverte: 5,
+        professionnel: 5
+      };
+      const worldTitle = document.querySelector("#world-title");
+      const mapMode = document.querySelector("#map-mode");
+      const pathCounter = document.querySelector("#path-counter");
+      const pathMap = document.querySelector("#path-map");
+      const routeShadow = document.querySelector("#route-shadow");
+      const routeMain = document.querySelector("#route-main");
+      const routeCenter = document.querySelector("#route-center");
+      const previousWorldButton = document.querySelector("#previous-world-button");
+      const nextWorldButton = document.querySelector("#next-world-button");
+
+      function getCurrentWorld() {
+        const requestedWorld = Number(new URLSearchParams(window.location.search).get("world"));
+
+        return worldMaps[requestedWorld] ? requestedWorld : 1;
+      }
+
+      function getCurrentMode() {
+        const mode = localStorage.getItem("studiodonthoMobileMode");
+
+        return mode === "professionnel" ? "professionnel" : "decouverte";
+      }
+
+      function getStoredProfile() {
+        try {
+          return JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "null") || {};
+        } catch (error) {
+          localStorage.removeItem("studiodonthoMobileProfile");
+          return {};
+        }
+      }
+
+      function getProgressKey() {
+        const profile = getStoredProfile();
+
+        return `studiodonthoPathProgress:${profile.userId || "current"}:${getCurrentMode()}:world${getCurrentWorld()}`;
+      }
+
+      function getCompletedPaths() {
+        try {
+          const completedPaths = JSON.parse(localStorage.getItem(getProgressKey()) || "[]");
+
+          return Array.isArray(completedPaths) ? completedPaths.map(Number) : [];
+        } catch (error) {
+          localStorage.removeItem(getProgressKey());
+          return [];
+        }
+      }
+
+      function saveCompletedPaths(completedPaths) {
+        localStorage.setItem(getProgressKey(), JSON.stringify([...new Set(completedPaths)].sort((a, b) => a - b)));
+      }
+
+      async function loadServerProgress() {
+        try {
+          const response = await fetch(`/api/path-progress?mode=${getCurrentMode()}&world=${getCurrentWorld()}`, {
+            credentials: "same-origin"
+          });
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok || !Array.isArray(result.completedPaths)) {
+            return;
+          }
+
+          saveCompletedPaths(result.completedPaths);
+        } catch (error) {
+        }
+      }
+
+      function getCompletedCount(completedPaths, count) {
+        return new Set(completedPaths.filter((pathNumber) => pathNumber >= 1 && pathNumber <= count)).size;
+      }
+
+      async function syncWorldBonus(completedPaths, count) {
+        if (getCompletedCount(completedPaths, count) < count) {
+          return;
+        }
+
+        try {
+          await fetch("/api/path-progress/sync-world", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({
+              mode: getCurrentMode(),
+              world: getCurrentWorld(),
+              completedPaths
+            })
+          });
+        } catch (error) {
+        }
+      }
+
+      function getFirstAvailablePath(completedPaths, count) {
+        for (let index = 1; index <= count; index += 1) {
+          if (!completedPaths.includes(index)) {
+            return index;
+          }
+        }
+
+        return count;
+      }
+
+      function createPathNode(pathNumber, state, position) {
+        const element = state === "locked" ? document.createElement("button") : document.createElement("a");
+
+        element.className = `map-node ${state}`;
+        element.style.left = `${position.left}%`;
+        element.style.top = `${position.top}px`;
+        element.setAttribute("aria-label", `Lvl ${pathNumber}`);
+
+        if (state === "locked") {
+          element.type = "button";
+          element.disabled = true;
+          element.innerHTML = '<i class="fa-solid fa-lock" aria-hidden="true"></i>';
+        } else {
+          element.href = `cheminmobil.html?world=${getCurrentWorld()}&id=${pathNumber}`;
+          element.textContent = pathNumber;
+        }
+
+        return element;
+      }
+
+      function createPathLabel(pathNumber, position) {
+        const label = document.createElement("span");
+
+        label.className = "node-label";
+        label.style.left = `${position.labelLeft}%`;
+        label.style.top = `${position.labelTop}px`;
+        label.textContent = `Lvl ${pathNumber}`;
+
+        return label;
+      }
+
+      function getWorldTitle(mode, worldNumber, fallbackTitle) {
+        return modeWorldTitles[mode]?.[worldNumber] || fallbackTitle;
+      }
+
+      function renderPaths() {
+        const mode = getCurrentMode();
+        const currentWorld = getCurrentWorld();
+        const worldMap = worldMaps[currentWorld];
+        const count = pathCounts[mode];
+        const completedPaths = getCompletedPaths();
+        const firstAvailable = getFirstAvailablePath(completedPaths, count);
+        const completedCount = getCompletedCount(completedPaths, count);
+        const customTitle = modeWorldTitles[mode]?.[currentWorld];
+
+        worldTitle.textContent = getWorldTitle(mode, currentWorld, worldMap.title);
+        mapMode.textContent = customTitle ? `${worldMap.title} - ${modeLabels[mode]}` : modeLabels[mode];
+        pathCounter.textContent = `${completedCount}/${count}`;
+        syncWorldBonus(completedPaths, count);
+        routeShadow.setAttribute("d", worldMap.route);
+        routeMain.setAttribute("d", worldMap.route);
+        routeCenter.setAttribute("d", worldMap.route);
+        previousWorldButton.hidden = !worldMap.previousWorld;
+        nextWorldButton.hidden = !worldMap.nextWorld;
+
+        if (worldMap.previousWorld) {
+          previousWorldButton.href = `entrainementmobil.html?world=${worldMap.previousWorld}`;
+          previousWorldButton.textContent = `Monde ${worldMap.previousWorld}`;
+          previousWorldButton.setAttribute("aria-label", `Monde ${worldMap.previousWorld}`);
+        }
+
+        if (worldMap.nextWorld) {
+          nextWorldButton.href = `entrainementmobil.html?world=${worldMap.nextWorld}`;
+          nextWorldButton.textContent = `Monde ${worldMap.nextWorld}`;
+          nextWorldButton.setAttribute("aria-label", `Monde ${worldMap.nextWorld}`);
+        }
+        pathMap.querySelectorAll(".map-node, .node-label").forEach((element) => element.remove());
+
+        for (let pathNumber = 1; pathNumber <= count; pathNumber += 1) {
+          const state = completedPaths.includes(pathNumber)
+            ? "done"
+            : pathNumber === firstAvailable
+              ? "available"
+              : "locked";
+          const position = worldMap.positions[pathNumber - 1];
+
+          pathMap.append(createPathNode(pathNumber, state, position), createPathLabel(pathNumber, position));
+        }
+
+        pathMap.style.minHeight = "610px";
+      }
+
+      renderPaths();
+      loadServerProgress().then(renderPaths);
+    </script>
+    <script src="mobile-transition.js"></script>
+  </body>
+</html>

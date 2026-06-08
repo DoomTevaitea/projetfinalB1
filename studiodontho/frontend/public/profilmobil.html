@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>profilmobil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="mobile-transition.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #d9f0f7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100vw, 201px);
+        height: min(100vh, 395px);
+        overflow: hidden;
+        background: #9edceb;
+        border-radius: 11px;
+        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
+      }
+
+      .profile-hero {
+        position: relative;
+        height: 136px;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 27px 9px 0 11px;
+        background: #2f80ed;
+        border-radius: 0 0 19px 19px;
+      }
+
+      .profile-hero::before,
+      .profile-hero::after {
+        content: "";
+        position: absolute;
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+      }
+
+      .profile-hero::before {
+        width: 34px;
+        height: 34px;
+        left: -11px;
+        top: 65px;
+      }
+
+      .profile-hero::after {
+        width: 54px;
+        height: 54px;
+        right: -17px;
+        bottom: -18px;
+      }
+
+      .avatar-block {
+        position: relative;
+        z-index: 1;
+        width: 65px;
+        flex: 0 0 65px;
+        display: grid;
+        justify-items: center;
+        gap: 5px;
+        color: #ffffff;
+      }
+
+      .avatar {
+        position: relative;
+        width: 58px;
+        height: 58px;
+        overflow: hidden;
+        background: #d1d5db;
+        background-position: center;
+        background-size: cover;
+        border-radius: 50%;
+      }
+
+      .avatar.has-image {
+        background-color: #ffffff;
+      }
+
+      .avatar-image {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .avatar-image[hidden] {
+        display: none;
+      }
+
+      .avatar-block h1 {
+        max-width: 100%;
+        margin: 0;
+        overflow-wrap: anywhere;
+        font-size: 9.5px;
+        font-weight: 900;
+        line-height: 1.05;
+        text-align: center;
+      }
+
+      .profile-info {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+        min-width: 100;
+        padding-top: 15px;
+        padding-left: 10px;
+        display: grid;
+        gap: 5px;
+        color: #ffffff;
+      }
+
+      .profile-info p {
+        margin: 0;
+        font-size: 8px;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+
+      #profile-mode {
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .profile-list {
+        padding: 12px 29px 0;
+      }
+
+      .profile-link {
+        width: 100%;
+        min-height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #082f7f;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid rgba(8, 47, 127, 0.14);
+        padding: 0;
+        font-family: inherit;
+        font-size: 8px;
+        font-weight: 900;
+        text-decoration: none;
+        cursor: pointer;
+        text-align: left;
+      }
+
+      #switch-mode-text {
+        line-height: 1.15;
+        white-space: pre-line;
+      }
+
+      .profile-link i {
+        color: #00a6a6;
+        font-size: 10px;
+      }
+
+      .logout-row {
+        width: 100%;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #082f7f;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        font-size: 8px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .logout-icon {
+        width: 20px;
+        height: 20px;
+        display: grid;
+        place-items: center;
+        color: #00a6a6;
+        border: 1px solid rgba(8, 47, 127, 0.22);
+        font-size: 11px;
+      }
+
+      .check-row {
+        display: none;
+      }
+
+      .logout-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        padding: 14px;
+        background: rgba(0, 0, 0, 0.54);
+      }
+
+      .logout-overlay[hidden] {
+        display: none;
+      }
+
+      .logout-modal {
+        width: 100%;
+        padding: 17px 11px 12px;
+        color: #ffffff;
+        background: #202020;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
+        text-align: center;
+      }
+
+      .logout-modal h2 {
+        margin: 0 0 13px;
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1.25;
+      }
+
+      .guest-warning {
+        margin: 0 0 12px;
+        color: #facc15;
+        font-size: 8px;
+        font-weight: 900;
+        line-height: 1.3;
+      }
+
+      .guest-warning[hidden] {
+        display: none;
+      }
+
+      .logout-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+      }
+
+      .logout-actions button {
+        min-height: 30px;
+        border: 0;
+        border-radius: 999px;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .cancel-logout {
+        color: #ffffff;
+        background: #000000;
+      }
+
+      .confirm-logout {
+        color: #111111;
+        background: #f5f5f5;
+      }
+
+      .language-modal h2 {
+        margin-bottom: 14px;
+      }
+
+      .language-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+      }
+
+      .language-choice {
+        min-height: 31px;
+        color: #111111;
+        background: #f5f5f5;
+        border: 0;
+        border-radius: 999px;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .language-choice.active {
+        color: #ffffff;
+        background: #00a6a6;
+      }
+
+      .edit-profile-modal h2 {
+        margin-bottom: 12px;
+      }
+
+      .edit-profile-actions {
+        display: grid;
+        gap: 7px;
+      }
+
+      .edit-profile-action {
+        min-height: 30px;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: 999px;
+        font-family: inherit;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .edit-profile-action[hidden] {
+        display: none;
+      }
+
+      .edit-profile-main {
+        color: #111111;
+        background: #f5f5f5;
+      }
+
+      .edit-profile-close {
+        color: #ffffff;
+        background: #000000;
+      }
+
+      .edit-name-panel {
+        display: grid;
+        gap: 7px;
+        margin-bottom: 8px;
+      }
+
+      .edit-name-panel[hidden] {
+        display: none;
+      }
+
+      .profile-image-input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .edit-name-panel input {
+        width: 100%;
+        min-height: 30px;
+        padding: 0 10px;
+        color: #082f7f;
+        background: #f5f5f5;
+        border: 0;
+        border-radius: 999px;
+        font-family: inherit;
+        font-size: 7.5px;
+        font-weight: 900;
+        outline: none;
+      }
+
+      .edit-profile-message {
+        min-height: 14px;
+        margin: 0 0 8px;
+        color: #dbeafe;
+        font-size: 7.2px;
+        font-weight: 900;
+        line-height: 1.25;
+        text-align: center;
+      }
+
+      .edit-profile-message.error {
+        color: #fca5a5;
+      }
+
+      .edit-profile-message.success {
+        color: #86efac;
+      }
+
+      .photo-crop-modal h2 {
+        margin-bottom: 12px;
+      }
+
+      .photo-crop-frame {
+        position: relative;
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 9px;
+        overflow: hidden;
+        background: #d1d5db;
+        border: 2px solid rgba(255, 255, 255, 0.42);
+        border-radius: 50%;
+        cursor: grab;
+        touch-action: none;
+      }
+
+      .photo-crop-frame.dragging {
+        cursor: grabbing;
+      }
+
+      .photo-crop-image {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        max-width: none;
+        user-select: none;
+        pointer-events: none;
+        transform-origin: center;
+      }
+
+      .crop-message {
+        min-height: 18px;
+        margin: 0 0 10px;
+        color: #dbeafe;
+        font-size: 7.2px;
+        font-weight: 900;
+        line-height: 1.25;
+        text-align: center;
+      }
+
+      .crop-message.error {
+        color: #fca5a5;
+      }
+
+      .crop-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+      }
+
+      .crop-actions button {
+        min-height: 30px;
+        border: 0;
+        border-radius: 999px;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .crop-cancel {
+        color: #ffffff;
+        background: #000000;
+      }
+
+      .crop-confirm {
+        color: #111111;
+        background: #f5f5f5;
+      }
+
+      .security-modal h2 {
+        margin-bottom: 10px;
+      }
+
+      .security-message {
+        min-height: 18px;
+        margin: 0 0 10px;
+        color: #dbeafe;
+        font-size: 7.5px;
+        font-weight: 900;
+        line-height: 1.3;
+      }
+
+      .security-message.error {
+        color: #fca5a5;
+      }
+
+      .security-message.success {
+        color: #86efac;
+      }
+
+      .security-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+      }
+
+      .security-actions button {
+        min-height: 30px;
+        border: 0;
+        border-radius: 999px;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .security-cancel {
+        color: #ffffff;
+        background: #000000;
+      }
+
+      .security-reset {
+        color: #111111;
+        background: #f5f5f5;
+      }
+
+      .stats-modal {
+        padding-top: 15px;
+        text-align: left;
+      }
+
+      .stats-modal h2 {
+        margin-bottom: 7px;
+        text-align: center;
+      }
+
+      .stats-mode {
+        margin: 0 0 10px;
+        color: #86efac;
+        font-size: 8px;
+        font-weight: 900;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .stats-list {
+        display: grid;
+        gap: 5px;
+      }
+
+      .stats-row {
+        min-height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 5px 7px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+      }
+
+      .stats-row span {
+        color: #dbeafe;
+        font-size: 7.2px;
+        font-weight: 900;
+        line-height: 1.15;
+      }
+
+      .stats-row strong {
+        color: #ffffff;
+        font-size: 8px;
+        font-weight: 900;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .stats-section-title {
+        margin: 8px 0 1px;
+        color: #ffffff;
+        font-size: 7.5px;
+        font-weight: 900;
+        line-height: 1.1;
+        text-align: center;
+      }
+
+      .stats-close {
+        width: 100%;
+        min-height: 30px;
+        margin-top: 10px;
+        color: #111111;
+        background: #f5f5f5;
+        border: 0;
+        border-radius: 999px;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .mode-modal h2 {
+        margin-bottom: 12px;
+      }
+
+      .mode-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+      }
+
+      .mode-actions button {
+        min-height: 30px;
+        border: 0;
+        border-radius: 999px;
+        font-size: 7.5px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .mode-cancel {
+        color: #ffffff;
+        background: #000000;
+      }
+
+      .mode-confirm {
+        color: #111111;
+        background: #f5f5f5;
+      }
+
+      .footer-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 36px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: center;
+        background: #ffffff;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 -4px 10px rgba(8, 47, 127, 0.08);
+      }
+
+      .footer-nav a {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        color: #6b7280;
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .footer-nav a.active {
+        color: #00a6a6;
+      }
+
+      .footer-icon-img {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        opacity: 0.78;
+      }
+
+      .footer-nav a.active .footer-icon-img {
+        opacity: 1;
+        filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
+      }
+
+      @media (min-width: 520px) {
+        .phone {
+          transform: scale(1.45);
+        }
+      }
+    </style>
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone" aria-label="Profil mobile Studiodontho">
+      <header class="profile-hero" aria-label="Profil">
+        <div class="avatar-block">
+          <div class="avatar" aria-hidden="true">
+            <img class="avatar-image" id="profile-avatar-image" alt="" hidden />
+          </div>
+          <h1 id="profile-prenom">Prenom</h1>
+        </div>
+        <div class="profile-info">
+          <p id="profile-mode">Mode</p>
+          <p id="profile-level">Lvl : x</p>
+          <p id="profile-points">points : x</p>
+        </div>
+      </header>
+
+      <section class="profile-list" aria-label="Options du profil">
+        <button class="profile-link" type="button" id="edit-profile-open">
+          <span>Modifier le profil</span>
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <button class="profile-link" type="button" id="stats-open">
+          <span>Statistiques</span>
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <button class="profile-link" type="button" id="security-open">
+          <span>Mot de passe et S&eacute;curit&eacute;</span>
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <button class="profile-link" type="button" id="language-open">
+          <span>Langues</span>
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <button class="profile-link" type="button" id="switch-mode-button">
+          <span id="switch-mode-text">Passer en mode</span>
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <button class="logout-row" type="button" id="logout-open">
+          <span>Deconnexion</span>
+          <span class="logout-icon" aria-hidden="true">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </span>
+        </button>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a class="active" href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+
+      <div class="logout-overlay" id="logout-overlay" hidden>
+        <section class="logout-modal" aria-label="Confirmation de deconnexion">
+          <h2>Vous etes sur de vous deconnecter ?</h2>
+          <p class="guest-warning" id="guest-warning" hidden>
+            Attention votre compte n'est pas li&eacute;, vous risquez de le perdre.
+          </p>
+          <div class="logout-actions">
+            <button class="cancel-logout" type="button" id="logout-cancel">Annuler</button>
+            <button class="confirm-logout" type="button" id="logout-confirm">Se deconnecter</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="logout-overlay" id="stats-overlay" hidden>
+        <section class="logout-modal stats-modal" aria-label="Statistiques">
+          <h2>Statistiques</h2>
+          <p class="stats-mode" id="stats-mode">Mode decouverte</p>
+          <div class="stats-list">
+            <div class="stats-row">
+              <span>Lvl</span>
+              <strong id="stats-level">1</strong>
+            </div>
+            <div class="stats-row">
+              <span>Points</span>
+              <strong id="stats-points">0</strong>
+            </div>
+          </div>
+          <p class="stats-section-title">Cas pratiques faits</p>
+          <div class="stats-list">
+            <div class="stats-row">
+              <span>Facile</span>
+              <strong id="stats-easy">0/10</strong>
+            </div>
+            <div class="stats-row">
+              <span>Normal</span>
+              <strong id="stats-normal">0/10</strong>
+            </div>
+            <div class="stats-row">
+              <span>Difficile</span>
+              <strong id="stats-hard">0/10</strong>
+            </div>
+          </div>
+          <button class="stats-close" type="button" id="stats-close">Fermer</button>
+        </section>
+      </div>
+
+      <div class="logout-overlay" id="mode-overlay" hidden>
+        <section class="logout-modal mode-modal" aria-label="Confirmation du changement de mode">
+          <h2 id="mode-confirm-text">&Ecirc;tes-vous s&ucirc;r de passer en mode ?</h2>
+          <div class="mode-actions">
+            <button class="mode-cancel" type="button" id="mode-cancel">Annuler</button>
+            <button class="mode-confirm" type="button" id="mode-confirm">Confirmer</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="logout-overlay" id="security-overlay" hidden>
+        <section class="logout-modal security-modal" aria-label="Mot de passe et securite">
+          <h2>Mot de passe et s&eacute;curit&eacute;</h2>
+          <p class="security-message" id="security-message">
+            Re&ccedil;ois un lien pour changer ton mot de passe.
+          </p>
+          <div class="security-actions">
+            <button class="security-cancel" type="button" id="security-cancel">Annuler</button>
+            <button class="security-reset" type="button" id="security-reset">Changer</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="logout-overlay" id="language-overlay" hidden>
+        <section class="logout-modal language-modal" aria-label="Choix de la langue">
+          <h2>Choisir sa langue</h2>
+          <div class="language-actions">
+            <button class="language-choice" type="button" data-language="fr">Fran&ccedil;ais</button>
+            <button class="language-choice" type="button" data-language="en">Anglais</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="logout-overlay" id="edit-profile-overlay" hidden>
+        <section class="logout-modal edit-profile-modal" aria-label="Modifier le profil">
+          <h2>Modifier le profil</h2>
+          <div class="edit-name-panel" id="edit-name-panel" hidden>
+            <input id="edit-name-input" type="text" maxlength="100" autocomplete="given-name" placeholder="Ton nom" />
+            <button class="edit-profile-action edit-profile-main" type="button" id="edit-name-save">Enregistrer</button>
+          </div>
+          <p class="edit-profile-message" id="edit-profile-message"></p>
+          <div class="edit-profile-actions">
+            <button class="edit-profile-action edit-profile-main" type="button" id="edit-name-open">Modifier nom</button>
+            <label class="edit-profile-action edit-profile-main" id="edit-image-open" for="profile-image-input">Ajouter photo</label>
+            <button class="edit-profile-action edit-profile-close" type="button" id="edit-profile-close">Annuler</button>
+          </div>
+          <input class="profile-image-input" id="profile-image-input" type="file" accept="image/*" />
+        </section>
+      </div>
+
+      <div class="logout-overlay" id="photo-crop-overlay" hidden>
+        <section class="logout-modal photo-crop-modal" aria-label="Recadrer la photo">
+          <h2>Recadrer la photo</h2>
+          <div class="photo-crop-frame" id="photo-crop-frame" aria-label="Zone de recadrage">
+            <img class="photo-crop-image" id="photo-crop-image" alt="" />
+          </div>
+          <p class="crop-message" id="crop-message">Bouge la photo dans le cercle.</p>
+          <div class="crop-actions">
+            <button class="crop-cancel" type="button" id="crop-cancel">Annuler</button>
+            <button class="crop-confirm" type="button" id="crop-confirm">Valider</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const modeLabels = {
+        decouverte: "Mode decouverte",
+        professionnel: "Professionnel de sant\u00e9"
+      };
+      const statsModeLabels = {
+        decouverte: "Mode decouverte",
+        professionnel: "Mode professionnel de sant\u00e9"
+      };
+      const switchModeLabels = {
+        decouverte: "mode decouverte",
+        professionnel: "mode\nProfessionnel de sant\u00e9"
+      };
+      const defaultModeStats = {
+        decouverte: {
+          level: 1,
+          points: 0,
+          easyCasesDone: 0,
+          normalCasesDone: 0,
+          hardCasesDone: 0
+        },
+        professionnel: {
+          level: 1,
+          points: 0,
+          easyCasesDone: 0,
+          normalCasesDone: 0,
+          hardCasesDone: 0
+        }
+      };
+      const practiceCasesTotal = 10;
+      const avatarElement = document.querySelector(".avatar");
+      const avatarImage = document.querySelector("#profile-avatar-image");
+      const prenomElement = document.querySelector("#profile-prenom");
+      const modeElement = document.querySelector("#profile-mode");
+      const levelElement = document.querySelector("#profile-level");
+      const pointsElement = document.querySelector("#profile-points");
+      const statsOpen = document.querySelector("#stats-open");
+      const statsOverlay = document.querySelector("#stats-overlay");
+      const statsClose = document.querySelector("#stats-close");
+      const statsMode = document.querySelector("#stats-mode");
+      const statsLevel = document.querySelector("#stats-level");
+      const statsPoints = document.querySelector("#stats-points");
+      const statsEasy = document.querySelector("#stats-easy");
+      const statsNormal = document.querySelector("#stats-normal");
+      const statsHard = document.querySelector("#stats-hard");
+      const switchModeButton = document.querySelector("#switch-mode-button");
+      const switchModeText = document.querySelector("#switch-mode-text");
+      const modeOverlay = document.querySelector("#mode-overlay");
+      const modeConfirmText = document.querySelector("#mode-confirm-text");
+      const modeCancel = document.querySelector("#mode-cancel");
+      const modeConfirm = document.querySelector("#mode-confirm");
+      const logoutOpen = document.querySelector("#logout-open");
+      const logoutOverlay = document.querySelector("#logout-overlay");
+      const logoutCancel = document.querySelector("#logout-cancel");
+      const logoutConfirm = document.querySelector("#logout-confirm");
+      const guestWarning = document.querySelector("#guest-warning");
+      const securityOpen = document.querySelector("#security-open");
+      const securityOverlay = document.querySelector("#security-overlay");
+      const securityCancel = document.querySelector("#security-cancel");
+      const securityReset = document.querySelector("#security-reset");
+      const securityMessage = document.querySelector("#security-message");
+      const languageOpen = document.querySelector("#language-open");
+      const languageOverlay = document.querySelector("#language-overlay");
+      const languageButtons = document.querySelectorAll("[data-language]");
+      const editProfileOpen = document.querySelector("#edit-profile-open");
+      const editProfileOverlay = document.querySelector("#edit-profile-overlay");
+      const editProfileClose = document.querySelector("#edit-profile-close");
+      const editNameOpen = document.querySelector("#edit-name-open");
+      const editNamePanel = document.querySelector("#edit-name-panel");
+      const editNameInput = document.querySelector("#edit-name-input");
+      const editNameSave = document.querySelector("#edit-name-save");
+      const editImageOpen = document.querySelector("#edit-image-open");
+      const profileImageInput = document.querySelector("#profile-image-input");
+      const editProfileMessage = document.querySelector("#edit-profile-message");
+      const photoCropOverlay = document.querySelector("#photo-crop-overlay");
+      const photoCropFrame = document.querySelector("#photo-crop-frame");
+      const photoCropImage = document.querySelector("#photo-crop-image");
+      const cropMessage = document.querySelector("#crop-message");
+      const cropCancel = document.querySelector("#crop-cancel");
+      const cropConfirm = document.querySelector("#crop-confirm");
+      let cropState = {
+        image: null,
+        offsetX: 0,
+        offsetY: 0,
+        startX: 0,
+        startY: 0,
+        startOffsetX: 0,
+        startOffsetY: 0,
+        scale: 1,
+        displayWidth: 0,
+        displayHeight: 0,
+        dragging: false
+      };
+
+      function getStoredMode() {
+        const mode = localStorage.getItem("studiodonthoMobileMode") || "decouverte";
+
+        return modeLabels[mode] || modeLabels.decouverte;
+      }
+
+      function getModeStatsKey(profile) {
+        return `studiodonthoModeStats:${profile.userId || "current"}`;
+      }
+
+      function getModeStats(profile) {
+        try {
+          const savedStats = JSON.parse(localStorage.getItem(getModeStatsKey(profile)) || "{}");
+
+          return {
+            decouverte: {
+              ...defaultModeStats.decouverte,
+              ...savedStats.decouverte
+            },
+            professionnel: {
+              ...defaultModeStats.professionnel,
+              ...savedStats.professionnel
+            }
+          };
+        } catch (error) {
+          localStorage.removeItem(getModeStatsKey(profile));
+          return defaultModeStats;
+        }
+      }
+
+      function saveModeStats(profile, modeStats) {
+        localStorage.setItem(getModeStatsKey(profile), JSON.stringify(modeStats));
+      }
+
+      function syncServerPoints(profile, points) {
+        if (!points) {
+          return;
+        }
+
+        const modeStats = getModeStats(profile);
+
+        ["decouverte", "professionnel"].forEach((mode) => {
+          const alltimePoints = Number(points[mode]?.alltime);
+
+          if (Number.isFinite(alltimePoints)) {
+            modeStats[mode].points = alltimePoints;
+          }
+        });
+
+        saveModeStats(profile, modeStats);
+      }
+
+      function getStoredModeKey(profile) {
+        const mode = localStorage.getItem("studiodonthoMobileMode");
+
+        if (modeLabels[mode]) {
+          return mode;
+        }
+
+        return profile.mode === modeLabels.professionnel ? "professionnel" : "decouverte";
+      }
+
+      function updateSwitchModeText(profile) {
+        const currentMode = getStoredModeKey(profile);
+        const nextMode = currentMode === "decouverte" ? "professionnel" : "decouverte";
+
+        switchModeText.textContent = `Passer en ${switchModeLabels[nextMode]}`;
+      }
+
+      function getNextMode(profile) {
+        const currentMode = getStoredModeKey(profile);
+
+        return currentMode === "decouverte" ? "professionnel" : "decouverte";
+      }
+
+      function updateModeConfirmText(profile) {
+        const nextMode = getNextMode(profile);
+
+        modeConfirmText.textContent = `Etes-vous sur de passer en ${switchModeLabels[nextMode]} ?`;
+      }
+
+      function saveProfile(profile) {
+        localStorage.setItem("studiodonthoMobileProfile", JSON.stringify(profile));
+      }
+
+      function getAvatarKey(profile) {
+        return `studiodonthoAvatar:${profile.userId || "current"}`;
+      }
+
+      function getAvatar(profile) {
+        return profile.profileImage || localStorage.getItem(getAvatarKey(profile)) || "";
+      }
+
+      function migrateCurrentAvatar(profile) {
+        if (!profile.userId) {
+          return;
+        }
+
+        const currentAvatar = localStorage.getItem("studiodonthoAvatar:current");
+
+        if (currentAvatar && !localStorage.getItem(getAvatarKey(profile))) {
+          localStorage.setItem(getAvatarKey(profile), currentAvatar);
+          localStorage.removeItem("studiodonthoAvatar:current");
+        }
+      }
+
+      function showEditProfileMessage(message, type = "") {
+        editProfileMessage.textContent = message;
+        editProfileMessage.className = `edit-profile-message ${type}`.trim();
+      }
+
+      function updateAvatar(profile) {
+        migrateCurrentAvatar(profile);
+
+        const avatar = getAvatar(profile);
+
+        avatarElement.classList.toggle("has-image", Boolean(avatar));
+        avatarImage.hidden = !avatar;
+        avatarImage.src = avatar || "";
+        editImageOpen.textContent = avatar ? "Modifier image" : "Ajouter photo";
+      }
+
+      function loadImageFromFile(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.addEventListener("load", () => {
+            const image = new Image();
+
+            image.addEventListener("load", () => {
+              resolve(image);
+            });
+
+            image.addEventListener("error", reject);
+            image.src = reader.result;
+          });
+
+          reader.addEventListener("error", reject);
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function clampCropOffset(value, max) {
+        return Math.max(-max, Math.min(max, value));
+      }
+
+      function applyCropTransform() {
+        const frameSize = photoCropFrame.clientWidth;
+        const maxOffsetX = Math.max(0, (cropState.displayWidth - frameSize) / 2);
+        const maxOffsetY = Math.max(0, (cropState.displayHeight - frameSize) / 2);
+
+        cropState.offsetX = clampCropOffset(cropState.offsetX, maxOffsetX);
+        cropState.offsetY = clampCropOffset(cropState.offsetY, maxOffsetY);
+        photoCropImage.style.width = `${cropState.displayWidth}px`;
+        photoCropImage.style.height = `${cropState.displayHeight}px`;
+        photoCropImage.style.transform = `translate(calc(-50% + ${cropState.offsetX}px), calc(-50% + ${cropState.offsetY}px))`;
+      }
+
+      function openCropMenu(image) {
+        const frameSize = photoCropFrame.clientWidth || 58;
+        const scale = Math.max(frameSize / image.naturalWidth, frameSize / image.naturalHeight);
+
+        cropState = {
+          image,
+          offsetX: 0,
+          offsetY: 0,
+          startX: 0,
+          startY: 0,
+          startOffsetX: 0,
+          startOffsetY: 0,
+          scale,
+          displayWidth: image.naturalWidth * scale,
+          displayHeight: image.naturalHeight * scale,
+          dragging: false
+        };
+        cropMessage.textContent = "Bouge la photo dans le cercle.";
+        cropMessage.className = "crop-message";
+        photoCropImage.src = image.src;
+        photoCropFrame.classList.remove("dragging");
+        photoCropOverlay.hidden = false;
+        applyCropTransform();
+      }
+
+      function closeCropMenu() {
+        photoCropOverlay.hidden = true;
+        cropState.image = null;
+        cropState.dragging = false;
+        photoCropFrame.classList.remove("dragging");
+        photoCropImage.removeAttribute("src");
+        profileImageInput.value = "";
+      }
+
+      function createCroppedProfilePhoto() {
+        const frameSize = photoCropFrame.clientWidth || 58;
+        const outputSize = 300;
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        const imageLeft = (frameSize - cropState.displayWidth) / 2 + cropState.offsetX;
+        const imageTop = (frameSize - cropState.displayHeight) / 2 + cropState.offsetY;
+        const sourceX = (0 - imageLeft) / cropState.scale;
+        const sourceY = (0 - imageTop) / cropState.scale;
+        const sourceSize = frameSize / cropState.scale;
+
+        canvas.width = outputSize;
+        canvas.height = outputSize;
+        context.drawImage(cropState.image, sourceX, sourceY, sourceSize, sourceSize, 0, 0, outputSize, outputSize);
+
+        return canvas.toDataURL("image/jpeg", 0.84);
+      }
+
+      async function saveProfilePhoto(photo) {
+        const savedProfile = getSavedProfile();
+        const response = await fetch("/api/profile-photo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({ profileImage: photo })
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(result.message || "Impossible d'ajouter cette photo.");
+        }
+
+        const nextProfile = {
+          ...savedProfile,
+          userId: result.user?.id || savedProfile.userId,
+          prenom: result.user?.prenom || savedProfile.prenom,
+          isGuest: Boolean(result.user?.isGuest ?? savedProfile.isGuest),
+          profileImage: result.user?.profileImage || photo,
+          mode: getStoredMode()
+        };
+
+        localStorage.setItem(getAvatarKey(nextProfile), nextProfile.profileImage);
+        saveProfile(nextProfile);
+        updateProfile(nextProfile);
+      }
+
+      function updateProfile(profile) {
+        const currentMode = getStoredModeKey(profile);
+        const modeStats = getModeStats(profile)[currentMode];
+
+        if (profile.prenom) {
+          prenomElement.textContent = profile.prenom;
+        }
+
+        modeElement.textContent = modeLabels[currentMode];
+        levelElement.textContent = `Lvl : ${modeStats.level}`;
+        pointsElement.textContent = `points : ${modeStats.points}`;
+        guestWarning.hidden = !profile.isGuest;
+        activeProfile = profile;
+        updateAvatar(profile);
+        updateSwitchModeText(profile);
+
+        if (!statsOverlay.hidden) {
+          updateStatsMenu(profile);
+        }
+      }
+
+      function switchMode() {
+        const savedProfile = JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "{}");
+        const nextMode = getNextMode(savedProfile);
+        const nextProfile = {
+          ...savedProfile,
+          mode: modeLabels[nextMode]
+        };
+
+        localStorage.setItem("studiodonthoMobileMode", nextMode);
+        saveProfile(nextProfile);
+        updateProfile(nextProfile);
+      }
+
+      function getSavedProfile() {
+        try {
+          return JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "null") || activeProfile;
+        } catch (error) {
+          localStorage.removeItem("studiodonthoMobileProfile");
+          return activeProfile;
+        }
+      }
+
+      function getStoredLanguage() {
+        const language = localStorage.getItem("studiodonthoLanguage");
+
+        return language === "en" ? "en" : "fr";
+      }
+
+      function updateLanguageButtons() {
+        const currentLanguage = getStoredLanguage();
+
+        document.documentElement.lang = currentLanguage;
+        languageButtons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.language === currentLanguage);
+        });
+      }
+
+      function showSecurityMessage(message, type = "") {
+        securityMessage.textContent = message;
+        securityMessage.className = `security-message ${type}`.trim();
+      }
+
+      function formatPracticeProgress(done) {
+        const safeDone = Math.max(0, Math.min(Number(done) || 0, practiceCasesTotal));
+
+        return `${safeDone}/${practiceCasesTotal}`;
+      }
+
+      function updateStatsMenu(profile) {
+        const currentMode = getStoredModeKey(profile);
+        const modeStats = getModeStats(profile)[currentMode];
+
+        statsMode.textContent = statsModeLabels[currentMode];
+        statsLevel.textContent = modeStats.level;
+        statsPoints.textContent = modeStats.points;
+        statsEasy.textContent = formatPracticeProgress(modeStats.easyCasesDone);
+        statsNormal.textContent = formatPracticeProgress(modeStats.normalCasesDone);
+        statsHard.textContent = formatPracticeProgress(modeStats.hardCasesDone);
+      }
+
+      let activeProfile = {
+        mode: getStoredMode(),
+        isGuest: false
+      };
+
+      try {
+        const savedProfile = JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "null");
+
+        if (savedProfile) {
+          activeProfile = savedProfile;
+        }
+      } catch (error) {
+        localStorage.removeItem("studiodonthoMobileProfile");
+      }
+
+      updateProfile(activeProfile);
+      updateLanguageButtons();
+
+      fetch("/api/me", { credentials: "same-origin" })
+        .then((response) => response.ok ? response.json() : null)
+        .then((result) => {
+          if (!result || !result.connected || !result.user) {
+            return;
+          }
+
+          const profile = {
+            userId: result.user.id,
+            prenom: result.user.prenom,
+            mode: getStoredMode(),
+            isGuest: Boolean(result.user.isGuest),
+            profileImage: result.user.profileImage || null
+          };
+
+          syncServerPoints(profile, result.user.points);
+          saveProfile(profile);
+          updateProfile(profile);
+        })
+        .catch(() => {});
+
+      switchModeButton.addEventListener("click", () => {
+        updateModeConfirmText(getSavedProfile());
+        modeOverlay.hidden = false;
+      });
+
+      modeCancel.addEventListener("click", () => {
+        modeOverlay.hidden = true;
+      });
+
+      modeConfirm.addEventListener("click", () => {
+        switchMode();
+        modeOverlay.hidden = true;
+      });
+
+      statsOpen.addEventListener("click", () => {
+        updateStatsMenu(getSavedProfile());
+        statsOverlay.hidden = false;
+      });
+
+      statsClose.addEventListener("click", () => {
+        statsOverlay.hidden = true;
+      });
+
+      logoutOpen.addEventListener("click", () => {
+        logoutOverlay.hidden = false;
+      });
+
+      logoutCancel.addEventListener("click", () => {
+        logoutOverlay.hidden = true;
+      });
+
+      logoutConfirm.addEventListener("click", async () => {
+        localStorage.removeItem("studiodonthoMobileProfile");
+        localStorage.removeItem("studiodonthoMobileMode");
+
+        try {
+          await fetch("/api/logout", {
+            method: "POST",
+            credentials: "same-origin"
+          });
+        } catch (error) {
+        }
+
+        if (window.navigateWithMobileTransition) {
+          window.navigateWithMobileTransition("page1mobil.html");
+        } else {
+          window.location.href = "page1mobil.html";
+        }
+      });
+
+      securityOpen.addEventListener("click", () => {
+        showSecurityMessage("Recois un lien pour changer ton mot de passe.");
+        securityReset.disabled = false;
+        securityReset.textContent = "Changer";
+        securityOverlay.hidden = false;
+      });
+
+      securityCancel.addEventListener("click", () => {
+        securityOverlay.hidden = true;
+      });
+
+      securityReset.addEventListener("click", async () => {
+        securityReset.disabled = true;
+        securityReset.textContent = "Envoi...";
+        showSecurityMessage("Envoi du lien en cours...");
+
+        try {
+          const response = await fetch("/api/profile-password-reset", {
+            method: "POST",
+            credentials: "same-origin"
+          });
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.message || "Impossible d'envoyer le lien.");
+          }
+
+          showSecurityMessage(result.message, "success");
+          securityReset.textContent = "Envoye";
+        } catch (error) {
+          showSecurityMessage(error.message, "error");
+          securityReset.disabled = false;
+          securityReset.textContent = "Changer";
+        }
+      });
+
+      languageOpen.addEventListener("click", () => {
+        languageOverlay.hidden = false;
+      });
+
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          localStorage.setItem("studiodonthoLanguage", button.dataset.language);
+          updateLanguageButtons();
+          languageOverlay.hidden = true;
+        });
+      });
+
+      editProfileOpen.addEventListener("click", () => {
+        const profile = getSavedProfile();
+
+        editNamePanel.hidden = true;
+        editNameOpen.hidden = false;
+        editImageOpen.hidden = false;
+        editNameInput.value = profile.prenom || "";
+        showEditProfileMessage("");
+        updateAvatar(profile);
+        editProfileOverlay.hidden = false;
+      });
+
+      editProfileClose.addEventListener("click", () => {
+        editProfileOverlay.hidden = true;
+      });
+
+      editNameOpen.addEventListener("click", () => {
+        editNamePanel.hidden = false;
+        editNameOpen.hidden = true;
+        editImageOpen.hidden = true;
+        showEditProfileMessage("");
+
+        editNameInput.focus();
+      });
+
+      editNameSave.addEventListener("click", async () => {
+        const prenom = editNameInput.value.trim();
+
+        if (!/^[\p{L}][\p{L} '-]{1,99}$/u.test(prenom)) {
+          showEditProfileMessage("Le nom accepte lettres, espaces et tirets.", "error");
+          return;
+        }
+
+        try {
+          const savedProfile = getSavedProfile();
+          const response = await fetch("/api/profile-name", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({ prenom })
+          });
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            showEditProfileMessage(result.message || "Impossible de modifier le nom.", "error");
+            return;
+          }
+
+          const nextProfile = {
+            ...savedProfile,
+            userId: result.user?.id || savedProfile.userId,
+            prenom: result.user?.prenom || prenom,
+            isGuest: Boolean(result.user?.isGuest ?? savedProfile.isGuest),
+            profileImage: result.user?.profileImage || savedProfile.profileImage || null,
+            mode: getStoredMode()
+          };
+
+          saveProfile(nextProfile);
+          updateProfile(nextProfile);
+          editNamePanel.hidden = true;
+          showEditProfileMessage("Nom modifie.", "success");
+        } catch (error) {
+          showEditProfileMessage("Erreur de connexion.", "error");
+        }
+      });
+
+      profileImageInput.addEventListener("change", async () => {
+        const file = profileImageInput.files[0];
+
+        if (!file) {
+          return;
+        }
+
+        if (!file.type.startsWith("image/")) {
+          showEditProfileMessage("Choisis une image valide.", "error");
+          profileImageInput.value = "";
+          return;
+        }
+
+        try {
+          openCropMenu(await loadImageFromFile(file));
+        } catch (error) {
+          showEditProfileMessage("Impossible de lire cette photo.", "error");
+          profileImageInput.value = "";
+        }
+      });
+
+      photoCropFrame.addEventListener("pointerdown", (event) => {
+        if (!cropState.image) {
+          return;
+        }
+
+        event.preventDefault();
+        cropState.dragging = true;
+        cropState.startX = event.clientX;
+        cropState.startY = event.clientY;
+        cropState.startOffsetX = cropState.offsetX;
+        cropState.startOffsetY = cropState.offsetY;
+        photoCropFrame.classList.add("dragging");
+        photoCropFrame.setPointerCapture(event.pointerId);
+      });
+
+      photoCropFrame.addEventListener("pointermove", (event) => {
+        if (!cropState.dragging) {
+          return;
+        }
+
+        cropState.offsetX = cropState.startOffsetX + event.clientX - cropState.startX;
+        cropState.offsetY = cropState.startOffsetY + event.clientY - cropState.startY;
+        applyCropTransform();
+      });
+
+      function endCropDrag(event) {
+        if (!cropState.dragging) {
+          return;
+        }
+
+        cropState.dragging = false;
+        photoCropFrame.classList.remove("dragging");
+
+        if (event.pointerId !== undefined && photoCropFrame.hasPointerCapture(event.pointerId)) {
+          photoCropFrame.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      photoCropFrame.addEventListener("pointerup", endCropDrag);
+      photoCropFrame.addEventListener("pointercancel", endCropDrag);
+
+      cropCancel.addEventListener("click", () => {
+        closeCropMenu();
+        showEditProfileMessage("Photo annulee.");
+      });
+
+      cropConfirm.addEventListener("click", async () => {
+        if (!cropState.image) {
+          return;
+        }
+
+        cropConfirm.disabled = true;
+        cropMessage.textContent = "Ajout de la photo...";
+
+        try {
+          await saveProfilePhoto(createCroppedProfilePhoto());
+          closeCropMenu();
+          showEditProfileMessage("Photo ajoutee.", "success");
+        } catch (error) {
+          cropMessage.textContent = error.message || "Impossible d'ajouter cette photo.";
+          cropMessage.className = "crop-message error";
+        } finally {
+          cropConfirm.disabled = false;
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") {
+          return;
+        }
+
+        logoutOverlay.hidden = true;
+        statsOverlay.hidden = true;
+        modeOverlay.hidden = true;
+        securityOverlay.hidden = true;
+        languageOverlay.hidden = true;
+        editProfileOverlay.hidden = true;
+        closeCropMenu();
+      });
+    </script>
+    <script src="mobile-transition.js"></script>
+  </body>
+</html>

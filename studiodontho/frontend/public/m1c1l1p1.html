@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>m1c1l1p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="mobile-transition.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #d9f0f7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100vw, 201px);
+        height: min(100vh, 395px);
+        overflow: hidden;
+        background: #2f80ed;
+        border-radius: 11px;
+        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
+      }
+
+      .content {
+        position: absolute;
+        inset: 0 0 36px;
+        padding: 19px 13px 0;
+        color: #ffffff;
+      }
+
+      .top-link {
+        position: absolute;
+        top: 19px;
+        width: 24px;
+        height: 24px;
+        display: grid;
+        place-items: center;
+        color: #ffffff;
+        background: #58cc02;
+        border-radius: 50%;
+        font-size: 10px;
+        text-decoration: none;
+        box-shadow: 0 3px 0 #46a302;
+      }
+
+      .back-link {
+        left: 13px;
+      }
+
+      .next-link {
+        right: 13px;
+      }
+
+      .page-number {
+        position: absolute;
+        top: 23px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 3px 8px;
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        font-size: 7px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .lesson-title {
+        margin: 32px 0 0;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1.12;
+        text-align: center;
+      }
+
+      .lesson-scene {
+        position: absolute;
+        left: 13px;
+        right: 13px;
+        top: 155px;
+        bottom: 10px;
+      }
+
+      .speech-bubble {
+        position: absolute;
+        top: 70px;
+        right: -5px;
+        z-index: 2;
+        width: calc(100% - 45px);
+        min-height: 76px;
+        display: grid;
+        align-items: center;
+        padding: 11px 10px;
+        color: #082f7f;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 7px 14px rgba(8, 47, 127, 0.16);
+      }
+
+      .speech-bubble h1 {
+        margin: 0 0 6px;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1.1;
+        text-align: center;
+        display: none;
+      }
+
+      .speech-bubble p {
+        margin: 0;
+        color: #31527f;
+        font-size: 7.3px;
+        font-weight: 900;
+        line-height: 1.35;
+        text-align: left;
+      }
+
+      .tooth-character {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+        width: 38px;
+        max-height: 40px;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 10px rgba(8, 47, 127, 0.24));
+      }
+
+      .bubble-trail {
+        position: absolute;
+        left: 28px;
+        bottom: 33px;
+        z-index: 1;
+        width: 34px;
+        height: 92px;
+        pointer-events: none;
+      }
+
+      .bubble-trail span {
+        position: absolute;
+        display: block;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(8, 47, 127, 0.12);
+      }
+
+      .bubble-trail span:nth-child(1) {
+        left: 5px;
+        bottom: -3px;
+        width: 7px;
+        height: 7px;
+      }
+
+      .bubble-trail span:nth-child(2) {
+        left: 14px;
+        bottom: 0px;
+        width: 8px;
+        height: 8px;
+      }
+
+      .footer-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 36px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: center;
+        background: #ffffff;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 -4px 10px rgba(8, 47, 127, 0.08);
+      }
+
+      .footer-nav a {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        color: #4b5563;
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .footer-nav a.active {
+        color: #00a6a6;
+      }
+
+      .footer-icon-img {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        opacity: 0.78;
+      }
+
+      .footer-nav a.active .footer-icon-img {
+        opacity: 1;
+        filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
+      }
+
+      @media (min-width: 520px) {
+        .phone {
+          transform: scale(1.45);
+        }
+      }
+    </style>
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone" aria-label="Qu'est-ce qu'un dentiste">
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=1" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a class="top-link next-link" href="m1c1l1p2.html" aria-label="Page suivante">
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <span class="page-number">1/6</span>
+
+        <h1 class="lesson-title">Qu'est-ce qu'un dentiste ?</h1>
+
+        <div class="lesson-scene">
+          <img class="tooth-character" src="/img/neutre.png" alt="" />
+          <span class="bubble-trail" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <article class="speech-bubble">
+            <p>
+              Un dentiste soigne les dents et la bouche. Il examine, repere les problemes,
+              soigne les douleurs et donne des conseils pour garder des dents propres.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="mobile-transition.js"></script>
+  </body>
+</html>

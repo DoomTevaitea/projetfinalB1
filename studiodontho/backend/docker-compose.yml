@@ -1,0 +1,39 @@
+name: studiodontho
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: studiodontho-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: studiodontho
+      MYSQL_USER: studiodontho_user
+      MYSQL_PASSWORD: studiodontho_password
+      TZ: Europe/Paris
+    command: ["--default-time-zone=+02:00"]
+    ports:
+      - "3307:3306"
+    volumes:
+      - studiodontho_mysql_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/01-database.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -ustudiodontho_user -pstudiodontho_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 8
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: studiodontho-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+
+volumes:
+  studiodontho_mysql_data:

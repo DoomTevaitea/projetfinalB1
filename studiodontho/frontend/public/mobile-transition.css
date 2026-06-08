@@ -1,0 +1,52 @@
+html.mobile-viewport-scaled,
+html.mobile-viewport-scaled body {
+  height: 100%;
+  overflow: hidden;
+}
+
+html.mobile-viewport-scaled body {
+  min-height: 100dvh;
+  background: #9edceb;
+}
+
+html.mobile-viewport-scaled body .phone {
+  width: 201px !important;
+  height: 395px !important;
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: scale(var(--studiodontho-phone-scale, 1)) !important;
+  transform-origin: center center !important;
+}
+
+html.mobile-transition-content body .phone > :not(.footer-nav):not(.logout-overlay),
+html.mobile-transition-page body .phone > :not(.logout-overlay) {
+  transition: opacity 230ms ease, transform 230ms ease;
+  will-change: opacity, transform;
+}
+
+html.mobile-transition-content.mobile-enter body .phone > :not(.footer-nav):not(.logout-overlay),
+html.mobile-transition-page.mobile-enter body .phone > :not(.logout-overlay) {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+html.mobile-transition-content.mobile-ready body .phone > :not(.footer-nav):not(.logout-overlay),
+html.mobile-transition-page.mobile-ready body .phone > :not(.logout-overlay) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.mobile-transition-content.mobile-leaving body .phone > :not(.footer-nav):not(.logout-overlay),
+html.mobile-transition-page.mobile-leaving body .phone > :not(.logout-overlay) {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.mobile-transition-content body .phone > :not(.footer-nav):not(.logout-overlay),
+  html.mobile-transition-page body .phone > :not(.logout-overlay) {
+    transition: none;
+  }
+}
