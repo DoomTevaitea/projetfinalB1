@@ -9,3 +9,12 @@
   gap: 14px;
   padding: 34px 10px 10px;
 }
+
+.form-help {
+  margin: 0 0 10px;
+  color: #213c61;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+}

@@ -17,6 +17,10 @@ if (finishLessonLink) {
   const lessonKey = lessonPage?.dataset.lessonKey || "";
   const isTestLesson = /^[0-9]?m[0-9]+c[0-9]+l3$/i.test(lessonKey);
 
+  if (isTestLesson && lessonPath >= 1 && lessonPath < 5) {
+    finishLessonLink.dataset.completionLabel = "Chemin suivant";
+  }
+
   function getStoredProfile() {
     try {
       return JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "null") || {};
@@ -32,8 +36,18 @@ if (finishLessonLink) {
     return `studiodonthoPathProgress:${profile.userId || "current"}:${lessonMode}:world${lessonWorld}`;
   }
 
-  function returnToPath() {
-    const href = finishLessonLink.getAttribute("href") || "cheminmobil.html?world=1&id=1";
+  function getNextPathHref() {
+    if (lessonPath >= 1 && lessonPath < 5) {
+      return `cheminmobil.html?world=${lessonWorld}&id=${lessonPath + 1}`;
+    }
+
+    return finishLessonLink.getAttribute("href") || `cheminmobil.html?world=${lessonWorld}&id=${lessonPath}`;
+  }
+
+  function returnToPath(useNextPath = false) {
+    const href = useNextPath
+      ? getNextPathHref()
+      : finishLessonLink.getAttribute("href") || `cheminmobil.html?world=${lessonWorld}&id=${lessonPath}`;
 
     if (window.navigateWithMobileTransition) {
       window.navigateWithMobileTransition(href);
@@ -178,6 +192,6 @@ if (finishLessonLink) {
     }
 
     saveLocalPathComplete();
-    returnToPath();
+    returnToPath(true);
   });
 }

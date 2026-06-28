@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -11,121 +11,144 @@
     <link rel="stylesheet" href="css/mobile-core.css" />
     <link rel="stylesheet" href="css/mobile-transition.css" />
     <link rel="stylesheet" href="css/pro-recap-mobile.css" />
-    <link rel="stylesheet" href="css/dam-technique-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
   </head>
   <body data-requires-auth="true">
-    <main
-      class="phone pro-recap-page pdf-course-page dam-technique-page"
-      aria-label="Cours sur les indications de la digue"
-      data-lesson-page
-      data-lesson-mode="professionnel"
-      data-lesson-world="1"
-      data-lesson-path="4"
-      data-lesson-key="1m1c4l1"
-    >
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Quiz decouverte techniques de digue" data-lesson-page data-lesson-mode="professionnel" data-lesson-world="1" data-lesson-path="4" data-lesson-key="1m1c4l1" data-dental-final-test data-discovery-quiz="true">
       <section class="content">
-        <a class="top-link back-link" href="cheminmobil.html?world=1&id=4" aria-label="Retour">
-          <i class="fa-solid fa-arrow-left"></i>
-        </a>
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=4" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
         <span class="page-number">1/1</span>
 
         <article class="course-sheet">
-          <p class="course-kicker">Cours professionnel - champ operatoire</p>
-          <h1>Quand poser une digue ?</h1>
-          <p class="course-lead">
-            La digue isole la dent a traiter. Elle sert a travailler sur un site propre, sec et securise,
-            surtout lorsque l'acte depend de l'asepsie ou de l'adhesion.
-          </p>
+          <p class="course-kicker">Quiz d&eacute;couverte</p>
+          <h1>Digue et techniques</h1>
+          <p class="course-lead">Decouvre les idees importantes avant la fiche resume. Ici, l'erreur sert juste a apprendre.</p>
+          <p class="test-score" id="dental-test-score">0/10 questions vues</p>
 
-          <section class="course-section">
-            <h2>1. Pourquoi la poser ?</h2>
-            <ul>
-              <li><strong>Securite du patient :</strong> limite l'ingestion ou l'inhalation d'instruments, produits et debris.</li>
-              <li><strong>Protection des tissus mous :</strong> eloigne langue, joues et levres du champ de travail.</li>
-              <li><strong>Asepsie :</strong> diminue la contamination bacterienne du site.</li>
-              <li><strong>Siccite :</strong> garde la dent au sec, indispensable pour les protocoles adhesifs.</li>
-              <li><strong>Ergonomie :</strong> meilleur contraste visuel, moins d'interruptions, geste plus precis.</li>
-            </ul>
+          <section class="dental-test-card" data-test-question>
+            <h2>1. La digue sert d'abord a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Isoler la dent de la salive et securiser le soin</button>
+              <button type="button">Remplacer l'anesthesie</button>
+              <button type="button">Faire une radiographie</button>
+              <button type="button">Compter les dents</button>
+            </div>
+            <p class="test-feedback"></p>
           </section>
 
-          <section class="course-section">
-            <h2>2. Recommandations importantes</h2>
-            <p>
-              En endodontie, les recommandations demandent l'isolation de la dent par digue avant la preparation
-              canalaire. Elle est presentee comme essentielle pour l'asepsie et la prevention des accidents
-              d'ingestion ou d'inhalation.
-            </p>
-            <p>
-              En odontologie restauratrice, elle est recommandee pour le retrait ou le repolissage d'amalgame
-              avec irrigation et aspiration, et pour les actes adhesifs exigeants comme les scellements de sillons
-              et les collages d'inlays-onlays.
-            </p>
+          <section class="dental-test-card" data-test-question>
+            <h2>2. En endodontie, la digue est importante surtout pour...</h2>
+            <div class="test-options">
+              <button type="button">Agrandir la bouche du patient</button>
+              <button type="button" data-correct="true">Garder le canal le plus aseptique possible</button>
+              <button type="button">Choisir la teinte du composite</button>
+              <button type="button">Eviter de faire un examen clinique</button>
+            </div>
+            <p class="test-feedback"></p>
           </section>
 
-          <section class="course-section">
-            <h2>3. Situations ou elle devient prioritaire</h2>
-            <table class="compact-table" aria-label="Indications de la digue">
-              <thead>
-                <tr>
-                  <th>Situation</th>
-                  <th>Raison</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Endodontie</td>
-                  <td>Asepsie du canal, securite, respect des recommandations.</td>
-                </tr>
-                <tr>
-                  <td>Collage / restauration adhesive</td>
-                  <td>Controle de l'humidite pour optimiser l'adhesion.</td>
-                </tr>
-                <tr>
-                  <td>Retrait d'amalgame</td>
-                  <td>Limiter l'ingestion de particules pendant le fraisage ou polissage.</td>
-                </tr>
-                <tr>
-                  <td>Limite cervicale ou proche de la gencive</td>
-                  <td>Besoin de deflechir les tissus et de voir la limite de la cavite.</td>
-                </tr>
-              </tbody>
-            </table>
+          <section class="dental-test-card" data-test-question>
+            <h2>3. Pour un collage adhesif, pourquoi cherche-t-on une dent seche ?</h2>
+            <div class="test-options">
+              <button type="button">Pour aller plus vite uniquement</button>
+              <button type="button">Pour eviter de voir la cavite</button>
+              <button type="button" data-correct="true">Parce que l'humidite peut diminuer l'adhesion</button>
+              <button type="button">Parce que la salive colle mieux que l'adhesif</button>
+            </div>
+            <p class="test-feedback"></p>
           </section>
 
-          <section class="course-section">
-            <h2>4. Avant toute technique</h2>
-            <p>
-              Les etapes communes commencent toujours par un site propre, le passage du fil dentaire, l'essayage
-              du crampon, la perforation de la feuille puis la recherche d'une isolation stable et etanche.
-            </p>
-            <p class="tool-note">
-              Idee cle : on ne pose pas la digue seulement pour "faire joli". On la pose pour securiser, isoler,
-              secher et mieux travailler.
-            </p>
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Avant de poser la digue, on verifie les points de contact avec...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Du fil dentaire</button>
+              <button type="button">Une radio panoramique</button>
+              <button type="button">Une fraise boule</button>
+              <button type="button">Une digue liquide</button>
+            </div>
+            <p class="test-feedback"></p>
           </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. La technique directe consiste plutot a...</h2>
+            <div class="test-options">
+              <button type="button">Poser d'abord le cadre sans feuille</button>
+              <button type="button" data-correct="true">Stabiliser le crampon puis inserer la feuille autour</button>
+              <button type="button">Coller la digue liquide sur toute la bouche</button>
+              <button type="button">Ne jamais utiliser de crampon</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>6. La technique parachute amene en bouche...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Le crampon et la feuille ensemble</button>
+              <button type="button">Seulement le fil dentaire</button>
+              <button type="button">Une radio et un capteur</button>
+              <button type="button">Le composite avant la digue</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. Un crampon a ailettes aide surtout a...</h2>
+            <div class="test-options">
+              <button type="button">Nettoyer la langue</button>
+              <button type="button">Remplacer le cadre</button>
+              <button type="button" data-correct="true">Retenir la feuille pendant la pose</button>
+              <button type="button">Percer la digue tout seul</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. Si une zone reste moins etanche, on peut ajouter...</h2>
+            <div class="test-options">
+              <button type="button">Une brosse a dents</button>
+              <button type="button" data-correct="true">De la digue liquide</button>
+              <button type="button">Une empreinte</button>
+              <button type="button">Un detartrage complet</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. Pour une limite cervicale proche de la gencive, on cherche souvent a...</h2>
+            <div class="test-options">
+              <button type="button">Cacher la limite</button>
+              <button type="button" data-correct="true">Degager la limite et deflechir les tissus</button>
+              <button type="button">Supprimer la digue</button>
+              <button type="button">Remplacer le soin par une radio</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. En cas d'allergie au latex, il faut choisir...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Une feuille sans latex</button>
+              <button type="button">Plus de lubrifiant uniquement</button>
+              <button type="button">Un crampon plus serre</button>
+              <button type="button">Aucune isolation</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>Quiz termine. Utilise la fleche retour pour continuer le chemin.</p>
         </article>
       </section>
 
       <footer class="footer-nav" aria-label="Navigation mobile">
-        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
-          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
-        </a>
-        <a href="coursmobil.html" aria-label="Cours">
-          <img class="footer-icon-img" src="/img/cours.png" alt="" />
-        </a>
-        <a href="profilmobil.html" aria-label="Profil">
-          <i class="fa-solid fa-user"></i>
-        </a>
-        <a href="classementmobil.html" aria-label="Classement">
-          <img class="footer-icon-img" src="/img/classement.png" alt="" />
-        </a>
-        <a href="#" aria-label="Menu">
-          <i class="fa-solid fa-ellipsis-vertical"></i>
-        </a>
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a>
+        <a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a>
+        <a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a>
+        <a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a>
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a>
       </footer>
     </main>
 
-    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/dental-final-test-mobile.js"></script>
     <script src="js/mobile-transition.js"></script>
   </body>
 </html>

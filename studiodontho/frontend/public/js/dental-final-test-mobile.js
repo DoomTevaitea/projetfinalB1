@@ -12,6 +12,7 @@
     /^[0-9]?m[0-9]+c[0-9]+l1$/i.test(lessonKey);
   const questions = Array.from(document.querySelectorAll("[data-test-question]"));
   const finishLink = document.querySelector("[data-complete-lesson]");
+  const shouldAutoCompleteLesson = finishLink?.dataset.autoCompleteLesson === "true";
   const scoreLabel = document.querySelector("#dental-test-score");
   const successMessage = document.querySelector("#dental-test-success");
 
@@ -32,8 +33,22 @@
     }
 
     finishLink.dataset.testPassed = "true";
+
+    if (shouldAutoCompleteLesson) {
+      finishLink.hidden = true;
+      if (successMessage) {
+        successMessage.hidden = false;
+      }
+
+      if (finishLink.dataset.autoCompleteStarted !== "true") {
+        finishLink.dataset.autoCompleteStarted = "true";
+        window.setTimeout(() => finishLink.click(), 0);
+      }
+      return;
+    }
+
     finishLink.hidden = false;
-    finishLink.textContent = "Terminer la le\u00e7on";
+    finishLink.textContent = finishLink.dataset.completionLabel || "Terminer la le\u00e7on";
 
     if (!successMessage) {
       return;

@@ -127,6 +127,87 @@
     }
   }
 
+  function initFooterMoreMenu() {
+    const footer = document.querySelector(".footer-nav");
+    const phone = document.querySelector(".phone");
+    const menuButton = footer?.querySelector('a[aria-label="Menu"]') || footer?.querySelector("a:last-child");
+
+    if (!footer || !phone || !menuButton) {
+      return;
+    }
+
+    const menu = document.createElement("div");
+    menu.className = "footer-more-menu";
+    menu.hidden = true;
+    menu.innerHTML = `
+      <a class="footer-more-action" href="profilmobil.html">
+        <i class="fa-solid fa-user" aria-hidden="true"></i>
+        <span>Profil</span>
+      </a>
+      <button class="footer-more-action is-danger" type="button" data-footer-logout>
+        <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+        <span>Deconnexion</span>
+      </button>
+    `;
+
+    phone.appendChild(menu);
+    menuButton.setAttribute("aria-expanded", "false");
+
+    function closeMenu() {
+      menu.hidden = true;
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+
+    function openMenu() {
+      menu.hidden = false;
+      menuButton.setAttribute("aria-expanded", "true");
+    }
+
+    async function logout() {
+      closeMenu();
+      localStorage.removeItem("studiodonthoMobileProfile");
+      localStorage.removeItem("studiodonthoMobileMode");
+
+      try {
+        const apiBaseUrl = getApiBaseUrl();
+        await fetch(`${apiBaseUrl}/api/logout`, {
+          method: "POST",
+          credentials: apiBaseUrl ? "include" : "same-origin"
+        });
+      } catch (error) {
+        // The local logout still moves the user back to the welcome screen.
+      }
+
+      navigateWithTransition("page1mobil.html", { fullPage: true });
+    }
+
+    menuButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (menu.hidden) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+    });
+
+    menu.querySelector("a")?.addEventListener("click", closeMenu);
+    menu.querySelector("[data-footer-logout]")?.addEventListener("click", logout);
+
+    document.addEventListener("click", (event) => {
+      if (menu.hidden) {
+        return;
+      }
+
+      if (event.target.closest(".footer-more-menu") || event.target.closest('.footer-nav a[aria-label="Menu"]')) {
+        return;
+      }
+
+      closeMenu();
+    });
+  }
+
   function navigateWithTransition(targetUrl, options = {}) {
     const url = new URL(targetUrl, window.location.href);
     const mode = options.fullPage ? "page" : getDefaultMode();
@@ -147,6 +228,7 @@
 
   prepareInitialMode();
   updateContextualBackLink();
+  initFooterMoreMenu();
   updateMobileViewportScale();
   playEnterTransition();
 

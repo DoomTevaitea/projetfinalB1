@@ -16,8 +16,10 @@ function showDamActionLink(link, targetElement, label) {
 
   link.hidden = false;
 
-  if (label) {
-    link.textContent = label;
+  const linkLabel = link.dataset.completionLabel || label;
+
+  if (linkLabel) {
+    link.textContent = linkLabel;
   }
 
   if (!targetElement) {

@@ -35,12 +35,60 @@
             </button>
           </div>
           <button class="submit-button" type="submit">Connexion</button>
+          <button class="link-button" id="forgot-open" type="button">Mot de passe oubli&eacute; ?</button>
+        </form>
+        <form class="login-card" id="forgot-only" action="#" method="post" hidden>
+          <h2>Mot de passe oubli&eacute;</h2>
+          <p class="form-help">Entre l'adresse mail de ton compte pour recevoir un lien.</p>
+          <label for="forgot-email">Email</label>
+          <input id="forgot-email" name="email" type="email" placeholder="exemple@mail.com" autocomplete="email" maxlength="255" required />
+          <button class="submit-button" type="submit">Envoyer</button>
+          <button class="link-button" id="back-to-login" type="button">Retour connexion</button>
         </form>
       </section>
     </main>
     <script>
       const form = document.querySelector("#login-only");
+      const forgotForm = document.querySelector("#forgot-only");
       const message = document.querySelector("#auth-message");
+      const forgotOpenButton = document.querySelector("#forgot-open");
+      const backToLoginButton = document.querySelector("#back-to-login");
+
+      function showMessage(text, type = "") {
+        message.textContent = text;
+        message.className = `auth-message ${type}`.trim();
+      }
+
+      function showLoginForm() {
+        form.hidden = false;
+        forgotForm.hidden = true;
+        showMessage("");
+      }
+
+      function showForgotForm() {
+        form.hidden = true;
+        forgotForm.hidden = false;
+        showMessage("");
+      }
+
+      async function sendJsonRequest(url, data) {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Une erreur est survenue.");
+        }
+
+        return result;
+      }
+
       document.querySelector(".password-toggle").addEventListener("click", (event) => {
         const button = event.currentTarget;
         const input = document.getElementById(button.dataset.target);
@@ -56,25 +104,13 @@
         const defaultText = button.textContent;
         button.disabled = true;
         button.textContent = "Connexion...";
-        message.textContent = "";
-        message.className = "auth-message";
+        showMessage("");
         try {
-          const response = await fetch("/api/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            credentials: "same-origin",
-            body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
-          });
-          const result = await response.json();
-          if (!response.ok) {
-            throw new Error(result.message || "Une erreur est survenue.");
-          }
-          message.textContent = result.user
+          const result = await sendJsonRequest("/api/login", Object.fromEntries(new FormData(form).entries()));
+          const successMessage = result.user
             ? `${result.message} Bonjour ${result.user.prenom}.`
             : result.message;
-          message.className = "auth-message success";
+          showMessage(successMessage, "success");
           form.reset();
           if (result.user) {
             const modeLabels = {
@@ -97,8 +133,31 @@
             }
           }
         } catch (error) {
-          message.textContent = error.message;
-          message.className = "auth-message error";
+          showMessage(error.message, "error");
+        } finally {
+          button.disabled = false;
+          button.textContent = defaultText;
+        }
+      });
+
+      forgotOpenButton.addEventListener("click", showForgotForm);
+      backToLoginButton.addEventListener("click", showLoginForm);
+
+      forgotForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const button = forgotForm.querySelector(".submit-button");
+        const defaultText = button.textContent;
+
+        button.disabled = true;
+        button.textContent = "Envoi...";
+        showMessage("");
+
+        try {
+          const result = await sendJsonRequest("/api/forgot-password", Object.fromEntries(new FormData(forgotForm).entries()));
+          showMessage(result.message, "success");
+          forgotForm.reset();
+        } catch (error) {
+          showMessage(error.message, "error");
         } finally {
           button.disabled = false;
           button.textContent = defaultText;

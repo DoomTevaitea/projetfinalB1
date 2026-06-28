@@ -137,6 +137,68 @@ button {
   filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
 }
 
+.footer-more-menu {
+  position: absolute;
+  right: 5px;
+  bottom: 41px;
+  z-index: 8;
+  width: 92px;
+  display: grid;
+  gap: 5px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(8, 47, 127, 0.12);
+  border-radius: 9px;
+  box-shadow: 0 8px 18px rgba(8, 47, 127, 0.2);
+}
+
+.footer-more-menu[hidden] {
+  display: none;
+}
+
+.footer-more-menu::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  border-right: 1px solid rgba(8, 47, 127, 0.12);
+  border-bottom: 1px solid rgba(8, 47, 127, 0.12);
+  transform: rotate(45deg);
+}
+
+.footer-more-action {
+  position: relative;
+  z-index: 1;
+  min-height: 24px;
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  align-items: center;
+  gap: 5px;
+  padding: 0 6px;
+  color: var(--primary-blue);
+  background: #f4fbff;
+  border: 0;
+  border-radius: 7px;
+  font-size: 7px;
+  font-weight: 1000;
+  line-height: 1;
+  text-align: left;
+  text-decoration: none;
+}
+
+.footer-more-action i {
+  font-size: 9px;
+  text-align: center;
+}
+
+.footer-more-action.is-danger {
+  color: #991b1b;
+  background: #fff4f4;
+}
+
 .two-column-actions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
