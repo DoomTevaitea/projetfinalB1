@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>m1c1l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+    <link rel="stylesheet" href="css/decouverte-dental-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Test outils dentaires" data-lesson-page data-lesson-mode="decouverte" data-lesson-world="1" data-lesson-path="1" data-lesson-key="m1c1l3" data-dental-final-test>
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=1" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <a class="top-link next-link recap-finish-link" href="cheminmobil.html?world=1&id=1" data-complete-lesson hidden>Terminer la le&ccedil;on</a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Petit test</p>
+          <h1>Reconnaitre les outils</h1>
+          <p class="course-lead">Reponds aux 10 questions. Il faut au moins 8 bonnes reponses pour valider ce chemin.</p>
+          <p class="test-score" id="dental-test-score">0/10 r&eacute;ponses donn&eacute;es</p>
+
+          <section class="dental-test-card" data-test-question><h2>1. Le dentiste veut voir derriere une molaire. Quel outil choisit-il ?</h2><div class="test-options"><button type="button" data-correct="true">Le miroir dentaire</button><button type="button">Le fauteuil</button><button type="button">La radio panoramique</button><button type="button">Le masque</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>2. Pendant un soin, beaucoup d'eau arrive dans la bouche. Qu'est-ce qui aide ?</h2><div class="test-options"><button type="button">La lampe</button><button type="button" data-correct="true">L'aspiration</button><button type="button">La brosse a dents</button><button type="button">Le dossier patient</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>3. Pour secher une dent avant de regarder, on utilise surtout...</h2><div class="test-options"><button type="button">Le fauteuil</button><button type="button">Le gant</button><button type="button" data-correct="true">La seringue air-eau</button><button type="button">Le miroir seulement</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>4. Quel element protege contre les microbes pendant un soin ?</h2><div class="test-options"><button type="button" data-correct="true">Les gants</button><button type="button">La lampe</button><button type="button">Le fauteuil</button><button type="button">Le miroir</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>5. La sonde sert surtout a...</h2><div class="test-options"><button type="button">Faire asseoir le patient</button><button type="button" data-correct="true">Examiner doucement une zone</button><button type="button">Prendre un rendez-vous</button><button type="button">Eclairer la bouche</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>6. La lampe du cabinet sert principalement a...</h2><div class="test-options"><button type="button">Aspirer la salive</button><button type="button">Nettoyer les mains</button><button type="button" data-correct="true">Bien eclairer la bouche</button><button type="button">Ranger les dossiers</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>7. La fraise sur turbine est plutot un outil qui...</h2><div class="test-options"><button type="button" data-correct="true">Tourne vite pour nettoyer ou preparer</button><button type="button">Fait boire le patient</button><button type="button">Remplace le masque</button><button type="button">Mesure la temperature</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>8. Une radio dentaire aide surtout a voir...</h2><div class="test-options"><button type="button">La couleur du fauteuil</button><button type="button">Le gout du dentifrice</button><button type="button" data-correct="true">Ce qui peut etre cache dans ou entre les dents</button><button type="button">Le poids du patient</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>9. A la maison, l'outil principal pour eviter la plaque est...</h2><div class="test-options"><button type="button">La turbine</button><button type="button" data-correct="true">La brosse a dents</button><button type="button">La lampe</button><button type="button">Le fauteuil</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>10. Dans un cabinet, l'unit dentaire correspond plutot...</h2><div class="test-options"><button type="button">A une dent malade</button><button type="button">A un type de bonbon</button><button type="button" data-correct="true">A l'ensemble des outils autour du fauteuil</button><button type="button">A une brosse personnelle</button></div><p class="test-feedback"></p></section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden></p>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

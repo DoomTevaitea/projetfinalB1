@@ -94,6 +94,39 @@
     }
   }
 
+  function cameFromCourses() {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("from") === "cours") {
+      return true;
+    }
+
+    if (!document.referrer) {
+      return false;
+    }
+
+    try {
+      const referrerUrl = new URL(document.referrer);
+
+      return referrerUrl.origin === window.location.origin &&
+        referrerUrl.pathname.endsWith("/coursmobil.html");
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function updateContextualBackLink() {
+    if (!cameFromCourses()) {
+      return;
+    }
+
+    const backLink = document.querySelector(".top-link.back-link");
+
+    if (backLink) {
+      backLink.href = "coursmobil.html";
+    }
+  }
+
   function navigateWithTransition(targetUrl, options = {}) {
     const url = new URL(targetUrl, window.location.href);
     const mode = options.fullPage ? "page" : getDefaultMode();
@@ -113,6 +146,7 @@
   }
 
   prepareInitialMode();
+  updateContextualBackLink();
   updateMobileViewportScale();
   playEnterTransition();
 

@@ -8,228 +8,25 @@
     <script>
       document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
     </script>
-    <link rel="stylesheet" href="mobile-transition.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        width: 100%;
-        min-height: 100%;
-        margin: 0;
-      }
-
-      body {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #d9f0f7;
-        color: #082f7f;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-
-      button,
-      input {
-        font: inherit;
-      }
-
-      button {
-        cursor: pointer;
-      }
-
-      .phone {
-        position: relative;
-        width: min(100vw, 201px);
-        height: min(100vh, 395px);
-        overflow: hidden;
-        background: #9edceb;
-        border-radius: 11px;
-        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
-      }
-
-      .back-button {
-        position: absolute;
-        top: 9px;
-        left: 9px;
-        z-index: 3;
-        width: 24px;
-        height: 24px;
-        display: grid;
-        place-items: center;
-        color: #ffffff;
-        background: #58cc02;
-        border-radius: 50%;
-        box-shadow: none;
-        text-decoration: none;
-      }
-
-      .back-button i {
-        font-size: 11px;
-        line-height: 1;
-      }
-
-      .login-panel {
-        height: 100%;
-        display: grid;
-        grid-template-rows: auto auto minmax(0, 1fr);
-        gap: 14px;
-        padding: 34px 10px 10px;
-      }
-
-      .mobile-header {
-        display: grid;
-        justify-items: center;
-        text-align: center;
-      }
-
-      .mobile-header h1 {
-        margin: 0;
-        color: #082f7f;
-        font-size: 20px;
-        font-weight: 900;
-        line-height: 1;
-      }
-
-      .auth-message {
-        min-height: 16px;
-        margin: 0;
-        color: #4f6176;
-        font-size: 7.5px;
-        font-weight: 800;
-        line-height: 1.25;
-        text-align: center;
-      }
-
-      .auth-message.success {
-        color: #347a02;
-      }
-
-      .auth-message.error {
-        color: #c24141;
-      }
-
-      .login-card {
-        min-height: 0;
-        align-self: start;
-        padding: 13px 10px;
-        background: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(8, 47, 127, 0.1);
-        border-radius: 10px;
-        box-shadow: 0 8px 16px rgba(8, 47, 127, 0.12);
-      }
-
-      .login-card h2 {
-        margin: 0 0 11px;
-        color: #082f7f;
-        font-size: 15px;
-        font-weight: 900;
-        line-height: 1.1;
-        text-align: center;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 4px;
-        color: #082f7f;
-        font-size: 8px;
-        font-weight: 900;
-      }
-
-      input {
-        display: block;
-        width: 100%;
-        min-height: 31px;
-        margin-bottom: 9px;
-        padding: 7px 8px;
-        color: #102033;
-        background: #f5f7fa;
-        border: 1.5px solid #e5e7eb;
-        border-radius: 8px;
-        outline: none;
-        font-size: 8px;
-        font-weight: 800;
-      }
-
-      input::placeholder {
-        color: #6b7280;
-      }
-
-      input:focus {
-        background: #ffffff;
-        border-color: #2ec4b6;
-        box-shadow: 0 0 0 3px rgba(46, 196, 182, 0.14);
-      }
-
-      .password-field {
-        position: relative;
-        margin-bottom: 9px;
-      }
-
-      .password-field input {
-        margin-bottom: 0;
-        padding-right: 30px;
-      }
-
-      .password-toggle {
-        position: absolute;
-        top: 50%;
-        right: 4px;
-        width: 23px;
-        height: 23px;
-        display: grid;
-        place-items: center;
-        color: #6b7280;
-        background: transparent;
-        border: 0;
-        border-radius: 7px;
-        transform: translateY(-50%);
-      }
-
-      .password-toggle i {
-        font-size: 10px;
-        line-height: 1;
-      }
-
-      .submit-button {
-        width: 100%;
-        min-height: 32px;
-        color: #ffffff;
-        background: #58cc02;
-        border: 0;
-        border-radius: 8px;
-        box-shadow: 0 2px 0 #46a302;
-        font-size: 9px;
-        font-weight: 900;
-      }
-
-      @media (min-width: 520px) {
-        .phone {
-          transform: scale(1.45);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/auth-mobile.css" />
+    <link rel="stylesheet" href="css/pages/connexionmobile.css" />
   </head>
   <body>
-    <main class="phone" aria-label="Connexion mobile Studiodontho">
+    <main class="phone phone--light" aria-label="Connexion mobile Studiodontho">
       <a class="back-button" href="page2mobil.html" aria-label="Retour">
         <i class="fa-solid fa-arrow-left"></i>
       </a>
-
       <section class="login-panel">
         <header class="mobile-header">
           <h1>Studiodontho</h1>
         </header>
-
         <p class="auth-message" id="auth-message" role="status"></p>
-
         <form class="login-card" id="login-only" action="#" method="post">
           <h2>Connexion</h2>
-
           <label for="login-email">Email</label>
           <input id="login-email" name="email" type="email" placeholder="exemple@mail.com" autocomplete="email" maxlength="255" required />
-
           <label for="login-password">Mot de passe</label>
           <div class="password-field">
             <input id="login-password" name="password" type="password" placeholder="Ton mot de passe" autocomplete="current-password" required />
@@ -237,38 +34,30 @@
               <i class="fa-solid fa-eye"></i>
             </button>
           </div>
-
           <button class="submit-button" type="submit">Connexion</button>
         </form>
       </section>
     </main>
-
     <script>
       const form = document.querySelector("#login-only");
       const message = document.querySelector("#auth-message");
-
       document.querySelector(".password-toggle").addEventListener("click", (event) => {
         const button = event.currentTarget;
         const input = document.getElementById(button.dataset.target);
         const icon = button.querySelector("i");
         const isHidden = input.type === "password";
-
         input.type = isHidden ? "text" : "password";
         button.setAttribute("aria-label", isHidden ? "Cacher le mot de passe" : "Afficher le mot de passe");
         icon.className = isHidden ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
       });
-
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
-
         const button = form.querySelector(".submit-button");
         const defaultText = button.textContent;
-
         button.disabled = true;
         button.textContent = "Connexion...";
         message.textContent = "";
         message.className = "auth-message";
-
         try {
           const response = await fetch("/api/login", {
             method: "POST",
@@ -278,33 +67,29 @@
             credentials: "same-origin",
             body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
           });
-
           const result = await response.json();
-
           if (!response.ok) {
             throw new Error(result.message || "Une erreur est survenue.");
           }
-
           message.textContent = result.user
             ? `${result.message} Bonjour ${result.user.prenom}.`
             : result.message;
           message.className = "auth-message success";
           form.reset();
-
           if (result.user) {
             const modeLabels = {
               decouverte: "Mode decouverte",
               professionnel: "Professionnel de sant\u00e9"
             };
-            const mode = localStorage.getItem("studiodonthoMobileMode") || "decouverte";
-
+            const mode = result.user.currentMode || localStorage.getItem("studiodonthoMobileMode") || "decouverte";
+            localStorage.setItem("studiodonthoMobileMode", mode);
             localStorage.setItem("studiodonthoMobileProfile", JSON.stringify({
               userId: result.user.id,
               prenom: result.user.prenom,
               mode: modeLabels[mode] || modeLabels.decouverte,
+              currentMode: mode,
               isGuest: Boolean(result.user.isGuest)
             }));
-
             if (window.navigateWithMobileTransition) {
               window.navigateWithMobileTransition("profilmobil.html", { fullPage: true });
             } else {
@@ -320,6 +105,6 @@
         }
       });
     </script>
-    <script src="mobile-transition.js"></script>
+    <script src="js/mobile-transition.js"></script>
   </body>
 </html>

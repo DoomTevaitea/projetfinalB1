@@ -25,12 +25,15 @@ function getSelectedMode() {
 }
 
 function saveMobileProfile(user) {
-  const mode = getSelectedMode();
+  const mode = user.currentMode || getSelectedMode();
+
+  localStorage.setItem("studiodonthoMobileMode", mode);
 
   localStorage.setItem("studiodonthoMobileProfile", JSON.stringify({
     userId: user.id,
     prenom: user.prenom,
     mode: modeLabels[mode],
+    currentMode: mode,
     isGuest: Boolean(user.isGuest)
   }));
 }
@@ -111,7 +114,10 @@ async function handleAuthSubmit(event, url, loadingText) {
   showMessage("");
 
   try {
-    const result = await sendAuthRequest(url, formToObject(form));
+    const result = await sendAuthRequest(url, {
+      ...formToObject(form),
+      mode: getSelectedMode()
+    });
     const message = result.user
       ? `${result.message} Bonjour ${result.user.prenom}.`
       : result.message;

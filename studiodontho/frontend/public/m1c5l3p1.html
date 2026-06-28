@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>m1c5l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+    <link rel="stylesheet" href="css/decouverte-dental-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone pro-recap-page pdf-course-page dental-final-test-page"
+      aria-label="Test final du monde 1 decouverte"
+      data-lesson-page
+      data-lesson-mode="decouverte"
+      data-lesson-world="1"
+      data-lesson-path="5"
+      data-lesson-key="m1c5l3"
+      data-dental-final-test
+    >
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=5" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a
+          class="top-link next-link recap-finish-link"
+          href="cheminmobil.html?world=1&id=5"
+          aria-label="Terminer la lecon"
+          data-complete-lesson
+          hidden
+        >
+          Terminer la le&ccedil;on
+        </a>
+        <span class="page-number">1/1</span>
+
+        <article class="course-sheet">
+          <p class="course-kicker">Monde 1 - test final</p>
+          <h1>Mission finale de dentiste</h1>
+          <p class="course-lead">
+            Reponds aux 20 questions. Ce test reprend les 4 premiers chemins du monde 1.
+          </p>
+
+          <p class="test-score" id="dental-test-score">0/20 r&eacute;ponses donn&eacute;es</p>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>1. Qui soigne les dents et aide a garder une bonne hygiene bucco-dentaire ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Le dentiste</button>
+              <button type="button">Le coiffeur</button>
+              <button type="button">Le boulanger</button>
+              <button type="button">Le jardinier</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>2. Dans un cabinet, le dentiste commence souvent par...</h2>
+            <div class="test-options">
+              <button type="button">Deviner sans regarder</button>
+              <button type="button" data-correct="true">Observer la bouche et poser des questions</button>
+              <button type="button">Donner des bonbons</button>
+              <button type="button">Choisir une musique</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>3. Le miroir dentaire sert surtout a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Voir les zones difficiles dans la bouche</button>
+              <button type="button">Brosser les dents</button>
+              <button type="button">Boire de l'eau</button>
+              <button type="button">Remplacer une radio</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Le fauteuil dentaire sert a...</h2>
+            <div class="test-options">
+              <button type="button">Ranger les instruments seulement</button>
+              <button type="button">Faire cuire les aliments</button>
+              <button type="button" data-correct="true">Installer le patient pour le soin</button>
+              <button type="button">Remplacer la brosse a dents</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. Les incisives servent surtout a...</h2>
+            <div class="test-options">
+              <button type="button">Broyer les aliments au fond</button>
+              <button type="button" data-correct="true">Couper les aliments</button>
+              <button type="button">Produire la salive</button>
+              <button type="button">Tenir la langue</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>6. Les canines sont utiles pour...</h2>
+            <div class="test-options">
+              <button type="button">Regarder une radio</button>
+              <button type="button">Tenir le miroir</button>
+              <button type="button" data-correct="true">Dechirer les aliments</button>
+              <button type="button">Nettoyer le lavabo</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. Les molaires servent surtout a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Broyer les aliments</button>
+              <button type="button">Couper comme des ciseaux</button>
+              <button type="button">Faire pousser la gencive</button>
+              <button type="button">Remplacer la pulpe</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. Les premolaires sont placees...</h2>
+            <div class="test-options">
+              <button type="button">Devant les incisives</button>
+              <button type="button" data-correct="true">Entre les canines et les molaires</button>
+              <button type="button">Dans la langue</button>
+              <button type="button">A l'exterieur de la bouche</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. La couronne d'une dent correspond a...</h2>
+            <div class="test-options">
+              <button type="button">La partie cachee dans la gencive</button>
+              <button type="button" data-correct="true">La partie visible de la dent</button>
+              <button type="button">La brosse a dents</button>
+              <button type="button">La carie uniquement</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. La racine est la partie de la dent qui...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Est cachee et aide a tenir la dent</button>
+              <button type="button">Se voit toujours en haut de la dent</button>
+              <button type="button">Coupe les aliments</button>
+              <button type="button">Remplace l'email</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>11. L'email est important parce qu'il...</h2>
+            <div class="test-options">
+              <button type="button">Est le centre sensible de la dent</button>
+              <button type="button">Fabrique le sucre</button>
+              <button type="button" data-correct="true">Protege la dent avec une couche dure</button>
+              <button type="button">Remplace la gencive</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>12. La pulpe contient surtout...</h2>
+            <div class="test-options">
+              <button type="button">Du dentifrice</button>
+              <button type="button" data-correct="true">Des nerfs et des vaisseaux</button>
+              <button type="button">Un miroir</button>
+              <button type="button">Uniquement de l'email</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>13. Une carie est favorisee par...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Le sucre et un brossage insuffisant</button>
+              <button type="button">L'eau uniquement</button>
+              <button type="button">Le miroir dentaire</button>
+              <button type="button">Une bonne hygiene</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>14. Pour proteger ses dents, il faut surtout...</h2>
+            <div class="test-options">
+              <button type="button">Manger des sucreries toute la journee</button>
+              <button type="button" data-correct="true">Se brosser les dents matin et soir</button>
+              <button type="button">Eviter totalement l'eau</button>
+              <button type="button">Attendre d'avoir mal</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>15. Boire de l'eau aide parce que...</h2>
+            <div class="test-options">
+              <button type="button">Ca remplace toujours le dentiste</button>
+              <button type="button" data-correct="true">C'est meilleur pour les dents que les boissons sucrees</button>
+              <button type="button">Ca cree des caries</button>
+              <button type="button">Ca transforme une canine en molaire</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>16. Si une douleur apparait sur une molaire, la bonne reaction est...</h2>
+            <div class="test-options">
+              <button type="button">Ignorer la douleur longtemps</button>
+              <button type="button">Manger plus de bonbons</button>
+              <button type="button" data-correct="true">En parler et consulter un dentiste</button>
+              <button type="button">Arreter de boire de l'eau</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>17. Une carie peut parfois etre cachee...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Entre deux dents</button>
+              <button type="button">Dans la brosse a dents uniquement</button>
+              <button type="button">Dans le fauteuil</button>
+              <button type="button">Sur les cheveux</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>18. Une radio peut aider le dentiste a...</h2>
+            <div class="test-options">
+              <button type="button">Connaitre le prenom du patient</button>
+              <button type="button" data-correct="true">Voir certaines choses invisibles a l'oeil nu</button>
+              <button type="button">Choisir le parfum du dentifrice</button>
+              <button type="button">Remplacer le brossage</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>19. Une bonne mission de dentiste consiste a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Observer, comprendre, soigner et conseiller</button>
+              <button type="button">Deviner sans poser de questions</button>
+              <button type="button">Regarder seulement la couleur des dents</button>
+              <button type="button">Dire au patient de ne jamais revenir</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>20. Le meilleur resume du monde 1 est...</h2>
+            <div class="test-options">
+              <button type="button">Les dents ne servent pas a manger</button>
+              <button type="button">Les caries disparaissent toujours seules</button>
+              <button type="button" data-correct="true">Connaitre les dents aide a mieux les proteger</button>
+              <button type="button">Le sucre protege toujours les dents</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>
+            Mission reussie. Tu peux terminer la le&ccedil;on puis valider le monde.
+          </p>
+        </article>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

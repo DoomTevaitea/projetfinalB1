@@ -1,0 +1,130 @@
+.courses-screen {
+  position: absolute;
+  inset: 0 0 36px;
+  overflow-y: auto;
+  padding: 17px 13px 15px;
+  color: #ffffff;
+  background: #2f80ed;
+}
+
+.courses-screen::-webkit-scrollbar {
+  width: 0;
+}
+
+.courses-header {
+  position: sticky;
+  top: -17px;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin: -17px -13px 0;
+  padding: 17px 13px 10px;
+  background: #2f80ed;
+}
+
+.courses-header p {
+  margin: 0 0 4px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 7px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.courses-header h1 {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.courses-count {
+  min-width: 27px;
+  min-height: 20px;
+  display: grid;
+  place-items: center;
+  color: #082f7f;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 3px 0 rgba(8, 47, 127, 0.18);
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.course-section {
+  margin-top: 13px;
+}
+
+.course-section h2 {
+  margin: 0 0 7px;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.course-list {
+  display: grid;
+  gap: 8px;
+}
+
+.course-card {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 47px;
+  padding: 8px;
+  color: #082f7f;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(8, 47, 127, 0.14);
+  text-decoration: none;
+}
+
+.course-card-icon {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  background: #00a6a6;
+  border-radius: 9px;
+  font-size: 11px;
+}
+
+.course-card h3 {
+  margin: 0;
+  font-size: 8.3px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.course-card p {
+  margin: 4px 0 0;
+  color: #4b5563;
+  font-size: 6.6px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.course-card-arrow {
+  color: #58cc02;
+  font-size: 10px;
+}
+
+.course-empty {
+  min-height: 43px;
+  display: grid;
+  place-items: center;
+  padding: 9px;
+  color: rgba(255, 255, 255, 0.82);
+  border: 1px dashed rgba(255, 255, 255, 0.52);
+  border-radius: 10px;
+  font-size: 7px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+}

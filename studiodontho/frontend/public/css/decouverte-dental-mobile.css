@@ -1,0 +1,365 @@
+.discovery-visual {
+  display: grid;
+  gap: 7px;
+  margin: 8px 0;
+}
+
+.tooth-row,
+.mouth-row,
+.stage-row {
+  display: grid;
+  gap: 4px;
+}
+
+.tooth-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tool-summary {
+  min-height: 55px;
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  padding: 7px 6px;
+  color: #082f7f;
+  background: #f4fbff;
+  border: 1px solid #d8e8f5;
+  border-radius: 8px;
+}
+
+.tool-summary strong {
+  font-size: 7px;
+  font-weight: 1000;
+  line-height: 1.08;
+}
+
+.tool-summary span {
+  color: #31527f;
+  font-size: 6.2px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.mouth-row,
+.stage-row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.tooth-card,
+.stage-card,
+.radio-mini,
+.habit-card {
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  min-height: 58px;
+  padding: 6px 4px;
+  color: #082f7f;
+  background: #f4fbff;
+  border: 1px solid #d8e8f5;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.tooth-card span,
+.stage-card span,
+.habit-card span {
+  font-size: 6.3px;
+  font-weight: 1000;
+  line-height: 1.1;
+}
+
+.tooth-photo {
+  width: auto;
+  max-width: 42px;
+  height: 70px;
+  display: block;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.tooth-card.has-real-image,
+.stage-card.has-real-image {
+  min-width: 0;
+  min-height: 104px;
+  grid-template-rows: 76px auto;
+  align-content: center;
+  padding: 5px 2px 4px;
+  background: #ffffff;
+}
+
+.tooth-card.has-real-image span {
+  color: #082f7f;
+}
+
+.stage-card.has-real-image {
+  min-height: 86px;
+  grid-template-rows: 58px auto;
+  padding: 4px 3px;
+}
+
+.caries-photo {
+  width: 100%;
+  max-width: 96px;
+  max-height: 76px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+.stage-card .caries-photo {
+  max-height: 58px;
+}
+
+.arcade-card {
+  padding: 5px;
+  margin-top: 7px;
+  background: #ffffff;
+  border: 1px solid #d8e8f5;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(8, 47, 127, 0.1);
+}
+
+.arcade-image {
+  width: 100%;
+  max-height: 142px;
+  display: block;
+  object-fit: contain;
+}
+
+.anatomy-quiz-card,
+.anatomy-course-card {
+  padding: 6px;
+  background: #ffffff;
+  border: 1px solid #d8e8f5;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(8, 47, 127, 0.1);
+}
+
+.anatomy-quiz-card {
+  margin: 8px 0;
+}
+
+.anatomy-course-card {
+  margin: 8px 0 10px;
+}
+
+.anatomy-quiz-image,
+.anatomy-course-image {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.anatomy-quiz-image {
+  max-height: 118px;
+}
+
+.anatomy-course-image {
+  max-height: 230px;
+}
+
+.anatomy-quiz-card figcaption,
+.anatomy-course-card figcaption {
+  margin-top: 5px;
+  color: #31527f;
+  font-size: 6.5px;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.tooth-drawing {
+  position: relative;
+  width: 30px;
+  height: 39px;
+  background: #ffffff;
+  border: 2px solid #d8e8f5;
+  border-radius: 48% 48% 40% 40%;
+  box-shadow: inset 0 -8px 0 rgba(216, 232, 245, 0.55);
+}
+
+.tooth-drawing::before,
+.tooth-drawing::after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  height: 16px;
+  background: #ffffff;
+  border: 2px solid #d8e8f5;
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+}
+
+.tooth-drawing::before {
+  left: 6px;
+  right: 6px;
+}
+
+.tooth-drawing::after {
+  right: 5px;
+  width: 9px;
+}
+
+.tooth-drawing.is-incisor {
+  width: 24px;
+  border-radius: 12px 12px 7px 7px;
+}
+
+.tooth-drawing.is-canine {
+  width: 27px;
+  clip-path: polygon(8% 0, 92% 0, 86% 68%, 50% 100%, 14% 68%);
+}
+
+.tooth-drawing.is-premolar {
+  width: 31px;
+}
+
+.tooth-drawing.is-molar {
+  width: 35px;
+  border-radius: 11px 11px 8px 8px;
+}
+
+.tooth-drawing.is-molar::before {
+  left: 4px;
+  width: 9px;
+}
+
+.tooth-drawing.is-molar::after {
+  right: 4px;
+  width: 9px;
+}
+
+.tooth-drawing .root-line,
+.tooth-drawing .pulp,
+.tooth-drawing .caries {
+  position: absolute;
+  display: block;
+}
+
+.tooth-drawing .pulp {
+  left: 50%;
+  top: 12px;
+  width: 10px;
+  height: 17px;
+  background: #ffd1dc;
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+.tooth-drawing .root-line {
+  left: 50%;
+  bottom: -9px;
+  width: 2px;
+  height: 15px;
+  background: #9edceb;
+  transform: translateX(-50%);
+}
+
+.tooth-drawing .caries {
+  right: 5px;
+  top: 10px;
+  width: 9px;
+  height: 9px;
+  background: #8b5e34;
+  border: 2px solid #5a371e;
+  border-radius: 50%;
+}
+
+.tooth-drawing .caries.is-small {
+  width: 6px;
+  height: 6px;
+  border-width: 1px;
+}
+
+.tooth-drawing .caries.is-large {
+  right: 4px;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+}
+
+.quadrant-map {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.quadrant-map span {
+  display: grid;
+  place-items: center;
+  min-height: 31px;
+  color: #082f7f;
+  background: #e8f6fb;
+  border: 1px solid #d8e8f5;
+  border-radius: 7px;
+  font-size: 6.6px;
+  font-weight: 1000;
+  text-align: center;
+}
+
+.stage-card {
+  min-height: 64px;
+}
+
+.radio-mini {
+  min-height: 74px;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 45%),
+    #26364d;
+}
+
+.radio-mini.has-real-image {
+  min-height: 96px;
+  padding: 5px;
+  color: #082f7f;
+  background: #ffffff;
+}
+
+.radio-image {
+  width: 100%;
+  max-height: 82px;
+  display: block;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.radio-mini strong {
+  font-size: 8px;
+  font-weight: 1000;
+}
+
+.radio-mini small {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 6px;
+  font-weight: 900;
+}
+
+.radio-mini.has-real-image small {
+  color: #31527f;
+}
+
+.habit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.habit-card {
+  min-height: 47px;
+  font-size: 16px;
+}
+
+.habit-card span {
+  display: block;
+}

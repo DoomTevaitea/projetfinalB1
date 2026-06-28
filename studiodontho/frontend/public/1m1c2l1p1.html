@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c2l1p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+    <link rel="stylesheet" href="css/decouverte-dental-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Quiz decouverte dents et comptage" data-lesson-page data-lesson-mode="professionnel" data-lesson-world="1" data-lesson-path="2" data-lesson-key="1m1c2l1" data-dental-final-test data-discovery-quiz="true">
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=2" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Quiz d&eacute;couverte</p>
+          <h1>Dents et comptage</h1>
+          <p class="course-lead">Revois les familles de dents, les parties anatomiques et quelques bases du comptage FDI.</p>
+          <div class="discovery-visual tooth-row">
+            <div class="tooth-card has-real-image">
+              <img class="tooth-photo" src="/img/incisive.png" alt="Incisive" />
+              <span>Incisive</span>
+            </div>
+            <div class="tooth-card has-real-image">
+              <img class="tooth-photo" src="/img/canine.png" alt="Canine" />
+              <span>Canine</span>
+            </div>
+            <div class="tooth-card has-real-image">
+              <img class="tooth-photo" src="/img/premolaire.png" alt="Premolaire" />
+              <span>Premolaire</span>
+            </div>
+            <div class="tooth-card has-real-image">
+              <img class="tooth-photo" src="/img/molaire.png" alt="Molaire" />
+              <span>Molaire</span>
+            </div>
+          </div>
+          <p class="test-score" id="dental-test-score">0/10 questions vues</p>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>1. Quelle famille de dents sert surtout a couper les aliments ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">L'incisive</button>
+              <button type="button">La canine</button>
+              <button type="button">La premolaire</button>
+              <button type="button">La molaire</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>2. Quelle dent est pointue et aide a dechirer ?</h2>
+            <div class="test-options">
+              <button type="button">La molaire</button>
+              <button type="button" data-correct="true">La canine</button>
+              <button type="button">La racine</button>
+              <button type="button">La pulpe</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>3. Quelle famille broie le plus les aliments au fond de la bouche ?</h2>
+            <div class="test-options">
+              <button type="button">Les incisives</button>
+              <button type="button">Les canines</button>
+              <button type="button" data-correct="true">Les molaires</button>
+              <button type="button">Les bords incisifs</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Ou se situent les premolaires ?</h2>
+            <div class="test-options">
+              <button type="button">Devant les incisives</button>
+              <button type="button" data-correct="true">Entre les canines et les molaires</button>
+              <button type="button">Derriere la langue</button>
+              <button type="button">Dans la racine</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. Comment appelle-t-on la partie visible de la dent ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">La couronne</button>
+              <button type="button">La racine</button>
+              <button type="button">La pulpe</button>
+              <button type="button">La gencive</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>6. Quelle partie tient la dent dans l'os ?</h2>
+            <div class="test-options">
+              <button type="button">Le bord incisif</button>
+              <button type="button" data-correct="true">La racine</button>
+              <button type="button">La cuspide</button>
+              <button type="button">La couronne</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. Quelle couche tres dure protege la dent ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">L'email</button>
+              <button type="button">La dentine</button>
+              <button type="button">La pulpe</button>
+              <button type="button">La salive</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. Quelle partie contient les nerfs et les vaisseaux ?</h2>
+            <div class="test-options">
+              <button type="button">La cuspide</button>
+              <button type="button" data-correct="true">La pulpe</button>
+              <button type="button">L'email</button>
+              <button type="button">Le cingulum</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. Dans la notation FDI, le quadrant 1 correspond a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Maxillaire droit permanent</button>
+              <button type="button">Maxillaire gauche permanent</button>
+              <button type="button">Mandibule gauche permanente</button>
+              <button type="button">Mandibule droite permanente</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. Quel numero FDI correspond a la premiere molaire mandibulaire gauche ?</h2>
+            <div class="test-options">
+              <button type="button">16</button>
+              <button type="button">26</button>
+              <button type="button" data-correct="true">36</button>
+              <button type="button">46</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>Quiz termine. Utilise la fleche retour pour continuer le chemin.</p>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

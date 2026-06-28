@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c4l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/dam-technique-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone dam-technique-page"
+      aria-label="Exercice d'ordre des etapes de pose de digue"
+      data-lesson-page
+      data-lesson-mode="professionnel"
+      data-lesson-world="1"
+      data-lesson-path="4"
+      data-lesson-key="1m1c4l3"
+    >
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=4" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a
+          class="top-link next-link recap-finish-link"
+          id="next-dam-page"
+          href="1m1c4l3p2.html"
+          aria-label="Page suivante"
+          hidden
+        >
+          Suite
+        </a>
+        <span class="page-number">1/2</span>
+
+        <article class="order-panel" data-order-exercise>
+          <h1>Test final : remets les etapes communes dans l'ordre</h1>
+          <p class="order-intro">
+            Tape les cartes une par une. L'ordre doit suivre la logique clinique : preparer, essayer,
+            poser puis rendre etanche.
+          </p>
+
+          <div class="order-list" aria-label="Etapes a ordonner">
+            <div class="order-step" role="button" tabindex="0" data-order="7"><span class="order-text">Placer le cadre a digue et tendre la feuille.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="2"><span class="order-text">Passer le fil dentaire pour verifier les points de contact.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="9"><span class="order-text">Faire passer le fil dentaire en mesial et distal pour l'etancheite.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="1"><span class="order-text">Assainir le site d'intervention pour travailler sur une zone propre.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="5"><span class="order-text">Reperer puis perforer la feuille de digue au bon endroit.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="4"><span class="order-text">Essayer le crampon et verifier sa stabilite avec securite parachute.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="10"><span class="order-text">Ajouter de la digue liquide seulement si une zone reste moins hermetique.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="3"><span class="order-text">Reconstruire les parois si la dent est trop abimee.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="6"><span class="order-text">Poser la digue et le crampon selon la technique choisie.</span></div>
+            <div class="order-step" role="button" tabindex="0" data-order="8"><span class="order-text">Passer la feuille sous les mors ou sous les ailettes avec une spatule.</span></div>
+          </div>
+
+          <div class="order-actions">
+            <button class="dam-action secondary" type="button" data-reset-order>Annuler</button>
+            <button class="dam-action" type="button" data-check-order>Valider</button>
+          </div>
+
+          <p class="dam-feedback" data-order-feedback>Tape les etapes dans l'ordre logique.</p>
+        </article>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="js/dam-technique-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

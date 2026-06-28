@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>m1c3l2p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");</script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/decouverte-dental-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page" aria-label="Fiche structure dent" data-lesson-page data-lesson-mode="decouverte" data-lesson-world="1" data-lesson-path="3" data-lesson-key="m1c3l2">
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=3" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Fiche r&eacute;sum&eacute;</p>
+          <h1>La structure d'une dent</h1>
+          <p class="course-lead">Une dent n'est pas un simple caillou blanc : elle a des couches et une partie sensible.</p>
+          <figure class="anatomy-course-card">
+            <img class="anatomy-course-image" src="/img/composition.png" alt="Anatomie de la dent avec les parties principales" />
+            <figcaption>Composition principale : couronne, racine, email, dentine et pulpe.</figcaption>
+          </figure>
+          <section class="course-section">
+            <h2>Les parties principales</h2>
+            <ul>
+              <li><strong>Couronne :</strong> partie visible de la dent.</li>
+              <li><strong>Racine :</strong> partie cachee qui tient la dent.</li>
+              <li><strong>Email :</strong> couche tres dure qui protege.</li>
+              <li><strong>Dentine :</strong> couche sous l'email, plus sensible.</li>
+              <li><strong>Pulpe :</strong> centre de la dent avec les nerfs et les vaisseaux.</li>
+            </ul>
+          </section>
+          <section class="course-section">
+            <h2>Petits mots utiles</h2>
+            <ul>
+              <li><strong>Cuspide :</strong> petite pointe sur les dents qui ecrasent.</li>
+              <li><strong>Bord incisif :</strong> bord qui coupe sur les incisives.</li>
+              <li><strong>Cingulum :</strong> relief arrondi derriere certaines dents de devant.</li>
+            </ul>
+            <p class="tool-note">Pour un debutant, retiens surtout : visible = couronne, cache = racine, sensible = pulpe.</p>
+          </section>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

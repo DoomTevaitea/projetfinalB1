@@ -1,7 +1,10 @@
 const express = require("express");
 const session = require("express-session");
+const MySQLSessionStore = require("express-mysql-session")(session);
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 const mysql = require("mysql2/promise");
 const nodemailer = require("nodemailer");
 const path = require("path");
@@ -11,6 +14,37 @@ const app = express();
 const port = process.env.PORT || 3000;
 const saltRounds = 12;
 const dbTimezone = process.env.DB_TIMEZONE || "+02:00";
+const isProduction = process.env.NODE_ENV === "production";
+const discoveryWorldOneLessonKeysByPath = {
+  2: ["m1c2l1", "m1c2l2", "m1c2l3"],
+  3: ["m1c3l1", "m1c3l2", "m1c3l3"],
+  4: ["m1c4l1", "m1c4l2", "m1c4l3"],
+  5: ["m1c5l3"]
+};
+const discoveryWorldOneLessonPages = Object.values(discoveryWorldOneLessonKeysByPath)
+  .flatMap((lessonKeys) => lessonKeys.map((lessonKey) => `/${lessonKey}p1.html`));
+
+if (isProduction) {
+  app.set("trust proxy", 1);
+}
+
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+  referrerPolicy: {
+    policy: "strict-origin-when-cross-origin"
+  }
+}));
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 25,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    message: "Trop de tentatives. Reessaie dans quelques minutes."
+  }
+});
 
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: false, limit: "1mb" }));
@@ -21,9 +55,32 @@ const localDevOrigins = new Set([
   "http://localhost:5500",
   "http://127.0.0.1:5500",
   "http://localhost:5501",
-  "http://127.0.0.1:5501",
-  "null"
+  "http://127.0.0.1:5501"
 ]);
+
+if (!isProduction) {
+  localDevOrigins.add("null");
+}
+
+const sessionStore = new MySQLSessionStore({
+  host: process.env.DB_HOST || "127.0.0.1",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "studiodontho",
+  port: Number(process.env.DB_PORT) || 3306,
+  clearExpired: true,
+  checkExpirationInterval: 1000 * 60 * 15,
+  expiration: 1000 * 60 * 60 * 2,
+  createDatabaseTable: true,
+  schema: {
+    tableName: "user_sessions",
+    columnNames: {
+      session_id: "session_id",
+      expires: "expires",
+      data: "data"
+    }
+  }
+});
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
@@ -46,15 +103,47 @@ app.use((req, res, next) => {
 app.use(session({
   name: "studiodontho.sid",
   secret: process.env.SESSION_SECRET || "dev_secret_change_me",
+  store: sessionStore,
   resave: false,
   saveUninitialized: false,
+  proxy: isProduction,
   cookie: {
     httpOnly: true,
     sameSite: "lax",
-    secure: false,
+    secure: isProduction,
     maxAge: 1000 * 60 * 60 * 2
   }
 }));
+
+const proToolsLessonKey = "1m1c1l1";
+const proToolsCourseLessonKey = "1m1c1l2";
+const proToolsTestLessonKey = "1m1c1l3";
+const proDiagnosticQuizLessonKey = "1m1c2l1";
+const proDiagnosticCourseLessonKey = "1m1c2l2";
+const proDiagnosticFinalLessonKey = "1m1c2l3";
+const proClassificationQuizLessonKey = "1m1c3l1";
+const proClassificationCourseLessonKey = "1m1c3l2";
+const proClassificationTestLessonKey = "1m1c3l3";
+const proDamTechniqueLessonKeys = ["1m1c4l1", "1m1c4l2", "1m1c4l3"];
+const proWorldFinalTestLessonKey = "1m1c5l3";
+const proQuizPages = Array.from({ length: 28 }, (_, index) => `/${proToolsLessonKey}p${index + 1}.html`);
+const proToolsCoursePages = [`/${proToolsCourseLessonKey}p1.html`];
+const proToolsTestPages = [`/${proToolsTestLessonKey}p1.html`];
+const proDiagnosticQuizPages = Array.from({ length: 10 }, (_, index) => `/${proDiagnosticQuizLessonKey}p${index + 1}.html`);
+const proDiagnosticCoursePages = [`/${proDiagnosticCourseLessonKey}p1.html`, `/${proDiagnosticCourseLessonKey}p2.html`];
+const proDiagnosticFinalPages = [`/${proDiagnosticFinalLessonKey}p1.html`];
+const proClassificationPages = [
+  `/${proClassificationQuizLessonKey}p1.html`,
+  `/${proClassificationCourseLessonKey}p1.html`,
+  `/${proClassificationTestLessonKey}p1.html`
+];
+const proDamTechniquePages = [
+  "/1m1c4l1p1.html",
+  "/1m1c4l2p1.html",
+  "/1m1c4l3p1.html",
+  "/1m1c4l3p2.html"
+];
+const proWorldFinalTestPages = [`/${proWorldFinalTestLessonKey}p1.html`];
 
 const protectedMobilePages = [
   "/profilmobil.html",
@@ -64,10 +153,21 @@ const protectedMobilePages = [
   "/cheminmobil.html",
   "/m1c1l1p1.html",
   "/m1c1l1p2.html",
-  "/m1c1l1p3.html",
-  "/m1c1l1p4.html",
-  "/m1c1l1p5.html",
-  "/m1c1l1p6.html"
+  "/m1c1l2p1.html",
+  "/m1c1l2p2.html",
+  "/m1c1l2p3.html",
+  "/m1c1l2p4.html",
+  "/m1c1l3p1.html",
+  ...discoveryWorldOneLessonPages,
+  ...proQuizPages,
+  ...proToolsCoursePages,
+  ...proToolsTestPages,
+  ...proDiagnosticQuizPages,
+  ...proDiagnosticCoursePages,
+  ...proDiagnosticFinalPages,
+  ...proClassificationPages,
+  ...proDamTechniquePages,
+  ...proWorldFinalTestPages
 ];
 const frontendDir = path.join(__dirname, "..", "frontend");
 const publicDir = path.join(frontendDir, "public");
@@ -120,19 +220,49 @@ db.on("connection", (connection) => {
   });
 });
 
-const leaderboardColumns = {
-  decouverte: {
-    week: "decouverte_week_points",
-    alltime: "decouverte_alltime_points"
-  },
-  professionnel: {
-    week: "professionnel_week_points",
-    alltime: "professionnel_alltime_points"
-  }
-};
+const pointsPerCompletedPath = 10;
 const progressModes = ["decouverte", "professionnel"];
 const progressWorlds = [1, 2, 3];
 const progressPaths = [1, 2, 3, 4, 5];
+
+function emptyPointSummary() {
+  return {
+    decouverte: 0,
+    professionnel: 0
+  };
+}
+
+async function getUserPointSummary(userId, executor = db) {
+  const [[points]] = await executor.execute(
+    `SELECT
+       COALESCE(SUM(CASE
+         WHEN mode = 'decouverte'
+          AND is_completed = 1
+          AND passed_test = 1
+         THEN 1 ELSE 0 END), 0) * ? AS decouverte,
+       COALESCE(SUM(CASE
+         WHEN mode = 'professionnel'
+          AND is_completed = 1
+          AND passed_test = 1
+         THEN 1 ELSE 0 END), 0) * ? AS professionnel
+     FROM path_progress
+     WHERE user_id = ?`,
+    [
+      pointsPerCompletedPath,
+      pointsPerCompletedPath,
+      userId
+    ]
+  );
+
+  return {
+    decouverte: Number(points.decouverte) || 0,
+    professionnel: Number(points.professionnel) || 0
+  };
+}
+
+function getModePoints(pointSummary, mode) {
+  return pointSummary?.[mode] || emptyPointSummary()[mode];
+}
 
 async function initializeDatabase() {
   await db.execute(`
@@ -142,6 +272,7 @@ async function initializeDatabase() {
       email VARCHAR(255) NULL UNIQUE,
       password_hash VARCHAR(255) NULL,
       is_guest TINYINT(1) NOT NULL DEFAULT 0,
+      current_mode VARCHAR(20) NOT NULL DEFAULT 'decouverte',
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
@@ -150,10 +281,9 @@ async function initializeDatabase() {
   await db.execute("ALTER TABLE users MODIFY email VARCHAR(255) NULL");
   await db.execute("ALTER TABLE users MODIFY password_hash VARCHAR(255) NULL");
   await addColumnIfMissing("users", "is_guest", "TINYINT(1) NOT NULL DEFAULT 0");
-  await addColumnIfMissing("users", "decouverte_week_points", "INT NOT NULL DEFAULT 0");
-  await addColumnIfMissing("users", "decouverte_alltime_points", "INT NOT NULL DEFAULT 0");
-  await addColumnIfMissing("users", "professionnel_week_points", "INT NOT NULL DEFAULT 0");
-  await addColumnIfMissing("users", "professionnel_alltime_points", "INT NOT NULL DEFAULT 0");
+  await addColumnIfMissing("users", "current_mode", "VARCHAR(20) NOT NULL DEFAULT 'decouverte'");
+  await db.execute("ALTER TABLE users MODIFY current_mode VARCHAR(20) NOT NULL DEFAULT 'decouverte'");
+  await db.execute("UPDATE users SET current_mode = 'decouverte' WHERE current_mode NOT IN ('decouverte', 'professionnel')");
   await addColumnIfMissing("users", "profile_image", "MEDIUMTEXT NULL");
 
   await db.execute(`
@@ -164,72 +294,32 @@ async function initializeDatabase() {
       world_number TINYINT UNSIGNED NOT NULL,
       path_number TINYINT UNSIGNED NOT NULL,
       is_completed TINYINT(1) NOT NULL DEFAULT 0,
+      passed_test TINYINT(1) NOT NULL DEFAULT 0,
       completed_at TIMESTAMP NULL DEFAULT NULL,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
       UNIQUE KEY unique_path_progress (user_id, mode, world_number, path_number),
-      INDEX idx_path_progress_user_mode_world (user_id, mode, world_number)
+      INDEX idx_path_progress_user_mode_world (user_id, mode, world_number),
+      INDEX idx_path_progress_mode_done_user (mode, is_completed, passed_test, user_id, completed_at)
     )
   `);
-  await addColumnIfMissing("path_progress", "is_completed", "TINYINT(1) NOT NULL DEFAULT 1");
+  await addColumnIfMissing("path_progress", "is_completed", "TINYINT(1) NOT NULL DEFAULT 0");
+  await addColumnIfMissing("path_progress", "passed_test", "TINYINT(1) NOT NULL DEFAULT 0");
+  await db.execute("ALTER TABLE path_progress MODIFY is_completed TINYINT(1) NOT NULL DEFAULT 0");
+  await db.execute("ALTER TABLE path_progress MODIFY passed_test TINYINT(1) NOT NULL DEFAULT 0");
   await db.execute("ALTER TABLE path_progress MODIFY completed_at TIMESTAMP NULL DEFAULT NULL");
+  await addIndexIfMissing(
+    "path_progress",
+    "idx_path_progress_mode_done_user",
+    "CREATE INDEX idx_path_progress_mode_done_user ON path_progress (mode, is_completed, passed_test, user_id, completed_at)"
+  );
+
+  await db.execute("DROP TABLE IF EXISTS world_progress");
 
   await db.execute(`
-    CREATE TABLE IF NOT EXISTS world_progress (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      user_id INT NOT NULL,
-      mode VARCHAR(20) NOT NULL,
-      world_number TINYINT UNSIGNED NOT NULL,
-      is_completed TINYINT(1) NOT NULL DEFAULT 0,
-      points_awarded TINYINT(1) NOT NULL DEFAULT 0,
-      completed_at TIMESTAMP NULL DEFAULT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-      UNIQUE KEY unique_world_progress (user_id, mode, world_number)
-    )
-  `);
-  await addColumnIfMissing("world_progress", "is_completed", "TINYINT(1) NOT NULL DEFAULT 1");
-  await addColumnIfMissing("world_progress", "points_awarded", "TINYINT(1) NOT NULL DEFAULT 1");
-  await db.execute("ALTER TABLE world_progress MODIFY completed_at TIMESTAMP NULL DEFAULT NULL");
-
-  await db.execute(`
-    CREATE TABLE IF NOT EXISTS lesson_progress (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      user_id INT NOT NULL,
-      mode VARCHAR(20) NOT NULL,
-      world_number TINYINT UNSIGNED NOT NULL,
-      path_number TINYINT UNSIGNED NOT NULL,
-      lesson_key VARCHAR(60) NOT NULL,
-      is_completed TINYINT(1) NOT NULL DEFAULT 0,
-      completed_at TIMESTAMP NULL DEFAULT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-      UNIQUE KEY unique_lesson_progress (user_id, mode, world_number, path_number, lesson_key),
-      INDEX idx_lesson_progress_user_path (user_id, mode, world_number, path_number)
-    )
-  `);
-
-  await db.execute(`
-    INSERT IGNORE INTO world_progress (user_id, mode, world_number, is_completed, points_awarded, completed_at)
-    SELECT user_id, mode, world_number, 1, 0, MIN(completed_at)
-    FROM path_progress
-    WHERE path_number BETWEEN 1 AND 5
-      AND is_completed = 1
-    GROUP BY user_id, mode, world_number
-    HAVING COUNT(DISTINCT path_number) = 5
-  `);
-  await db.execute(`
-    UPDATE world_progress
-    JOIN (
-      SELECT user_id, mode, world_number, MIN(completed_at) AS first_completed_at
-      FROM path_progress
-      WHERE path_number BETWEEN 1 AND 5
-        AND is_completed = 1
-      GROUP BY user_id, mode, world_number
-      HAVING COUNT(DISTINCT path_number) = 5
-    ) completed_worlds
-      ON completed_worlds.user_id = world_progress.user_id
-     AND completed_worlds.mode = world_progress.mode
-     AND completed_worlds.world_number = world_progress.world_number
-    SET world_progress.is_completed = 1,
-        world_progress.completed_at = COALESCE(world_progress.completed_at, completed_worlds.first_completed_at)
+    UPDATE path_progress
+    SET passed_test = 1
+    WHERE is_completed = 1
+      AND passed_test = 0
   `);
 
   await seedProgressRowsForExistingUsers();
@@ -266,19 +356,29 @@ async function addColumnIfMissing(tableName, columnName, definition) {
   }
 }
 
+async function addIndexIfMissing(tableName, indexName, createStatement) {
+  const [indexes] = await db.execute(
+    `SELECT INDEX_NAME
+     FROM INFORMATION_SCHEMA.STATISTICS
+     WHERE TABLE_SCHEMA = DATABASE()
+       AND TABLE_NAME = ?
+       AND INDEX_NAME = ?
+     LIMIT 1`,
+    [tableName, indexName]
+  );
+
+  if (indexes.length === 0) {
+    await db.execute(createStatement);
+  }
+}
+
 async function seedProgressRowsForUser(userId, executor = db) {
   for (const mode of progressModes) {
     for (const worldNumber of progressWorlds) {
-      await executor.execute(
-        `INSERT IGNORE INTO world_progress (user_id, mode, world_number, is_completed, points_awarded, completed_at)
-         VALUES (?, ?, ?, 0, 0, NULL)`,
-        [userId, mode, worldNumber]
-      );
-
       for (const pathNumber of progressPaths) {
         await executor.execute(
-          `INSERT IGNORE INTO path_progress (user_id, mode, world_number, path_number, is_completed, completed_at)
-           VALUES (?, ?, ?, ?, 0, NULL)`,
+          `INSERT IGNORE INTO path_progress (user_id, mode, world_number, path_number, is_completed, passed_test, completed_at)
+           VALUES (?, ?, ?, ?, 0, 0, NULL)`,
           [userId, mode, worldNumber, pathNumber]
         );
       }
@@ -306,35 +406,26 @@ function isValidEmail(email) {
   return /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(email) && email.length <= 255;
 }
 
-function publicUser(user) {
+function normalizeMode(mode) {
+  return mode === "professionnel" ? "professionnel" : "decouverte";
+}
+
+function publicUser(user, pointSummary = emptyPointSummary()) {
   return {
     id: user.id,
     prenom: user.prenom,
     email: user.email || null,
     isGuest: Boolean(user.is_guest ?? user.isGuest),
     profileImage: user.profile_image || user.profileImage || null,
-    points: {
-      decouverte: {
-        week: Number(user.decouverte_week_points) || 0,
-        alltime: Number(user.decouverte_alltime_points) || 0
-      },
-      professionnel: {
-        week: Number(user.professionnel_week_points) || 0,
-        alltime: Number(user.professionnel_alltime_points) || 0
-      }
-    }
+    currentMode: normalizeMode(user.current_mode || user.currentMode),
+    points: pointSummary
   };
 }
 
-function getLeaderboardConfig(query) {
+function getLeaderboardMode(query) {
   const mode = query.mode === "professionnel" ? "professionnel" : "decouverte";
-  const period = query.period === "alltime" ? "alltime" : "week";
 
-  return {
-    mode,
-    period,
-    pointsColumn: leaderboardColumns[mode][period]
-  };
+  return mode;
 }
 
 function hashResetToken(token) {
@@ -401,6 +492,10 @@ async function createPasswordResetForUser(user) {
 }
 
 app.get("/api/test-db", async (req, res) => {
+  if (isProduction) {
+    return res.sendStatus(404);
+  }
+
   try {
     const [results] = await db.execute("SELECT 1 + 1 AS resultat");
     res.json(results[0]);
@@ -410,34 +505,67 @@ app.get("/api/test-db", async (req, res) => {
 });
 
 app.get("/api/leaderboard", requireLoggedUserApi, async (req, res) => {
-  const { mode, period, pointsColumn } = getLeaderboardConfig(req.query);
+  const mode = getLeaderboardMode(req.query);
 
   try {
     const [users] = await db.execute(`
-      SELECT id, prenom, profile_image, ${pointsColumn} AS points
+      SELECT
+        users.id,
+        users.prenom,
+        users.profile_image,
+        COUNT(path_progress.id) * ${pointsPerCompletedPath} AS points
       FROM users
+      LEFT JOIN path_progress
+        ON path_progress.user_id = users.id
+       AND path_progress.mode = ?
+       AND path_progress.is_completed = 1
+       AND path_progress.passed_test = 1
       WHERE is_guest = 0
-      ORDER BY ${pointsColumn} DESC, prenom ASC
+      GROUP BY users.id, users.prenom, users.profile_image
+      ORDER BY points DESC, users.prenom ASC
       LIMIT 20
-    `);
+    `, [mode]);
     let currentUserRank = null;
 
     if (req.session.user && !req.session.user.isGuest) {
       const [[currentUser]] = await db.execute(
-        `SELECT id, prenom, ${pointsColumn} AS points FROM users WHERE id = ? AND is_guest = 0 LIMIT 1`,
-        [req.session.user.id]
+        `SELECT
+           users.id,
+           users.prenom,
+           COUNT(path_progress.id) * ${pointsPerCompletedPath} AS points
+         FROM users
+         LEFT JOIN path_progress
+           ON path_progress.user_id = users.id
+          AND path_progress.mode = ?
+          AND path_progress.is_completed = 1
+          AND path_progress.passed_test = 1
+         WHERE users.id = ?
+           AND users.is_guest = 0
+         GROUP BY users.id, users.prenom
+         LIMIT 1`,
+        [mode, req.session.user.id]
       );
 
       if (currentUser) {
         const [[rankResult]] = await db.execute(
           `SELECT COUNT(*) + 1 AS user_rank
-           FROM users
-           WHERE is_guest = 0
-             AND (
-               ${pointsColumn} > ?
-               OR (${pointsColumn} = ? AND prenom < ?)
-             )`,
-          [currentUser.points, currentUser.points, currentUser.prenom]
+           FROM (
+             SELECT
+               users.id,
+               users.prenom,
+               COUNT(path_progress.id) * ${pointsPerCompletedPath} AS points
+             FROM users
+             LEFT JOIN path_progress
+               ON path_progress.user_id = users.id
+              AND path_progress.mode = ?
+              AND path_progress.is_completed = 1
+              AND path_progress.passed_test = 1
+             WHERE users.is_guest = 0
+             GROUP BY users.id, users.prenom
+           ) ranked_users
+           WHERE ranked_users.points > ?
+              OR (ranked_users.points = ? AND ranked_users.prenom < ?)`,
+          [mode, currentUser.points, currentUser.points, currentUser.prenom]
         );
 
         currentUserRank = {
@@ -449,7 +577,6 @@ app.get("/api/leaderboard", requireLoggedUserApi, async (req, res) => {
 
     res.json({
       mode,
-      period,
       currentUserRank,
       users: users.map((user) => ({
         id: user.id,
@@ -467,7 +594,6 @@ app.get("/api/leaderboard", requireLoggedUserApi, async (req, res) => {
 app.get("/api/path-progress", requireLoggedUserApi, async (req, res) => {
   const mode = req.query.mode === "professionnel" ? "professionnel" : "decouverte";
   const worldNumber = Number(req.query.world);
-  const columns = leaderboardColumns[mode];
 
   if (!Number.isInteger(worldNumber) || worldNumber < 1 || worldNumber > 3) {
     return res.status(400).json({ message: "Monde invalide." });
@@ -481,84 +607,44 @@ app.get("/api/path-progress", requireLoggedUserApi, async (req, res) => {
          AND mode = ?
          AND world_number = ?
          AND is_completed = 1
+         AND passed_test = 1
        ORDER BY path_number ASC`,
       [req.session.user.id, mode, worldNumber]
     );
+    const completedPaths = paths.map((pathRow) => Number(pathRow.path_number));
+
     const [worlds] = await db.execute(
       `SELECT world_number
-       FROM world_progress
+       FROM path_progress
        WHERE user_id = ?
          AND mode = ?
+         AND path_number BETWEEN 1 AND 5
          AND is_completed = 1
+         AND passed_test = 1
+       GROUP BY world_number
+       HAVING COUNT(DISTINCT path_number) = 5
        ORDER BY world_number ASC`,
       [req.session.user.id, mode]
     );
-    const [[points]] = await db.execute(
-      `SELECT ${columns.week} AS week_points,
-              ${columns.alltime} AS alltime_points
-       FROM users
-       WHERE id = ?
-       LIMIT 1`,
-      [req.session.user.id]
-    );
+    const points = getModePoints(await getUserPointSummary(req.session.user.id), mode);
 
     res.json({
       mode,
       world: worldNumber,
-      completedPaths: paths.map((path) => Number(path.path_number)),
+      completedPaths,
       completedWorlds: worlds.map((world) => Number(world.world_number)),
-      weekPoints: Number(points.week_points) || 0,
-      alltimePoints: Number(points.alltime_points) || 0
+      points
     });
   } catch (err) {
     res.status(500).json({ message: "Erreur serveur pendant le chargement de la progression." });
   }
 });
 
-app.get("/api/lesson-progress", requireLoggedUserApi, async (req, res) => {
-  const mode = req.query.mode === "professionnel" ? "professionnel" : "decouverte";
-  const worldNumber = Number(req.query.world);
-  const pathNumber = Number(req.query.pathNumber);
-
-  if (
-    !Number.isInteger(worldNumber) ||
-    worldNumber < 1 ||
-    worldNumber > 3 ||
-    !Number.isInteger(pathNumber) ||
-    pathNumber < 1 ||
-    pathNumber > 5
-  ) {
-    return res.status(400).json({ message: "Progression de lecon invalide." });
-  }
-
-  try {
-    const [lessons] = await db.execute(
-      `SELECT lesson_key
-       FROM lesson_progress
-       WHERE user_id = ?
-         AND mode = ?
-         AND world_number = ?
-         AND path_number = ?
-         AND is_completed = 1
-       ORDER BY completed_at ASC`,
-      [req.session.user.id, mode, worldNumber, pathNumber]
-    );
-
-    res.json({
-      mode,
-      world: worldNumber,
-      pathNumber,
-      completedLessons: lessons.map((lesson) => lesson.lesson_key)
-    });
-  } catch (err) {
-    res.status(500).json({ message: "Erreur serveur pendant le chargement des lecons." });
-  }
-});
-
-app.post("/api/register", async (req, res) => {
+app.post("/api/register", authLimiter, async (req, res) => {
   const prenom = String(req.body.prenom || "").trim();
   const email = cleanEmail(req.body.email);
   const password = String(req.body.password || "");
+  const currentMode = normalizeMode(req.body.mode || req.body.currentMode);
 
   if (!isValidName(prenom)) {
     return res.status(400).json({
@@ -586,12 +672,15 @@ app.post("/api/register", async (req, res) => {
 
     const passwordHash = await bcrypt.hash(password, saltRounds);
     const [result] = await db.execute(
-      "INSERT INTO users (prenom, email, password_hash, is_guest) VALUES (?, ?, ?, 0)",
-      [prenom, email, passwordHash]
+      "INSERT INTO users (prenom, email, password_hash, is_guest, current_mode) VALUES (?, ?, ?, 0, ?)",
+      [prenom, email, passwordHash, currentMode]
     );
 
     await seedProgressRowsForUser(result.insertId);
-    req.session.user = publicUser({ id: result.insertId, prenom, email, is_guest: 0, profile_image: null });
+    req.session.user = publicUser(
+      { id: result.insertId, prenom, email, is_guest: 0, profile_image: null, current_mode: currentMode },
+      emptyPointSummary()
+    );
     res.status(201).json({
       message: "Compte cree avec succes.",
       user: req.session.user
@@ -601,7 +690,7 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-app.post("/api/login", async (req, res) => {
+app.post("/api/login", authLimiter, async (req, res) => {
   const email = cleanEmail(req.body.email);
   const password = String(req.body.password || "");
 
@@ -611,9 +700,7 @@ app.post("/api/login", async (req, res) => {
 
   try {
     const [users] = await db.execute(
-      `SELECT id, prenom, email, password_hash, is_guest, profile_image,
-              decouverte_week_points, decouverte_alltime_points,
-              professionnel_week_points, professionnel_alltime_points
+      `SELECT id, prenom, email, password_hash, is_guest, profile_image, current_mode
        FROM users
        WHERE email = ?
        LIMIT 1`,
@@ -636,12 +723,14 @@ app.post("/api/login", async (req, res) => {
       return res.status(401).json({ message: "Email ou mot de passe incorrect." });
     }
 
+    const pointSummary = await getUserPointSummary(user.id);
+
     req.session.regenerate((sessionError) => {
       if (sessionError) {
         return res.status(500).json({ message: "Erreur serveur pendant la connexion." });
       }
 
-      req.session.user = publicUser(user);
+      req.session.user = publicUser(user, pointSummary);
       res.json({
         message: "Connexion reussie.",
         user: req.session.user
@@ -652,8 +741,9 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.post("/api/guest", async (req, res) => {
+app.post("/api/guest", authLimiter, async (req, res) => {
   const prenom = String(req.body.prenom || "").trim();
+  const currentMode = normalizeMode(req.body.mode || req.body.currentMode);
 
   if (!isValidName(prenom)) {
     return res.status(400).json({
@@ -663,18 +753,22 @@ app.post("/api/guest", async (req, res) => {
 
   try {
     const [result] = await db.execute(
-      "INSERT INTO users (prenom, email, password_hash, is_guest) VALUES (?, NULL, NULL, 1)",
-      [prenom]
+      "INSERT INTO users (prenom, email, password_hash, is_guest, current_mode) VALUES (?, NULL, NULL, 1, ?)",
+      [prenom, currentMode]
     );
 
     await seedProgressRowsForUser(result.insertId);
-    req.session.user = publicUser({
-      id: result.insertId,
-      prenom,
-      email: null,
-      is_guest: 1,
-      profile_image: null
-    });
+    req.session.user = publicUser(
+      {
+        id: result.insertId,
+        prenom,
+        email: null,
+        is_guest: 1,
+        profile_image: null,
+        current_mode: currentMode
+      },
+      emptyPointSummary()
+    );
 
     res.status(201).json({
       message: "Compte invite cree avec succes.",
@@ -685,7 +779,7 @@ app.post("/api/guest", async (req, res) => {
   }
 });
 
-app.post("/api/forgot-password", async (req, res) => {
+app.post("/api/forgot-password", authLimiter, async (req, res) => {
   const email = cleanEmail(req.body.email);
   const genericMessage = "Si un compte correspond a cette adresse, un lien de reinitialisation sera envoye.";
 
@@ -709,7 +803,7 @@ app.post("/api/forgot-password", async (req, res) => {
   }
 });
 
-app.post("/api/profile-password-reset", requireLoggedUserApi, async (req, res) => {
+app.post("/api/profile-password-reset", requireLoggedUserApi, authLimiter, async (req, res) => {
   try {
     const [users] = await db.execute(
       "SELECT id, email, is_guest FROM users WHERE id = ? LIMIT 1",
@@ -800,44 +894,30 @@ app.post("/api/profile-photo", requireLoggedUserApi, async (req, res) => {
   }
 });
 
-app.post("/api/lesson-progress/complete", requireLoggedUserApi, async (req, res) => {
-  const mode = req.body.mode === "professionnel" ? "professionnel" : "decouverte";
-  const worldNumber = Number(req.body.world);
-  const pathNumber = Number(req.body.pathNumber);
-  const lessonKey = String(req.body.lessonKey || "").trim();
-
-  if (
-    !Number.isInteger(worldNumber) ||
-    worldNumber < 1 ||
-    worldNumber > 3 ||
-    !Number.isInteger(pathNumber) ||
-    pathNumber < 1 ||
-    pathNumber > 5 ||
-    !/^[a-z0-9_-]{1,60}$/i.test(lessonKey)
-  ) {
-    return res.status(400).json({ message: "Progression de lecon invalide." });
-  }
+app.post("/api/profile-mode", requireLoggedUserApi, async (req, res) => {
+  const currentMode = normalizeMode(req.body.mode || req.body.currentMode);
 
   try {
-    await db.execute(
-      `INSERT INTO lesson_progress
-         (user_id, mode, world_number, path_number, lesson_key, is_completed, completed_at)
-       VALUES (?, ?, ?, ?, ?, 1, CURRENT_TIMESTAMP)
-       ON DUPLICATE KEY UPDATE
-         is_completed = 1,
-         completed_at = COALESCE(completed_at, CURRENT_TIMESTAMP)`,
-      [req.session.user.id, mode, worldNumber, pathNumber, lessonKey]
+    const [result] = await db.execute(
+      "UPDATE users SET current_mode = ? WHERE id = ?",
+      [currentMode, req.session.user.id]
     );
 
+    if (result.affectedRows === 0) {
+      return res.status(401).json({ message: "Connexion requise." });
+    }
+
+    req.session.user = {
+      ...req.session.user,
+      currentMode
+    };
+
     res.json({
-      message: "Lecon sauvegardee.",
-      mode,
-      world: worldNumber,
-      pathNumber,
-      lessonKey
+      message: "Mode sauvegarde.",
+      user: req.session.user
     });
   } catch (err) {
-    res.status(500).json({ message: "Erreur serveur pendant la sauvegarde de la lecon." });
+    res.status(500).json({ message: "Erreur serveur pendant le changement de mode." });
   }
 });
 
@@ -845,11 +925,7 @@ app.post("/api/path-progress/complete", requireLoggedUserApi, async (req, res) =
   const mode = req.body.mode === "professionnel" ? "professionnel" : "decouverte";
   const worldNumber = Number(req.body.world);
   const pathNumber = Number(req.body.pathNumber);
-  const contextPaths = Array.isArray(req.body.completedPaths)
-    ? [...new Set(req.body.completedPaths.map(Number))]
-        .filter((completedPath) => Number.isInteger(completedPath) && completedPath >= 1 && completedPath <= 5)
-        .sort((a, b) => a - b)
-    : [];
+  const passedTest = req.body.testPassed === true || req.body.testPassed === "true";
 
   if (
     !Number.isInteger(worldNumber) ||
@@ -862,36 +938,44 @@ app.post("/api/path-progress/complete", requireLoggedUserApi, async (req, res) =
     return res.status(400).json({ message: "Progression invalide." });
   }
 
+  if (!passedTest) {
+    return res.status(403).json({ message: "Terminer toutes les lecons." });
+  }
+
   const connection = await db.getConnection();
-  const columns = leaderboardColumns[mode];
 
   try {
     await connection.beginTransaction();
     await seedProgressRowsForUser(req.session.user.id, connection);
 
-    for (const completedPath of contextPaths.filter((completedPath) => completedPath !== pathNumber)) {
-      await connection.execute(
-        `UPDATE path_progress
-         SET is_completed = 1,
-             completed_at = COALESCE(completed_at, CURRENT_TIMESTAMP)
+    if (pathNumber > 1) {
+      const [[previousPath]] = await connection.execute(
+        `SELECT is_completed, passed_test
+         FROM path_progress
          WHERE user_id = ?
            AND mode = ?
            AND world_number = ?
            AND path_number = ?
-           AND is_completed = 0`,
-        [req.session.user.id, mode, worldNumber, completedPath]
+         LIMIT 1`,
+        [req.session.user.id, mode, worldNumber, pathNumber - 1]
       );
+
+      if (!previousPath || !previousPath.is_completed || !previousPath.passed_test) {
+        await connection.rollback();
+        return res.status(403).json({ message: "Termine le lvl precedent avant de valider celui-ci." });
+      }
     }
 
     const [pathResult] = await connection.execute(
       `UPDATE path_progress
        SET is_completed = 1,
+           passed_test = 1,
            completed_at = COALESCE(completed_at, CURRENT_TIMESTAMP)
        WHERE user_id = ?
          AND mode = ?
          AND world_number = ?
          AND path_number = ?
-         AND is_completed = 0`,
+         AND (is_completed = 0 OR passed_test = 0)`,
       [req.session.user.id, mode, worldNumber, pathNumber]
     );
     const newPathCount = pathResult.affectedRows > 0 ? 1 : 0;
@@ -903,48 +987,15 @@ app.post("/api/path-progress/complete", requireLoggedUserApi, async (req, res) =
          AND mode = ?
          AND world_number = ?
          AND path_number BETWEEN 1 AND 5
-         AND is_completed = 1`,
+         AND is_completed = 1
+         AND passed_test = 1`,
       [req.session.user.id, mode, worldNumber]
     );
     const completedAfter = Number(afterResult.completed_count) || 0;
-    let worldCompleted = false;
+    const worldCompleted = completedAfter >= 5;
 
-    if (completedAfter >= 5) {
-      const [worldResult] = await connection.execute(
-        `UPDATE world_progress
-         SET is_completed = 1,
-             points_awarded = 1,
-             completed_at = COALESCE(completed_at, CURRENT_TIMESTAMP)
-         WHERE user_id = ?
-           AND mode = ?
-           AND world_number = ?
-           AND points_awarded = 0`,
-        [req.session.user.id, mode, worldNumber]
-      );
-
-      worldCompleted = worldResult.affectedRows > 0;
-    }
-
-    const pointsEarned = newPathCount * 10 + (worldCompleted ? 30 : 0);
-
-    if (pointsEarned > 0) {
-      await connection.execute(
-        `UPDATE users
-         SET ${columns.week} = ${columns.week} + ?,
-             ${columns.alltime} = ${columns.alltime} + ?
-         WHERE id = ?`,
-        [pointsEarned, pointsEarned, req.session.user.id]
-      );
-    }
-
-    const [[pointsResult]] = await connection.execute(
-      `SELECT ${columns.week} AS week_points,
-              ${columns.alltime} AS alltime_points
-       FROM users
-       WHERE id = ?
-       LIMIT 1`,
-      [req.session.user.id]
-    );
+    const pointsEarned = newPathCount * pointsPerCompletedPath;
+    const pointsResult = getModePoints(await getUserPointSummary(req.session.user.id, connection), mode);
 
     await connection.commit();
 
@@ -957,8 +1008,7 @@ app.post("/api/path-progress/complete", requireLoggedUserApi, async (req, res) =
       newPathCount,
       worldCompleted,
       pointsEarned,
-      weekPoints: Number(pointsResult.week_points) || 0,
-      alltimePoints: Number(pointsResult.alltime_points) || 0
+      points: pointsResult
     });
   } catch (err) {
     await connection.rollback();
@@ -968,111 +1018,7 @@ app.post("/api/path-progress/complete", requireLoggedUserApi, async (req, res) =
   }
 });
 
-app.post("/api/path-progress/sync-world", requireLoggedUserApi, async (req, res) => {
-  const mode = req.body.mode === "professionnel" ? "professionnel" : "decouverte";
-  const worldNumber = Number(req.body.world);
-  const completedPaths = Array.isArray(req.body.completedPaths)
-    ? [...new Set(req.body.completedPaths.map(Number))]
-        .filter((pathNumber) => Number.isInteger(pathNumber) && pathNumber >= 1 && pathNumber <= 5)
-        .sort((a, b) => a - b)
-    : [];
-
-  if (!Number.isInteger(worldNumber) || worldNumber < 1 || worldNumber > 3 || completedPaths.length < 5) {
-    return res.status(400).json({ message: "Progression du monde invalide." });
-  }
-
-  const connection = await db.getConnection();
-  const columns = leaderboardColumns[mode];
-
-  try {
-    await connection.beginTransaction();
-    await seedProgressRowsForUser(req.session.user.id, connection);
-
-    for (const pathNumber of completedPaths) {
-      await connection.execute(
-        `UPDATE path_progress
-         SET is_completed = 1,
-             completed_at = COALESCE(completed_at, CURRENT_TIMESTAMP)
-         WHERE user_id = ?
-           AND mode = ?
-           AND world_number = ?
-           AND path_number = ?
-           AND is_completed = 0`,
-        [req.session.user.id, mode, worldNumber, pathNumber]
-      );
-    }
-
-    const [[afterResult]] = await connection.execute(
-      `SELECT COUNT(*) AS completed_count
-       FROM path_progress
-       WHERE user_id = ?
-         AND mode = ?
-         AND world_number = ?
-         AND path_number BETWEEN 1 AND 5
-         AND is_completed = 1`,
-      [req.session.user.id, mode, worldNumber]
-    );
-    const completedCount = Number(afterResult.completed_count) || 0;
-    let pointsEarned = 0;
-    let worldCompleted = false;
-
-    if (completedCount >= 5) {
-      const [worldResult] = await connection.execute(
-        `UPDATE world_progress
-         SET is_completed = 1,
-             points_awarded = 1,
-             completed_at = COALESCE(completed_at, CURRENT_TIMESTAMP)
-         WHERE user_id = ?
-           AND mode = ?
-           AND world_number = ?
-           AND points_awarded = 0`,
-        [req.session.user.id, mode, worldNumber]
-      );
-
-      worldCompleted = worldResult.affectedRows > 0;
-      pointsEarned = worldCompleted ? 30 : 0;
-    }
-
-    if (pointsEarned > 0) {
-      await connection.execute(
-        `UPDATE users
-         SET ${columns.week} = ${columns.week} + ?,
-             ${columns.alltime} = ${columns.alltime} + ?
-         WHERE id = ?`,
-        [pointsEarned, pointsEarned, req.session.user.id]
-      );
-    }
-
-    const [[pointsResult]] = await connection.execute(
-      `SELECT ${columns.week} AS week_points,
-              ${columns.alltime} AS alltime_points
-       FROM users
-       WHERE id = ?
-       LIMIT 1`,
-      [req.session.user.id]
-    );
-
-    await connection.commit();
-
-    res.json({
-      message: pointsEarned > 0 ? "Bonus monde sauvegarde." : "Monde deja synchronise.",
-      mode,
-      world: worldNumber,
-      completedCount,
-      worldCompleted,
-      pointsEarned,
-      weekPoints: Number(pointsResult.week_points) || 0,
-      alltimePoints: Number(pointsResult.alltime_points) || 0
-    });
-  } catch (err) {
-    await connection.rollback();
-    res.status(500).json({ message: "Erreur serveur pendant la synchronisation du monde." });
-  } finally {
-    connection.release();
-  }
-});
-
-app.post("/api/reset-password", async (req, res) => {
+app.post("/api/reset-password", authLimiter, async (req, res) => {
   const token = String(req.body.token || "").trim();
   const password = String(req.body.password || "");
   const confirmPassword = String(req.body.confirmPassword || "");
@@ -1130,9 +1076,7 @@ app.get("/api/me", async (req, res) => {
 
   try {
     const [users] = await db.execute(
-      `SELECT id, prenom, email, is_guest, profile_image,
-              decouverte_week_points, decouverte_alltime_points,
-              professionnel_week_points, professionnel_alltime_points
+      `SELECT id, prenom, email, is_guest, profile_image, current_mode
        FROM users
        WHERE id = ?
        LIMIT 1`,
@@ -1144,7 +1088,7 @@ app.get("/api/me", async (req, res) => {
       return res.status(401).json({ connected: false });
     }
 
-    req.session.user = publicUser(users[0]);
+    req.session.user = publicUser(users[0], await getUserPointSummary(users[0].id));
     res.json({
       connected: true,
       user: req.session.user

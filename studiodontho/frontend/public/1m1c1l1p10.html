@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c1l1p10</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/lesson-mobile.css" />
+    <link rel="stylesheet" href="css/pro-quiz-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone pro-quiz-page pro-quiz-text-page"
+      aria-label="Quiz professionnel sur la fonction de Les cadres de Young / Nygaard-Ostby / Sauveur"
+      data-pro-quiz
+      data-quiz-mode="professionnel"
+      data-quiz-world="1"
+      data-quiz-path="1"
+      data-quiz-lesson-key="1m1c1l1"
+      data-quiz-complete="false"
+      data-correct-name="Tendre la feuille de digue et maintenir le champ op&#233;ratoire d&#233;gag&#233; pendant le soin."
+      data-correct-message="Bien jou&#233;, ces cadres maintiennent la digue tendue et am&#233;liorent l&#x27;acc&#232;s au champ op&#233;ratoire."
+      data-wrong-message="Dommage, les cadres servent &#224; tendre et maintenir la feuille de digue."
+    >
+      <section class="content">
+        <a class="top-link back-link" href="1m1c1l1p9.html" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a class="top-link next-link quiz-next-link" id="next-quiz-page" href="1m1c1l1p11.html" aria-label="Continuer" hidden>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <span class="page-number">10/28</span>
+
+        <div class="quiz-scene">
+          <img class="tooth-character" src="/img/neutre.png" alt="" />
+          <span class="bubble-trail" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <article class="speech-bubble quiz-speech">
+            <p id="quiz-message">
+              <strong>Quelle est sa fonction ?</strong>
+            </p>
+          </article>
+        </div>
+
+        <div class="quiz-options two-column-actions" aria-label="Solutions possibles">
+          <button class="quiz-answer" type="button" data-correct="true">
+            Tendre la feuille de digue et maintenir le champ op&#233;ratoire d&#233;gag&#233; pendant le soin.
+          </button>
+          <button class="quiz-answer" type="button">
+            Maintenir la digue sous le point de contact avec moins de traumatisme gingival.
+          </button>
+          <button class="quiz-answer" type="button">
+            V&#233;rifier les contacts, guider la digue en cervical et r&#233;aliser des ligatures.
+          </button>
+          <button class="quiz-answer" type="button">
+            Passer la feuille de digue sous les ailettes du crampon.
+          </button>
+        </div>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="js/pro-quiz-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

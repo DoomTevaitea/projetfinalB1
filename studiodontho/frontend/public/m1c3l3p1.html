@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>m1c3l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");</script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+    <link rel="stylesheet" href="css/decouverte-dental-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Petit test structure dent" data-lesson-page data-lesson-mode="decouverte" data-lesson-world="1" data-lesson-path="3" data-lesson-key="m1c3l3" data-dental-final-test>
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=3" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <a class="top-link next-link recap-finish-link" href="cheminmobil.html?world=1&id=3" data-complete-lesson hidden>Terminer la le&ccedil;on</a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Petit test</p>
+          <h1>Nommer les parties</h1>
+          <p class="course-lead">Observe l'indice et choisis le bon mot.</p>
+          <p class="test-score" id="dental-test-score">0/10 bonnes r&eacute;ponses</p>
+          <section class="dental-test-card" data-test-question><h2>1. La couche dure et blanche qui protege la dent est...</h2><div class="test-options"><button type="button" data-correct="true">L'email</button><button type="button">La pulpe</button><button type="button">La langue</button><button type="button">Le sucre</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>2. Si une carie arrive au centre sensible, elle touche...</h2><div class="test-options"><button type="button">La couronne</button><button type="button" data-correct="true">La pulpe</button><button type="button">Le dentifrice</button><button type="button">Le sourire</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>3. La partie qui tient la dent sous la gencive s'appelle...</h2><div class="test-options"><button type="button">La cuspide</button><button type="button" data-correct="true">La racine</button><button type="button">Le bord incisif</button><button type="button">La plaque</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>4. Une petite pointe sur une molaire ou une premolaire est une...</h2><div class="test-options"><button type="button">Dentine</button><button type="button">Radio</button><button type="button" data-correct="true">Cuspide</button><button type="button">Brosse</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>5. La partie visible de la dent s'appelle...</h2><div class="test-options"><button type="button" data-correct="true">La couronne</button><button type="button">La racine</button><button type="button">La gencive</button><button type="button">La radio</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>6. La dentine se trouve...</h2><div class="test-options"><button type="button">Dans le manche de la brosse</button><button type="button" data-correct="true">Sous l'email</button><button type="button">A l'exterieur de la bouche</button><button type="button">Dans le fauteuil</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>7. La pulpe contient surtout...</h2><div class="test-options"><button type="button">Du dentifrice</button><button type="button">De l'email seulement</button><button type="button" data-correct="true">Les nerfs et les vaisseaux</button><button type="button">Une couronne en plastique</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>8. Le bord incisif sert surtout a...</h2><div class="test-options"><button type="button" data-correct="true">Couper</button><button type="button">Faire une radio</button><button type="button">Tenir le fauteuil</button><button type="button">Remplacer la racine</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>9. Le cingulum est un relief que l'on peut trouver...</h2><div class="test-options"><button type="button">Sur la brosse a dents</button><button type="button" data-correct="true">Derriere certaines dents de devant</button><button type="button">Dans la salive uniquement</button><button type="button">Sous le sol du cabinet</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>10. Pour retenir simplement, la partie cachee qui tient la dent est...</h2><div class="test-options"><button type="button">La couronne</button><button type="button" data-correct="true">La racine</button><button type="button">La cuspide</button><button type="button">La langue</button></div><p class="test-feedback"></p></section>
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>Test reussi. Tu peux revenir au chemin.</p>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

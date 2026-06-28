@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>m1c1l2p3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/lesson-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone lesson-with-media" aria-label="L'unité dentaire">
+      <section class="content">
+        <a class="top-link back-link" href="m1c1l2p2.html" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a class="top-link next-link" href="m1c1l2p4.html" aria-label="Page suivante">
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <span class="page-number">3/4</span>
+
+        <h1 class="lesson-title">L'unité dentaire</h1>
+
+        <div class="lesson-image-wrap">
+          <img class="lesson-image" src="/img/unit_dentaire1.png" alt="Unité dentaire avec instruments" />
+        </div>
+
+        <div class="lesson-scene">
+          <img class="tooth-character" src="/img/neutre.png" alt="" />
+          <span class="bubble-trail" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <article class="speech-bubble">
+            <p>
+              L'unité dentaire regroupe plusieurs outils de soin. Elle donne accès à l'eau,
+              à l'air, à l'aspiration et aux instruments utiles pendant l'examen.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

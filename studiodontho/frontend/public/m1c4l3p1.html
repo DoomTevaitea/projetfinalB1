@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>m1c4l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");</script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+    <link rel="stylesheet" href="css/decouverte-dental-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Petit test caries simples" data-lesson-page data-lesson-mode="decouverte" data-lesson-world="1" data-lesson-path="4" data-lesson-key="m1c4l3" data-dental-final-test>
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=4" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <a class="top-link next-link recap-finish-link" href="cheminmobil.html?world=1&id=4" data-complete-lesson hidden>Terminer la le&ccedil;on</a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Petit test</p>
+          <h1>Rep&eacute;rer le risque</h1>
+          <p class="course-lead">Observe les images : trouve le bon geste ou la bonne observation.</p>
+          <p class="test-score" id="dental-test-score">0/10 bonnes r&eacute;ponses</p>
+          <section class="dental-test-card" data-test-question><div class="tooth-card has-real-image"><img class="caries-photo" src="/img/Molaire_avec_debut_de_carie.png" alt="Molaire avec debut de carie" /><span>Petite tache</span></div><h2>1. Cette dent montre plutot...</h2><div class="test-options"><button type="button" data-correct="true">Un debut possible de carie</button><button type="button">Une dent de sagesse obligatoire</button><button type="button">Une brosse a dents</button><button type="button">Une canine saine</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>2. Le meilleur conseil apres beaucoup de bonbons est...</h2><div class="test-options"><button type="button">Dormir sans se brosser</button><button type="button" data-correct="true">Se brosser les dents et boire de l'eau</button><button type="button">Rajouter du sucre</button><button type="button">Eviter le dentiste toute la vie</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>3. ICDAS sert surtout a dire...</h2><div class="test-options"><button type="button">Le prenom du patient</button><button type="button" data-correct="true">Si la carie est petite ou avancee</button><button type="button">La couleur du fauteuil</button><button type="button">La marque du dentifrice</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>4. SiSta aide surtout a dire...</h2><div class="test-options"><button type="button" data-correct="true">Ou se trouve la carie</button><button type="button">Combien coute la brosse</button><button type="button">Si le patient aime l'eau</button><button type="button">La taille du cabinet</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>5. Qu'est-ce qui augmente le risque de carie ?</h2><div class="test-options"><button type="button" data-correct="true">Grignoter souvent des aliments sucres</button><button type="button">Boire de l'eau</button><button type="button">Se brosser les dents</button><button type="button">Faire un controle dentaire</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><div class="radio-mini has-real-image"><img class="radio-image" src="/img/radio_avec_trou.png" alt="Radio dentaire avec zone sombre entre deux dents" /><small>Zone sombre entre deux dents</small></div><h2>6. Une radio peut aider a voir...</h2><div class="test-options"><button type="button">La couleur du dentifrice</button><button type="button" data-correct="true">Une carie cachee entre deux dents</button><button type="button">Le gout du repas</button><button type="button">La taille de la brosse</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>7. Une carie initiale, c'est plutot...</h2><div class="test-options"><button type="button" data-correct="true">Un debut qu'il faut surveiller et proteger</button><button type="button">Une dent qui disparait</button><button type="button">Une brosse cassee</button><button type="button">Une carie toujours profonde</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>8. Une cavitation signifie qu'il y a...</h2><div class="test-options"><button type="button">Une dent parfaitement intacte</button><button type="button" data-correct="true">Un trou ou une perte de matiere</button><button type="button">Un nouveau dentifrice</button><button type="button">Un miroir dans la bouche</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>9. Le brossage matin et soir sert surtout a...</h2><div class="test-options"><button type="button" data-correct="true">Enlever la plaque dentaire</button><button type="button">Creuser les dents</button><button type="button">Cacher les caries</button><button type="button">Remplacer tous les soins</button></div><p class="test-feedback"></p></section>
+          <section class="dental-test-card" data-test-question><h2>10. Si une dent fait mal souvent, le bon reflexe est...</h2><div class="test-options"><button type="button">Ignorer la douleur</button><button type="button">Manger plus de sucre</button><button type="button" data-correct="true">Demander un avis au dentiste</button><button type="button">Ne plus boire d'eau</button></div><p class="test-feedback"></p></section>
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>Test reussi. Tu peux revenir au chemin.</p>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

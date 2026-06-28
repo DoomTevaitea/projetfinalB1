@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c1l1p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Quiz decouverte outils dentaires professionnels" data-lesson-page data-lesson-mode="professionnel" data-lesson-world="1" data-lesson-path="1" data-lesson-key="1m1c1l1" data-dental-final-test data-discovery-quiz="true">
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=1" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Quiz d&eacute;couverte</p>
+          <h1>Outils de digue</h1>
+          <p class="course-lead">Observe les outils du champ operatoire. Le but est de decouvrir : meme si tu te trompes, la bonne reponse apparait directement.</p>
+          <p class="test-score" id="dental-test-score">0/10 questions vues</p>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/feuille_digue.png" alt="Feuille de digue" /></figure>
+            <h2>1. Quel est cet outil ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">La feuille de digue</button>
+              <button type="button">Le crampon</button>
+              <button type="button">La pince de Brewer</button>
+              <button type="button">Le Wedget</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>2. A quoi sert surtout la feuille de digue ?</h2>
+            <div class="test-options">
+              <button type="button">A mesurer la longueur d'une racine</button>
+              <button type="button" data-correct="true">A isoler la dent de la salive et proteger le patient</button>
+              <button type="button">A polir le composite</button>
+              <button type="button">A prendre une radiographie</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/pinces_ivory_ainsworth.png" alt="Pinces Ivory Ainsworth" /></figure>
+            <h2>3. Quel outil cree les perforations dans la feuille de digue ?</h2>
+            <div class="test-options">
+              <button type="button">Le cadre de Young</button>
+              <button type="button" data-correct="true">Les pinces d'Ivory / d'Ainsworth</button>
+              <button type="button">Le fil dentaire cire</button>
+              <button type="button">La digue liquide</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/guide_perforation.png" alt="Guide de perforation" /></figure>
+            <h2>4. Le guide de perforation aide surtout a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Placer les trous au bon endroit sur la digue</button>
+              <button type="button">Choisir une anesthesie</button>
+              <button type="button">Nettoyer une fraise</button>
+              <button type="button">Remplacer une sonde</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/pince_brewer.png" alt="Pince de Brewer" /></figure>
+            <h2>5. Quel outil permet d'ouvrir le crampon pour le placer ?</h2>
+            <div class="test-options">
+              <button type="button">Les ciseaux</button>
+              <button type="button">Les precelles</button>
+              <button type="button" data-correct="true">La pince de Brewer</button>
+              <button type="button">Le lubrifiant</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/crampon.png" alt="Crampon" /></figure>
+            <h2>6. A quoi sert le crampon ?</h2>
+            <div class="test-options">
+              <button type="button">A secher la dent</button>
+              <button type="button" data-correct="true">A maintenir la digue autour de la dent</button>
+              <button type="button">A couper la feuille</button>
+              <button type="button">A compter les dents</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/cadres_young_nygaard_sauveur.png" alt="Cadres de digue" /></figure>
+            <h2>7. Les cadres de digue servent surtout a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Tendre la feuille et degager le champ operatoire</button>
+              <button type="button">Faire une empreinte</button>
+              <button type="button">Boucher une cavite</button>
+              <button type="button">Pulveriser de l'eau</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/wedget.png" alt="Wedget" /></figure>
+            <h2>8. Quel outil peut maintenir la digue sous le point de contact ?</h2>
+            <div class="test-options">
+              <button type="button">La lampe</button>
+              <button type="button">Le guide de perforation</button>
+              <button type="button" data-correct="true">Le Wedget</button>
+              <button type="button">Le miroir</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/fil_dentaire_cire.png" alt="Fil dentaire cire" /></figure>
+            <h2>9. Le fil dentaire cire peut aider a...</h2>
+            <div class="test-options">
+              <button type="button">Remplacer l'email</button>
+              <button type="button" data-correct="true">Passer la digue en cervical et faire des ligatures</button>
+              <button type="button">Lire une radio</button>
+              <button type="button">Tenir le cadre autour du visage</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <figure class="quiz-tool-image"><img src="/img/digue_liquide.png" alt="Digue liquide" /></figure>
+            <h2>10. La digue liquide sert surtout a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Combler les zones moins hermetiques autour du champ</button>
+              <button type="button">Choisir le numero de dent</button>
+              <button type="button">Agrandir une radio</button>
+              <button type="button">Affuter les instruments</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>Quiz termine. Utilise la fleche retour pour continuer le chemin.</p>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

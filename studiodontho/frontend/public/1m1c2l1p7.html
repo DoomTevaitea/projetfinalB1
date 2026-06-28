@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c2l1p7</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/lesson-mobile.css" />
+    <link rel="stylesheet" href="css/pro-quiz-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone pro-quiz-page pro-quiz-text-page"
+      aria-label="Quiz decouverte dents et comptage"
+      data-pro-quiz
+      data-quiz-mode="professionnel"
+      data-quiz-world="1"
+      data-quiz-path="2"
+      data-quiz-lesson-key="1m1c2l1" data-quiz-complete="false"
+      data-correct-name="L&#x27;email"
+      data-correct-message="Bien joue, l&#x27;email protege la dent."
+      data-wrong-message="Dommage, la bonne reponse est : L&#x27;email."
+    >
+      <section class="content">
+        <a class="top-link back-link" href="1m1c2l1p6.html" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a class="top-link next-link quiz-next-link" id="next-quiz-page" href="1m1c2l1p8.html" aria-label="Continuer" hidden>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <span class="page-number">7/10</span>
+
+        <div class="quiz-scene">
+          <img class="tooth-character" src="/img/neutre.png" alt="" />
+          <span class="bubble-trail" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <article class="speech-bubble quiz-speech">
+            <p id="quiz-message">
+              <strong>Quelle couche tres dure protege la dent ?</strong>
+            </p>
+          </article>
+        </div>
+
+        <div class="quiz-options two-column-actions" aria-label="Solutions possibles">
+          <button class="quiz-answer" type="button" data-correct="true">L'email</button>
+          <button class="quiz-answer" type="button">La dentine</button>
+          <button class="quiz-answer" type="button">La pulpe</button>
+          <button class="quiz-answer" type="button">La salive</button>
+        </div>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="js/pro-quiz-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

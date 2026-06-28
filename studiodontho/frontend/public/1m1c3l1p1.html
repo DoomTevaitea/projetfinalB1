@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c3l1p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Quiz decouverte SiSta ICDAS" data-lesson-page data-lesson-mode="professionnel" data-lesson-world="1" data-lesson-path="3" data-lesson-key="1m1c3l1" data-dental-final-test>
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=3" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <a class="top-link next-link recap-finish-link" href="cheminmobil.html?world=1&id=3" data-complete-lesson hidden>Terminer la le&ccedil;on</a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Quiz d&eacute;couverte</p>
+          <h1>SiSta et ICDAS</h1>
+          <p class="course-lead">Avant la fiche, repere les mots importants : site, stade, scores et logique de diagnostic precoce.</p>
+          <p class="test-score" id="dental-test-score">0/10 bonnes r&eacute;ponses</p>
+          <section class="dental-test-card" data-test-question>
+            <h2>1. Dans SiSta, que signifie "Si" ?</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Site</button>
+                <button type="button">Sillon</button>
+                <button type="button">Signe</button>
+                <button type="button">Sechage</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>2. Dans SiSta, que signifie "Sta" ?</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Stade</button>
+                <button type="button">Statut social</button>
+                <button type="button">Suture</button>
+                <button type="button">Salive</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>3. Le site 1 concerne surtout...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Les puits, sillons, fosses et faces occlusales</button>
+                <button type="button">Les aires de contact uniquement</button>
+                <button type="button">La gencive seulement</button>
+                <button type="button">La pulpe</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Le site 2 correspond aux lesions...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Proximales entre deux dents</button>
+                <button type="button">Sur la langue</button>
+                <button type="button">Dans le manche de la brosse</button>
+                <button type="button">Au centre de la pulpe</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. Le site 3 est situe...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Au tiers cervical proche de la gencive</button>
+                <button type="button">Au sommet des cuspides uniquement</button>
+                <button type="button">Dans le sinus</button>
+                <button type="button">Sur le bord incisif uniquement</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>6. Un stade SiSta 0 correspond a...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Une lesion initiale sans cavitation</button>
+                <button type="button">Une destruction complete</button>
+                <button type="button">Une dent extraite</button>
+                <button type="button">Une molaire saine obligatoire</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. ICDAS sert principalement a...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Detecter et scorer visuellement les lesions carieuses</button>
+                <button type="button">Nommer les instruments</button>
+                <button type="button">Choisir la taille du fauteuil</button>
+                <button type="button">Compter les dents seulement</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. ICDAS 0 correspond a...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Une dent saine</button>
+                <button type="button">Une grande cavite</button>
+                <button type="button">Une ombre dentinaire</button>
+                <button type="button">Une micro-cavite</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. ICDAS 1 est visible surtout...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Apres sechage</button>
+                <button type="button">Uniquement a la radio panoramique</button>
+                <button type="button">Sans examen</button>
+                <button type="button">Apres extraction</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. L objectif commun de SiSta et ICDAS est de...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Diagnostiquer tot pour traiter a minima</button>
+                <button type="button">Fraiser plus largement</button>
+                <button type="button">Ignorer les lesions precoces</button>
+                <button type="button">Remplacer le brossage</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>Quiz reussi. Tu peux terminer la le&ccedil;on.</p>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

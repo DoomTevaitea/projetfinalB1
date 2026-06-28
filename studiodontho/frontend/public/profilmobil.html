@@ -8,649 +8,12 @@
     <script>
       document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
     </script>
-    <link rel="stylesheet" href="mobile-transition.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        width: 100%;
-        min-height: 100%;
-        margin: 0;
-      }
-
-      body {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #d9f0f7;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-
-      .phone {
-        position: relative;
-        width: min(100vw, 201px);
-        height: min(100vh, 395px);
-        overflow: hidden;
-        background: #9edceb;
-        border-radius: 11px;
-        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
-      }
-
-      .profile-hero {
-        position: relative;
-        height: 136px;
-        overflow: hidden;
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 27px 9px 0 11px;
-        background: #2f80ed;
-        border-radius: 0 0 19px 19px;
-      }
-
-      .profile-hero::before,
-      .profile-hero::after {
-        content: "";
-        position: absolute;
-        border: 2px solid rgba(255, 255, 255, 0.08);
-        border-radius: 50%;
-      }
-
-      .profile-hero::before {
-        width: 34px;
-        height: 34px;
-        left: -11px;
-        top: 65px;
-      }
-
-      .profile-hero::after {
-        width: 54px;
-        height: 54px;
-        right: -17px;
-        bottom: -18px;
-      }
-
-      .avatar-block {
-        position: relative;
-        z-index: 1;
-        width: 65px;
-        flex: 0 0 65px;
-        display: grid;
-        justify-items: center;
-        gap: 5px;
-        color: #ffffff;
-      }
-
-      .avatar {
-        position: relative;
-        width: 58px;
-        height: 58px;
-        overflow: hidden;
-        background: #d1d5db;
-        background-position: center;
-        background-size: cover;
-        border-radius: 50%;
-      }
-
-      .avatar.has-image {
-        background-color: #ffffff;
-      }
-
-      .avatar-image {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-      }
-
-      .avatar-image[hidden] {
-        display: none;
-      }
-
-      .avatar-block h1 {
-        max-width: 100%;
-        margin: 0;
-        overflow-wrap: anywhere;
-        font-size: 9.5px;
-        font-weight: 900;
-        line-height: 1.05;
-        text-align: center;
-      }
-
-      .profile-info {
-        position: relative;
-        z-index: 1;
-        flex: 1;
-        min-width: 100;
-        padding-top: 15px;
-        padding-left: 10px;
-        display: grid;
-        gap: 5px;
-        color: #ffffff;
-      }
-
-      .profile-info p {
-        margin: 0;
-        font-size: 8px;
-        font-weight: 800;
-        line-height: 1.1;
-      }
-
-      #profile-mode {
-        font-size: 13px;
-        font-weight: 900;
-      }
-
-      .profile-list {
-        padding: 12px 29px 0;
-      }
-
-      .profile-link {
-        width: 100%;
-        min-height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #082f7f;
-        background: transparent;
-        border: 0;
-        border-bottom: 1px solid rgba(8, 47, 127, 0.14);
-        padding: 0;
-        font-family: inherit;
-        font-size: 8px;
-        font-weight: 900;
-        text-decoration: none;
-        cursor: pointer;
-        text-align: left;
-      }
-
-      #switch-mode-text {
-        line-height: 1.15;
-        white-space: pre-line;
-      }
-
-      .profile-link i {
-        color: #00a6a6;
-        font-size: 10px;
-      }
-
-      .logout-row {
-        width: 100%;
-        min-height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #082f7f;
-        background: transparent;
-        border: 0;
-        padding: 0;
-        font-size: 8px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .logout-icon {
-        width: 20px;
-        height: 20px;
-        display: grid;
-        place-items: center;
-        color: #00a6a6;
-        border: 1px solid rgba(8, 47, 127, 0.22);
-        font-size: 11px;
-      }
-
-      .check-row {
-        display: none;
-      }
-
-      .logout-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 5;
-        display: grid;
-        place-items: center;
-        padding: 14px;
-        background: rgba(0, 0, 0, 0.54);
-      }
-
-      .logout-overlay[hidden] {
-        display: none;
-      }
-
-      .logout-modal {
-        width: 100%;
-        padding: 17px 11px 12px;
-        color: #ffffff;
-        background: #202020;
-        border-radius: 15px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
-        text-align: center;
-      }
-
-      .logout-modal h2 {
-        margin: 0 0 13px;
-        font-size: 13px;
-        font-weight: 900;
-        line-height: 1.25;
-      }
-
-      .guest-warning {
-        margin: 0 0 12px;
-        color: #facc15;
-        font-size: 8px;
-        font-weight: 900;
-        line-height: 1.3;
-      }
-
-      .guest-warning[hidden] {
-        display: none;
-      }
-
-      .logout-actions {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 7px;
-      }
-
-      .logout-actions button {
-        min-height: 30px;
-        border: 0;
-        border-radius: 999px;
-        font-size: 7.5px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .cancel-logout {
-        color: #ffffff;
-        background: #000000;
-      }
-
-      .confirm-logout {
-        color: #111111;
-        background: #f5f5f5;
-      }
-
-      .language-modal h2 {
-        margin-bottom: 14px;
-      }
-
-      .language-actions {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 7px;
-      }
-
-      .language-choice {
-        min-height: 31px;
-        color: #111111;
-        background: #f5f5f5;
-        border: 0;
-        border-radius: 999px;
-        font-size: 7.5px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .language-choice.active {
-        color: #ffffff;
-        background: #00a6a6;
-      }
-
-      .edit-profile-modal h2 {
-        margin-bottom: 12px;
-      }
-
-      .edit-profile-actions {
-        display: grid;
-        gap: 7px;
-      }
-
-      .edit-profile-action {
-        min-height: 30px;
-        display: grid;
-        place-items: center;
-        border: 0;
-        border-radius: 999px;
-        font-family: inherit;
-        font-size: 7.5px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .edit-profile-action[hidden] {
-        display: none;
-      }
-
-      .edit-profile-main {
-        color: #111111;
-        background: #f5f5f5;
-      }
-
-      .edit-profile-close {
-        color: #ffffff;
-        background: #000000;
-      }
-
-      .edit-name-panel {
-        display: grid;
-        gap: 7px;
-        margin-bottom: 8px;
-      }
-
-      .edit-name-panel[hidden] {
-        display: none;
-      }
-
-      .profile-image-input {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .edit-name-panel input {
-        width: 100%;
-        min-height: 30px;
-        padding: 0 10px;
-        color: #082f7f;
-        background: #f5f5f5;
-        border: 0;
-        border-radius: 999px;
-        font-family: inherit;
-        font-size: 7.5px;
-        font-weight: 900;
-        outline: none;
-      }
-
-      .edit-profile-message {
-        min-height: 14px;
-        margin: 0 0 8px;
-        color: #dbeafe;
-        font-size: 7.2px;
-        font-weight: 900;
-        line-height: 1.25;
-        text-align: center;
-      }
-
-      .edit-profile-message.error {
-        color: #fca5a5;
-      }
-
-      .edit-profile-message.success {
-        color: #86efac;
-      }
-
-      .photo-crop-modal h2 {
-        margin-bottom: 12px;
-      }
-
-      .photo-crop-frame {
-        position: relative;
-        width: 58px;
-        height: 58px;
-        margin: 0 auto 9px;
-        overflow: hidden;
-        background: #d1d5db;
-        border: 2px solid rgba(255, 255, 255, 0.42);
-        border-radius: 50%;
-        cursor: grab;
-        touch-action: none;
-      }
-
-      .photo-crop-frame.dragging {
-        cursor: grabbing;
-      }
-
-      .photo-crop-image {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        max-width: none;
-        user-select: none;
-        pointer-events: none;
-        transform-origin: center;
-      }
-
-      .crop-message {
-        min-height: 18px;
-        margin: 0 0 10px;
-        color: #dbeafe;
-        font-size: 7.2px;
-        font-weight: 900;
-        line-height: 1.25;
-        text-align: center;
-      }
-
-      .crop-message.error {
-        color: #fca5a5;
-      }
-
-      .crop-actions {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 7px;
-      }
-
-      .crop-actions button {
-        min-height: 30px;
-        border: 0;
-        border-radius: 999px;
-        font-size: 7.5px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .crop-cancel {
-        color: #ffffff;
-        background: #000000;
-      }
-
-      .crop-confirm {
-        color: #111111;
-        background: #f5f5f5;
-      }
-
-      .security-modal h2 {
-        margin-bottom: 10px;
-      }
-
-      .security-message {
-        min-height: 18px;
-        margin: 0 0 10px;
-        color: #dbeafe;
-        font-size: 7.5px;
-        font-weight: 900;
-        line-height: 1.3;
-      }
-
-      .security-message.error {
-        color: #fca5a5;
-      }
-
-      .security-message.success {
-        color: #86efac;
-      }
-
-      .security-actions {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 7px;
-      }
-
-      .security-actions button {
-        min-height: 30px;
-        border: 0;
-        border-radius: 999px;
-        font-size: 7.5px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .security-cancel {
-        color: #ffffff;
-        background: #000000;
-      }
-
-      .security-reset {
-        color: #111111;
-        background: #f5f5f5;
-      }
-
-      .stats-modal {
-        padding-top: 15px;
-        text-align: left;
-      }
-
-      .stats-modal h2 {
-        margin-bottom: 7px;
-        text-align: center;
-      }
-
-      .stats-mode {
-        margin: 0 0 10px;
-        color: #86efac;
-        font-size: 8px;
-        font-weight: 900;
-        line-height: 1.2;
-        text-align: center;
-      }
-
-      .stats-list {
-        display: grid;
-        gap: 5px;
-      }
-
-      .stats-row {
-        min-height: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        padding: 5px 7px;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 8px;
-      }
-
-      .stats-row span {
-        color: #dbeafe;
-        font-size: 7.2px;
-        font-weight: 900;
-        line-height: 1.15;
-      }
-
-      .stats-row strong {
-        color: #ffffff;
-        font-size: 8px;
-        font-weight: 900;
-        line-height: 1;
-        white-space: nowrap;
-      }
-
-      .stats-section-title {
-        margin: 8px 0 1px;
-        color: #ffffff;
-        font-size: 7.5px;
-        font-weight: 900;
-        line-height: 1.1;
-        text-align: center;
-      }
-
-      .stats-close {
-        width: 100%;
-        min-height: 30px;
-        margin-top: 10px;
-        color: #111111;
-        background: #f5f5f5;
-        border: 0;
-        border-radius: 999px;
-        font-size: 7.5px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .mode-modal h2 {
-        margin-bottom: 12px;
-      }
-
-      .mode-actions {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 7px;
-      }
-
-      .mode-actions button {
-        min-height: 30px;
-        border: 0;
-        border-radius: 999px;
-        font-size: 7.5px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .mode-cancel {
-        color: #ffffff;
-        background: #000000;
-      }
-
-      .mode-confirm {
-        color: #111111;
-        background: #f5f5f5;
-      }
-
-      .footer-nav {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 36px;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        align-items: center;
-        background: #ffffff;
-        border-top: 1px solid #e5e7eb;
-        box-shadow: 0 -4px 10px rgba(8, 47, 127, 0.08);
-      }
-
-      .footer-nav a {
-        height: 100%;
-        display: grid;
-        place-items: center;
-        color: #6b7280;
-        font-size: 12px;
-        text-decoration: none;
-      }
-
-      .footer-nav a.active {
-        color: #00a6a6;
-      }
-
-      .footer-icon-img {
-        width: 14px;
-        height: 14px;
-        object-fit: contain;
-        opacity: 0.78;
-      }
-
-      .footer-nav a.active .footer-icon-img {
-        opacity: 1;
-        filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
-      }
-
-      @media (min-width: 520px) {
-        .phone {
-          transform: scale(1.45);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pages/profilmobil.css" />
   </head>
   <body data-requires-auth="true">
-    <main class="phone" aria-label="Profil mobile Studiodontho">
+    <main class="phone phone--light" aria-label="Profil mobile Studiodontho">
       <header class="profile-hero" aria-label="Profil">
         <div class="avatar-block">
           <div class="avatar" aria-hidden="true">
@@ -719,7 +82,7 @@
           <p class="guest-warning" id="guest-warning" hidden>
             Attention votre compte n'est pas li&eacute;, vous risquez de le perdre.
           </p>
-          <div class="logout-actions">
+          <div class="logout-actions two-column-actions">
             <button class="cancel-logout" type="button" id="logout-cancel">Annuler</button>
             <button class="confirm-logout" type="button" id="logout-confirm">Se deconnecter</button>
           </div>
@@ -762,7 +125,7 @@
       <div class="logout-overlay" id="mode-overlay" hidden>
         <section class="logout-modal mode-modal" aria-label="Confirmation du changement de mode">
           <h2 id="mode-confirm-text">&Ecirc;tes-vous s&ucirc;r de passer en mode ?</h2>
-          <div class="mode-actions">
+          <div class="mode-actions two-column-actions">
             <button class="mode-cancel" type="button" id="mode-cancel">Annuler</button>
             <button class="mode-confirm" type="button" id="mode-confirm">Confirmer</button>
           </div>
@@ -775,7 +138,7 @@
           <p class="security-message" id="security-message">
             Re&ccedil;ois un lien pour changer ton mot de passe.
           </p>
-          <div class="security-actions">
+          <div class="security-actions two-column-actions">
             <button class="security-cancel" type="button" id="security-cancel">Annuler</button>
             <button class="security-reset" type="button" id="security-reset">Changer</button>
           </div>
@@ -785,7 +148,7 @@
       <div class="logout-overlay" id="language-overlay" hidden>
         <section class="logout-modal language-modal" aria-label="Choix de la langue">
           <h2>Choisir sa langue</h2>
-          <div class="language-actions">
+          <div class="language-actions two-column-actions">
             <button class="language-choice" type="button" data-language="fr">Fran&ccedil;ais</button>
             <button class="language-choice" type="button" data-language="en">Anglais</button>
           </div>
@@ -816,7 +179,7 @@
             <img class="photo-crop-image" id="photo-crop-image" alt="" />
           </div>
           <p class="crop-message" id="crop-message">Bouge la photo dans le cercle.</p>
-          <div class="crop-actions">
+          <div class="crop-actions two-column-actions">
             <button class="crop-cancel" type="button" id="crop-cancel">Annuler</button>
             <button class="crop-confirm" type="button" id="crop-confirm">Valider</button>
           </div>
@@ -960,10 +323,10 @@
         const modeStats = getModeStats(profile);
 
         ["decouverte", "professionnel"].forEach((mode) => {
-          const alltimePoints = Number(points[mode]?.alltime);
+          const totalPoints = Number(points[mode]);
 
-          if (Number.isFinite(alltimePoints)) {
-            modeStats[mode].points = alltimePoints;
+          if (Number.isFinite(totalPoints)) {
+            modeStats[mode].points = totalPoints;
           }
         });
 
@@ -971,6 +334,10 @@
       }
 
       function getStoredModeKey(profile) {
+        if (modeLabels[profile?.currentMode]) {
+          return profile.currentMode;
+        }
+
         const mode = localStorage.getItem("studiodonthoMobileMode");
 
         if (modeLabels[mode]) {
@@ -1150,7 +517,8 @@
           prenom: result.user?.prenom || savedProfile.prenom,
           isGuest: Boolean(result.user?.isGuest ?? savedProfile.isGuest),
           profileImage: result.user?.profileImage || photo,
-          mode: getStoredMode()
+          currentMode: result.user?.currentMode || getStoredModeKey(savedProfile),
+          mode: modeLabels[result.user?.currentMode || getStoredModeKey(savedProfile)]
         };
 
         localStorage.setItem(getAvatarKey(nextProfile), nextProfile.profileImage);
@@ -1179,15 +547,31 @@
         }
       }
 
-      function switchMode() {
+      async function switchMode() {
         const savedProfile = JSON.parse(localStorage.getItem("studiodonthoMobileProfile") || "{}");
         const nextMode = getNextMode(savedProfile);
+        const response = await fetch("/api/profile-mode", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({ mode: nextMode })
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(result.message || "Impossible de changer de mode.");
+        }
+
+        const savedMode = result.user?.currentMode || nextMode;
         const nextProfile = {
           ...savedProfile,
-          mode: modeLabels[nextMode]
+          currentMode: savedMode,
+          mode: modeLabels[savedMode]
         };
 
-        localStorage.setItem("studiodonthoMobileMode", nextMode);
+        localStorage.setItem("studiodonthoMobileMode", savedMode);
         saveProfile(nextProfile);
         updateProfile(nextProfile);
       }
@@ -1241,6 +625,7 @@
 
       let activeProfile = {
         mode: getStoredMode(),
+        currentMode: localStorage.getItem("studiodonthoMobileMode") || "decouverte",
         isGuest: false
       };
 
@@ -1267,11 +652,13 @@
           const profile = {
             userId: result.user.id,
             prenom: result.user.prenom,
-            mode: getStoredMode(),
+            currentMode: result.user.currentMode || getStoredModeKey(activeProfile),
+            mode: modeLabels[result.user.currentMode || getStoredModeKey(activeProfile)],
             isGuest: Boolean(result.user.isGuest),
             profileImage: result.user.profileImage || null
           };
 
+          localStorage.setItem("studiodonthoMobileMode", profile.currentMode);
           syncServerPoints(profile, result.user.points);
           saveProfile(profile);
           updateProfile(profile);
@@ -1287,9 +674,21 @@
         modeOverlay.hidden = true;
       });
 
-      modeConfirm.addEventListener("click", () => {
-        switchMode();
-        modeOverlay.hidden = true;
+      modeConfirm.addEventListener("click", async () => {
+        const defaultText = modeConfirm.textContent;
+
+        modeConfirm.disabled = true;
+        modeConfirm.textContent = "Sauvegarde...";
+
+        try {
+          await switchMode();
+          modeOverlay.hidden = true;
+        } catch (error) {
+          modeConfirmText.textContent = error.message || "Impossible de changer de mode.";
+        } finally {
+          modeConfirm.disabled = false;
+          modeConfirm.textContent = defaultText;
+        }
       });
 
       statsOpen.addEventListener("click", () => {
@@ -1426,14 +825,15 @@
             return;
           }
 
-          const nextProfile = {
-            ...savedProfile,
-            userId: result.user?.id || savedProfile.userId,
-            prenom: result.user?.prenom || prenom,
-            isGuest: Boolean(result.user?.isGuest ?? savedProfile.isGuest),
-            profileImage: result.user?.profileImage || savedProfile.profileImage || null,
-            mode: getStoredMode()
-          };
+        const nextProfile = {
+          ...savedProfile,
+          userId: result.user?.id || savedProfile.userId,
+          prenom: result.user?.prenom || prenom,
+          isGuest: Boolean(result.user?.isGuest ?? savedProfile.isGuest),
+          profileImage: result.user?.profileImage || savedProfile.profileImage || null,
+          currentMode: result.user?.currentMode || getStoredModeKey(savedProfile),
+          mode: modeLabels[result.user?.currentMode || getStoredModeKey(savedProfile)]
+        };
 
           saveProfile(nextProfile);
           updateProfile(nextProfile);
@@ -1545,6 +945,6 @@
         closeCropMenu();
       });
     </script>
-    <script src="mobile-transition.js"></script>
+    <script src="js/mobile-transition.js"></script>
   </body>
 </html>

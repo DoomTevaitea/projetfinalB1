@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c2l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone pro-recap-page pdf-course-page dental-final-test-page"
+      aria-label="Test final sur les dents et les numeros dentaires"
+      data-lesson-page
+      data-lesson-mode="professionnel"
+      data-lesson-world="1"
+      data-lesson-path="2"
+      data-lesson-key="1m1c2l3"
+      data-dental-final-test
+    >
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=2" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a
+          class="top-link next-link recap-finish-link"
+          href="cheminmobil.html?world=1&id=2"
+          aria-label="Terminer la lecon"
+          data-complete-lesson
+          hidden
+        >
+          Terminer la le&ccedil;on
+        </a>
+        <span class="page-number">1/1</span>
+
+        <article class="course-sheet">
+          <p class="course-kicker">Le&ccedil;on 3 - test final</p>
+          <h1>Radios, numeros et description</h1>
+          <p class="course-lead">
+            Reponds aux questions pour verifier que tu sais passer d'une observation clinique ou radio
+            a un numero FDI et a une description correcte.
+          </p>
+
+          <p class="test-score" id="dental-test-score">0/10 bonnes r&eacute;ponses</p>
+
+          <section class="dental-test-card" data-test-question>
+            <div class="radio-snapshot" aria-label="Schema radio de molaire mandibulaire gauche">
+              <span>Radio 1</span>
+              <strong>Mandibule gauche</strong>
+              <small>molaire proche de la ligne 6</small>
+            </div>
+            <h2>1. Quel numero FDI correspond a la premiere molaire mandibulaire gauche ?</h2>
+            <div class="test-options">
+              <button type="button">26</button>
+              <button type="button" data-correct="true">36</button>
+              <button type="button">46</button>
+              <button type="button">35</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <div class="radio-snapshot" aria-label="Schema radio de molaire maxillaire gauche">
+              <span>Radio 2</span>
+              <strong>Maxillaire gauche</strong>
+              <small>grosse dent posterieure, position 6</small>
+            </div>
+            <h2>2. Sur la radio, la dent est une premiere molaire maxillaire gauche. Quel est son numero ?</h2>
+            <div class="test-options">
+              <button type="button">16</button>
+              <button type="button">46</button>
+              <button type="button" data-correct="true">26</button>
+              <button type="button">24</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>3. Quelle description correspond a la dent 11 ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Incisive centrale maxillaire droite, avec bord incisif.</button>
+              <button type="button">Premiere molaire mandibulaire droite, avec plusieurs cuspides.</button>
+              <button type="button">Canine maxillaire gauche, avec racine longue.</button>
+              <button type="button">Deuxieme premolaire mandibulaire gauche.</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Le cingulum se trouve surtout sur quelle zone ?</h2>
+            <div class="test-options">
+              <button type="button">La face occlusale des molaires.</button>
+              <button type="button">La racine des premolaires.</button>
+              <button type="button" data-correct="true">La face palatine ou linguale des incisives et canines.</button>
+              <button type="button">Le bord distal des molaires.</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. Quelle structure forme les reliefs de mastication des premolaires et molaires ?</h2>
+            <div class="test-options">
+              <button type="button">Le collet</button>
+              <button type="button" data-correct="true">La cuspide</button>
+              <button type="button">La pulpe</button>
+              <button type="button">Le bord incisif</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <div class="radio-snapshot" aria-label="Schema radio de premolaire mandibulaire droite">
+              <span>Radio 3</span>
+              <strong>Mandibule droite</strong>
+              <small>deuxieme premolaire, position 5</small>
+            </div>
+            <h2>6. Quel numero FDI correspond a une deuxieme premolaire mandibulaire droite ?</h2>
+            <div class="test-options">
+              <button type="button">35</button>
+              <button type="button">44</button>
+              <button type="button" data-correct="true">45</button>
+              <button type="button">25</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. Dans la numerotation FDI, le quadrant 1 correspond a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Maxillaire droit permanent</button>
+              <button type="button">Maxillaire gauche permanent</button>
+              <button type="button">Mandibule gauche permanente</button>
+              <button type="button">Mandibule droite permanente</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. Quel numero FDI correspond a la canine maxillaire gauche ?</h2>
+            <div class="test-options">
+              <button type="button">13</button>
+              <button type="button" data-correct="true">23</button>
+              <button type="button">33</button>
+              <button type="button">43</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. Quelle description correspond le mieux a une molaire ?</h2>
+            <div class="test-options">
+              <button type="button">Dent anterieure avec un bord incisif fin</button>
+              <button type="button">Dent pointue surtout faite pour dechirer</button>
+              <button type="button" data-correct="true">Dent posterieure large avec plusieurs cuspides</button>
+              <button type="button">Dent toujours avec une seule racine droite</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. Quel numero FDI correspond a l'incisive centrale mandibulaire droite ?</h2>
+            <div class="test-options">
+              <button type="button">31</button>
+              <button type="button">42</button>
+              <button type="button" data-correct="true">41</button>
+              <button type="button">21</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>
+            Test reussi. Tu peux maintenant terminer la le&ccedil;on et valider le chemin depuis la carte.
+          </p>
+        </article>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

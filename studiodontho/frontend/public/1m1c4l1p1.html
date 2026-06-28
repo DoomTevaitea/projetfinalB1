@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c4l1p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dam-technique-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone pro-recap-page pdf-course-page dam-technique-page"
+      aria-label="Cours sur les indications de la digue"
+      data-lesson-page
+      data-lesson-mode="professionnel"
+      data-lesson-world="1"
+      data-lesson-path="4"
+      data-lesson-key="1m1c4l1"
+    >
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=4" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <span class="page-number">1/1</span>
+
+        <article class="course-sheet">
+          <p class="course-kicker">Cours professionnel - champ operatoire</p>
+          <h1>Quand poser une digue ?</h1>
+          <p class="course-lead">
+            La digue isole la dent a traiter. Elle sert a travailler sur un site propre, sec et securise,
+            surtout lorsque l'acte depend de l'asepsie ou de l'adhesion.
+          </p>
+
+          <section class="course-section">
+            <h2>1. Pourquoi la poser ?</h2>
+            <ul>
+              <li><strong>Securite du patient :</strong> limite l'ingestion ou l'inhalation d'instruments, produits et debris.</li>
+              <li><strong>Protection des tissus mous :</strong> eloigne langue, joues et levres du champ de travail.</li>
+              <li><strong>Asepsie :</strong> diminue la contamination bacterienne du site.</li>
+              <li><strong>Siccite :</strong> garde la dent au sec, indispensable pour les protocoles adhesifs.</li>
+              <li><strong>Ergonomie :</strong> meilleur contraste visuel, moins d'interruptions, geste plus precis.</li>
+            </ul>
+          </section>
+
+          <section class="course-section">
+            <h2>2. Recommandations importantes</h2>
+            <p>
+              En endodontie, les recommandations demandent l'isolation de la dent par digue avant la preparation
+              canalaire. Elle est presentee comme essentielle pour l'asepsie et la prevention des accidents
+              d'ingestion ou d'inhalation.
+            </p>
+            <p>
+              En odontologie restauratrice, elle est recommandee pour le retrait ou le repolissage d'amalgame
+              avec irrigation et aspiration, et pour les actes adhesifs exigeants comme les scellements de sillons
+              et les collages d'inlays-onlays.
+            </p>
+          </section>
+
+          <section class="course-section">
+            <h2>3. Situations ou elle devient prioritaire</h2>
+            <table class="compact-table" aria-label="Indications de la digue">
+              <thead>
+                <tr>
+                  <th>Situation</th>
+                  <th>Raison</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Endodontie</td>
+                  <td>Asepsie du canal, securite, respect des recommandations.</td>
+                </tr>
+                <tr>
+                  <td>Collage / restauration adhesive</td>
+                  <td>Controle de l'humidite pour optimiser l'adhesion.</td>
+                </tr>
+                <tr>
+                  <td>Retrait d'amalgame</td>
+                  <td>Limiter l'ingestion de particules pendant le fraisage ou polissage.</td>
+                </tr>
+                <tr>
+                  <td>Limite cervicale ou proche de la gencive</td>
+                  <td>Besoin de deflechir les tissus et de voir la limite de la cavite.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="course-section">
+            <h2>4. Avant toute technique</h2>
+            <p>
+              Les etapes communes commencent toujours par un site propre, le passage du fil dentaire, l'essayage
+              du crampon, la perforation de la feuille puis la recherche d'une isolation stable et etanche.
+            </p>
+            <p class="tool-note">
+              Idee cle : on ne pose pas la digue seulement pour "faire joli". On la pose pour securiser, isoler,
+              secher et mieux travailler.
+            </p>
+          </section>
+        </article>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

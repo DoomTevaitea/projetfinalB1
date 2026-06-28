@@ -1,0 +1,11 @@
+.back-button {
+  --auth-back-icon-size: 11px;
+}
+
+.login-panel {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 14px;
+  padding: 34px 10px 10px;
+}

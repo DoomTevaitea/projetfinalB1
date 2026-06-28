@@ -8,257 +8,9 @@
     <script>
       document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "page"}`, "mobile-enter");
     </script>
-    <link rel="stylesheet" href="mobile-transition.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        width: 100%;
-        min-height: 100%;
-        margin: 0;
-      }
-
-      body {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #d9f0f7;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-
-      .phone {
-        position: relative;
-        width: min(100vw, 201px);
-        height: min(100vh, 395px);
-        overflow: hidden;
-        background: #2f80ed;
-        border-radius: 11px;
-        box-shadow: 0 18px 36px rgba(8, 47, 127, 0.3);
-      }
-
-      .map-scroll {
-        position: absolute;
-        inset: 0 0 36px;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        background: #2f80ed;
-      }
-
-      .map-scroll::-webkit-scrollbar {
-        width: 0;
-      }
-
-      .map-header {
-        position: sticky;
-        top: 0;
-        z-index: 4;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: start;
-        gap: 4px 8px;
-        padding: 17px 13px 9px;
-        color: #ffffff;
-        background: #2f80ed;
-      }
-
-      .map-header h1 {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 900;
-        line-height: 1;
-      }
-
-      .map-header p {
-        grid-column: 1;
-        margin: 5px 0 0;
-        color: rgba(255, 255, 255, 0.82);
-        font-size: 7px;
-        font-weight: 900;
-        line-height: 1.2;
-      }
-
-      .path-counter {
-        min-width: 27px;
-        min-height: 18px;
-        display: grid;
-        place-items: center;
-        color: #082f7f;
-        background: #ffffff;
-        border-radius: 999px;
-        box-shadow: 0 3px 0 rgba(8, 47, 127, 0.18);
-        font-size: 8px;
-        font-weight: 900;
-        line-height: 1;
-      }
-
-      .path-map {
-        position: relative;
-        min-height: 610px;
-        padding-bottom: 24px;
-      }
-
-      .route-svg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-
-      .route-shadow {
-        fill: none;
-        stroke: rgba(255, 255, 255, 0.24);
-        stroke-width: 27;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
-      .route-main {
-        fill: none;
-        stroke: #ffffff;
-        stroke-width: 20;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
-      .route-center {
-        fill: none;
-        stroke: #dff4ff;
-        stroke-width: 12;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
-      .map-node {
-        position: absolute;
-        z-index: 2;
-        width: 39px;
-        height: 39px;
-        display: grid;
-        place-items: center;
-        color: #ffffff;
-        border: 3px solid rgba(255, 255, 255, 0.92);
-        border-radius: 50%;
-        box-shadow: 0 6px 0 rgba(8, 47, 127, 0.22), 0 8px 14px rgba(8, 47, 127, 0.2);
-        font-size: 14px;
-        font-weight: 900;
-        text-decoration: none;
-        transform: translate(-50%, -50%);
-      }
-
-      .map-node.done {
-        background: #58cc02;
-      }
-
-      .map-node.available {
-        background: #ffd43b;
-        color: #8a5a00;
-      }
-
-      .map-node.locked {
-        color: #ffffff;
-        background: #aeb8c5;
-        cursor: not-allowed;
-      }
-
-      .map-node.locked i {
-        font-size: 13px;
-      }
-
-      .node-label {
-        position: absolute;
-        z-index: 3;
-        min-width: 52px;
-        padding: 4px 6px;
-        color: #082f7f;
-        background: rgba(255, 255, 255, 0.93);
-        border-radius: 999px;
-        box-shadow: 0 4px 10px rgba(8, 47, 127, 0.12);
-        font-size: 6.5px;
-        font-weight: 900;
-        line-height: 1;
-        text-align: center;
-        transform: translate(-50%, -50%);
-      }
-
-      .world-button {
-        position: absolute;
-        bottom: 16px;
-        z-index: 3;
-        min-width: 62px;
-        min-height: 25px;
-        display: grid;
-        place-items: center;
-        color: #082f7f;
-        background: #ffffff;
-        border: 2px solid rgba(255, 255, 255, 0.88);
-        border-radius: 9px;
-        box-shadow: 0 4px 0 rgba(8, 47, 127, 0.22), 0 8px 13px rgba(8, 47, 127, 0.18);
-        font-size: 8px;
-        font-weight: 900;
-        text-decoration: none;
-      }
-
-      .world-button.previous {
-        left: 13px;
-      }
-
-      .world-button.next {
-        right: 13px;
-      }
-
-      .world-button[hidden] {
-        display: none;
-      }
-
-      .footer-nav {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 36px;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        align-items: center;
-        background: #ffffff;
-        border-top: 1px solid #e5e7eb;
-        box-shadow: 0 -4px 10px rgba(8, 47, 127, 0.08);
-      }
-
-      .footer-nav a {
-        height: 100%;
-        display: grid;
-        place-items: center;
-        color: #4b5563;
-        font-size: 12px;
-        text-decoration: none;
-      }
-
-      .footer-nav a.active {
-        color: #00a6a6;
-      }
-
-      .footer-icon-img {
-        width: 14px;
-        height: 14px;
-        object-fit: contain;
-        opacity: 0.78;
-      }
-
-      .footer-nav a.active .footer-icon-img {
-        opacity: 1;
-        filter: brightness(0) saturate(100%) invert(42%) sepia(95%) saturate(851%) hue-rotate(142deg) brightness(91%) contrast(101%);
-      }
-
-      @media (min-width: 520px) {
-        .phone {
-          transform: scale(1.45);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pages/entrainementmobil.css" />
   </head>
   <body data-requires-auth="true">
     <main class="phone" aria-label="Entrainement mobile Studiodontho">
@@ -443,28 +195,6 @@
         return new Set(completedPaths.filter((pathNumber) => pathNumber >= 1 && pathNumber <= count)).size;
       }
 
-      async function syncWorldBonus(completedPaths, count) {
-        if (getCompletedCount(completedPaths, count) < count) {
-          return;
-        }
-
-        try {
-          await fetch("/api/path-progress/sync-world", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            credentials: "same-origin",
-            body: JSON.stringify({
-              mode: getCurrentMode(),
-              world: getCurrentWorld(),
-              completedPaths
-            })
-          });
-        } catch (error) {
-        }
-      }
-
       function getFirstAvailablePath(completedPaths, count) {
         for (let index = 1; index <= count; index += 1) {
           if (!completedPaths.includes(index)) {
@@ -523,7 +253,6 @@
         worldTitle.textContent = getWorldTitle(mode, currentWorld, worldMap.title);
         mapMode.textContent = customTitle ? `${worldMap.title} - ${modeLabels[mode]}` : modeLabels[mode];
         pathCounter.textContent = `${completedCount}/${count}`;
-        syncWorldBonus(completedPaths, count);
         routeShadow.setAttribute("d", worldMap.route);
         routeMain.setAttribute("d", worldMap.route);
         routeCenter.setAttribute("d", worldMap.route);
@@ -560,6 +289,6 @@
       renderPaths();
       loadServerProgress().then(renderPaths);
     </script>
-    <script src="mobile-transition.js"></script>
+    <script src="js/mobile-transition.js"></script>
   </body>
 </html>

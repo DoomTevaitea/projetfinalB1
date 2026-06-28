@@ -1,0 +1,246 @@
+.dental-final-test-page .course-sheet {
+  padding-bottom: 14px;
+}
+
+.test-score {
+  position: sticky;
+  top: -1px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-height: 18px;
+  margin: 0 0 8px;
+  color: #ffffff;
+  background: #58cc02;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(8, 47, 127, 0.14);
+  font-size: 7px;
+  font-weight: 1000;
+}
+
+.dental-test-card {
+  padding: 8px;
+  margin-top: 8px;
+  background: #f4fbff;
+  border: 1px solid #d8e8f5;
+  border-radius: 7px;
+}
+
+.dental-test-card.is-complete {
+  border-color: rgba(88, 204, 2, 0.55);
+  background: #f2ffe9;
+}
+
+.dental-test-card.is-answered {
+  border-color: rgba(0, 166, 166, 0.42);
+  background: #eefbff;
+}
+
+.dental-test-card.is-review-correct {
+  border-color: rgba(88, 204, 2, 0.65);
+  background: #f2ffe9;
+}
+
+.dental-test-card.is-review-wrong {
+  border-color: rgba(220, 38, 38, 0.42);
+  background: #fff4f4;
+}
+
+.dental-final-test-page[data-review-mode="discovery"] .dental-test-card.is-answered {
+  border-color: #d8e8f5;
+}
+
+.dental-test-card h2 {
+  margin: 6px 0 7px;
+  color: #082f7f;
+  font-size: 7.7px;
+  font-weight: 1000;
+  line-height: 1.22;
+}
+
+.radio-snapshot {
+  display: grid;
+  gap: 2px;
+  padding: 8px 9px;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%),
+    #26364d;
+  border: 2px solid #d8e8f5;
+  border-radius: 8px;
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.11);
+}
+
+.radio-snapshot span {
+  color: #aee6ff;
+  font-size: 6px;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.radio-snapshot strong {
+  font-size: 8px;
+  font-weight: 1000;
+  line-height: 1.1;
+}
+
+.radio-snapshot small {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 6.2px;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+.test-options {
+  display: grid;
+  gap: 6px;
+}
+
+.test-options button {
+  min-height: 27px;
+  padding: 5px 7px;
+  color: #082f7f;
+  background: #ffffff;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 3px 0 rgba(8, 47, 127, 0.16);
+  font-size: 6.8px;
+  font-weight: 900;
+  line-height: 1.18;
+  text-align: left;
+}
+
+.test-options button.is-correct {
+  color: #ffffff;
+  background: #58cc02;
+  box-shadow: 0 3px 0 #46a302;
+}
+
+.test-options button.is-wrong {
+  color: #ffffff;
+  background: #dc2626;
+  box-shadow: 0 3px 0 #991b1b;
+}
+
+.test-options button.is-selected:not(.is-correct):not(.is-wrong) {
+  color: #082f7f;
+  background: #dff4ff;
+  box-shadow: 0 3px 0 rgba(8, 47, 127, 0.18);
+}
+
+.test-options button:disabled {
+  cursor: default;
+}
+
+.quiz-tool-image {
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  margin: 0 0 7px;
+  padding: 6px;
+  background: #ffffff;
+  border: 1px solid #d8e8f5;
+  border-radius: 8px;
+}
+
+.quiz-tool-image img {
+  width: 100%;
+  max-width: 78px;
+  max-height: 68px;
+  display: block;
+  object-fit: contain;
+}
+
+.test-feedback {
+  min-height: 12px;
+  margin: 6px 0 0;
+  color: #31527f;
+  font-size: 6.6px;
+  font-weight: 900;
+  line-height: 1.24;
+}
+
+.dental-test-card.is-complete .test-feedback {
+  color: #2e7d12;
+}
+
+.dental-test-success {
+  padding: 0;
+  background: transparent;
+  border-left: 0;
+  text-align: center;
+}
+
+.dental-test-success.is-accepted,
+.dental-test-success.is-refused {
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 7px;
+  font-weight: 1000;
+  line-height: 1.25;
+}
+
+.dental-test-success.is-accepted {
+  color: #24760f;
+  background: #f2ffe9;
+}
+
+.dental-test-success.is-refused {
+  color: #991b1b;
+  background: #fff4f4;
+}
+
+.dental-test-actions {
+  display: grid;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.dental-test-check-button,
+.dental-test-retry-button {
+  min-height: 31px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 7.4px;
+  font-weight: 1000;
+  line-height: 1.1;
+}
+
+.dental-test-check-button {
+  color: #ffffff;
+  background: #58cc02;
+  box-shadow: 0 4px 0 #46a302;
+}
+
+.dental-test-check-button:disabled {
+  color: #ffffff;
+  background: #aeb8c5;
+  box-shadow: 0 4px 0 #8d98a6;
+}
+
+.dental-test-retry-button {
+  color: #082f7f;
+  background: #ffffff;
+  box-shadow: 0 4px 0 rgba(8, 47, 127, 0.16);
+}
+
+.dental-test-finish-button {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 31px;
+  padding: 0 10px;
+  color: #ffffff;
+  background: #58cc02;
+  border-radius: 8px;
+  box-shadow: 0 4px 0 #46a302;
+  font-size: 7.4px;
+  font-weight: 1000;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+.dental-test-finish-button.saving {
+  opacity: 0.78;
+  pointer-events: none;
+}

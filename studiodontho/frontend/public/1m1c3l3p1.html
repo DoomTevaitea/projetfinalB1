@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c3l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main class="phone pro-recap-page pdf-course-page dental-final-test-page" aria-label="Petit test SiSta ICDAS" data-lesson-page data-lesson-mode="professionnel" data-lesson-world="1" data-lesson-path="3" data-lesson-key="1m1c3l3" data-dental-final-test>
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=3" aria-label="Retour"><i class="fa-solid fa-arrow-left"></i></a>
+        <a class="top-link next-link recap-finish-link" href="cheminmobil.html?world=1&id=3" data-complete-lesson hidden>Terminer la le&ccedil;on</a>
+        <span class="page-number">1/1</span>
+        <article class="course-sheet">
+          <p class="course-kicker">Petit test</p>
+          <h1>Appliquer SiSta et ICDAS</h1>
+          <p class="course-lead">Lis chaque situation clinique courte puis choisis la classification ou la decision la plus adaptee.</p>
+          <p class="test-score" id="dental-test-score">0/10 bonnes r&eacute;ponses</p>
+          <section class="dental-test-card" data-test-question>
+            <h2>1. Une tache blanche visible seulement apres sechage correspond plutot a...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">ICDAS 1</button>
+                <button type="button">ICDAS 4</button>
+                <button type="button">SiSta site 3</button>
+                <button type="button">Stade 4</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>2. Un changement visuel distinct sans sechage correspond a...</h2>
+            <div class="test-options">
+                <button type="button">ICDAS 0</button>
+                <button type="button" data-correct="true">ICDAS 2</button>
+                <button type="button">ICDAS 6</button>
+                <button type="button">Stade 0</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>3. Une micro-cavite de l email sans dentine visible correspond a...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">ICDAS 3</button>
+                <button type="button">ICDAS 5</button>
+                <button type="button">Site 2</button>
+                <button type="button">Stade 4</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Une ombre dentinaire sous l email evoque...</h2>
+            <div class="test-options">
+                <button type="button">ICDAS 1</button>
+                <button type="button" data-correct="true">ICDAS 4</button>
+                <button type="button">ICDAS 0</button>
+                <button type="button">Site 1</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. Une cavite avec dentine visible correspond surtout a...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">ICDAS 5</button>
+                <button type="button">ICDAS 2</button>
+                <button type="button">Stade 0</button>
+                <button type="button">Site 3</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>6. Une cavite tres etendue avec perte de structure correspond a...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">ICDAS 6</button>
+                <button type="button">ICDAS 1</button>
+                <button type="button">Site 2</button>
+                <button type="button">Stade 1 uniquement</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. Une lesion dans un sillon occlusal est classee SiSta...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Site 1</button>
+                <button type="button">Site 2</button>
+                <button type="button">Site 3</button>
+                <button type="button">ICDAS 0</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. Une lesion au niveau du point de contact entre deux dents est...</h2>
+            <div class="test-options">
+                <button type="button">Site 1</button>
+                <button type="button" data-correct="true">Site 2</button>
+                <button type="button">Site 3</button>
+                <button type="button">ICDAS 6</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. Une lesion proche de la gencive au tiers cervical correspond a...</h2>
+            <div class="test-options">
+                <button type="button">Site 1</button>
+                <button type="button">Site 2</button>
+                <button type="button" data-correct="true">Site 3</button>
+                <button type="button">ICDAS 1</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. Pour une lesion initiale sans cavitation, l option logique est...</h2>
+            <div class="test-options">
+                <button type="button" data-correct="true">Prevention, facteurs de risque et remineralisation</button>
+                <button type="button">Recouvrement total immediat</button>
+                <button type="button">Extraction systematique</button>
+                <button type="button">Ignorer la lesion</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>Test reussi. Tu peux terminer la le&ccedil;on.</p>
+        </article>
+      </section>
+      <footer class="footer-nav" aria-label="Navigation mobile"><a class="active" href="entrainementmobil.html" aria-label="Entrainement"><img class="footer-icon-img" src="/img/entrainement.png" alt="" /></a><a href="coursmobil.html" aria-label="Cours"><img class="footer-icon-img" src="/img/cours.png" alt="" /></a><a href="profilmobil.html" aria-label="Profil"><i class="fa-solid fa-user"></i></a><a href="classementmobil.html" aria-label="Classement"><img class="footer-icon-img" src="/img/classement.png" alt="" /></a><a href="#" aria-label="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></a></footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

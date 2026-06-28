@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c5l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone pro-recap-page pdf-course-page dental-final-test-page"
+      aria-label="Test final du monde 1 professionnel"
+      data-lesson-page
+      data-lesson-mode="professionnel"
+      data-lesson-world="1"
+      data-lesson-path="5"
+      data-lesson-key="1m1c5l3"
+      data-dental-final-test
+    >
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=5" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a
+          class="top-link next-link recap-finish-link"
+          href="cheminmobil.html?world=1&id=5"
+          aria-label="Terminer la lecon"
+          data-complete-lesson
+          hidden
+        >
+          Terminer la le&ccedil;on
+        </a>
+        <span class="page-number">1/1</span>
+
+        <article class="course-sheet">
+          <p class="course-kicker">Monde 1 - test final</p>
+          <h1>Validation du monde</h1>
+          <p class="course-lead">
+            Reponds aux 20 questions. Le bouton de fin apparait seulement quand toutes les reponses sont justes.
+          </p>
+
+          <p class="test-score" id="dental-test-score">0/20 bonnes r&eacute;ponses</p>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>1. La digue sert principalement a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Isoler la dent et garder un champ sec</button>
+              <button type="button">Remplacer l'anesthesie</button>
+              <button type="button">Mesurer la tension du patient</button>
+              <button type="button">Polir une restauration</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>2. Le crampon permet surtout de...</h2>
+            <div class="test-options">
+              <button type="button">Secher l'email</button>
+              <button type="button" data-correct="true">Maintenir la digue sur la dent</button>
+              <button type="button">Numeroter les dents</button>
+              <button type="button">Photopolymeriser le composite</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>3. Un crampon a ailettes aide notamment a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Emporter la digue avec le crampon pendant la pose</button>
+              <button type="button">Faire une radio retro-coronaire</button>
+              <button type="button">Retirer le tartre sous-gingival</button>
+              <button type="button">Determiner le score ICDAS</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Le perforateur de digue sert a...</h2>
+            <div class="test-options">
+              <button type="button">Decouper une carie</button>
+              <button type="button">Maintenir la bouche ouverte</button>
+              <button type="button" data-correct="true">Creer les trous correspondant aux dents a isoler</button>
+              <button type="button">Coller un bracket orthodontique</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. La pince a crampon sert a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Ecarter et placer le crampon sur la dent</button>
+              <button type="button">Injecter un anesthesique</button>
+              <button type="button">Mesurer la profondeur d'une carie</button>
+              <button type="button">Faire briller le composite</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>6. Les incisives servent surtout a...</h2>
+            <div class="test-options">
+              <button type="button">Broyer les aliments</button>
+              <button type="button" data-correct="true">Couper les aliments</button>
+              <button type="button">Dechirer les aliments</button>
+              <button type="button">Tenir la digue</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. Les canines servent surtout a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Dechirer les aliments</button>
+              <button type="button">Faire l'empreinte numerique</button>
+              <button type="button">Broyer comme les molaires</button>
+              <button type="button">Former la pulpe</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. Les molaires servent surtout a...</h2>
+            <div class="test-options">
+              <button type="button">Couper net les aliments</button>
+              <button type="button">Dechirer seulement</button>
+              <button type="button" data-correct="true">Broyer les aliments</button>
+              <button type="button">Remplacer les premolaires</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. En numerotation FDI, le quadrant 1 correspond...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Au maxillaire droit permanent</button>
+              <button type="button">Au maxillaire gauche permanent</button>
+              <button type="button">A la mandibule gauche permanente</button>
+              <button type="button">A la mandibule droite permanente</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. En denture permanente, la dent 36 est...</h2>
+            <div class="test-options">
+              <button type="button">Une incisive superieure droite</button>
+              <button type="button" data-correct="true">Une premiere molaire mandibulaire gauche</button>
+              <button type="button">Une canine mandibulaire droite</button>
+              <button type="button">Une premolaire maxillaire gauche</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>11. La couronne d'une dent correspond a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">La partie visible de la dent</button>
+              <button type="button">La partie cachee dans l'os</button>
+              <button type="button">Le centre avec les nerfs</button>
+              <button type="button">La gencive autour de la dent</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>12. La pulpe contient principalement...</h2>
+            <div class="test-options">
+              <button type="button">De l'email uniquement</button>
+              <button type="button">Du composite</button>
+              <button type="button" data-correct="true">Des nerfs et des vaisseaux</button>
+              <button type="button">Une feuille de digue</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>13. SiSta signifie...</h2>
+            <div class="test-options">
+              <button type="button">Sillon et salive</button>
+              <button type="button" data-correct="true">Site et stade</button>
+              <button type="button">Soin et tartre</button>
+              <button type="button">Sonde et table</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>14. Le site 2 SiSta correspond aux lesions...</h2>
+            <div class="test-options">
+              <button type="button">Occlusales uniquement</button>
+              <button type="button" data-correct="true">Proximales, entre deux dents</button>
+              <button type="button">Cervicales uniquement</button>
+              <button type="button">Pulpaires uniquement</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>15. ICDAS 0 correspond a...</h2>
+            <div class="test-options">
+              <button type="button">Une cavite etendue</button>
+              <button type="button">Une ombre dentinaire</button>
+              <button type="button" data-correct="true">Une surface saine sans changement visible</button>
+              <button type="button">Une micro-cavite amelaire</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>16. ICDAS 5 correspond a...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Une cavite nette avec dentine visible</button>
+              <button type="button">Une dent saine</button>
+              <button type="button">Un changement visible seulement apres sechage</button>
+              <button type="button">Une lesion sans cavitation</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>17. Une lesion initiale sans cavitation se traite d'abord par...</h2>
+            <div class="test-options">
+              <button type="button">Extraction systematique</button>
+              <button type="button">Recouvrement total immediat</button>
+              <button type="button" data-correct="true">Prevention, remineralisation et controle du risque</button>
+              <button type="button">Aucune surveillance</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>18. La digue est particulierement recommandee pour...</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Les actes adhesifs et l'endodontie</button>
+              <button type="button">Choisir la couleur de la blouse</button>
+              <button type="button">Remplacer une radiographie</button>
+              <button type="button">Mesurer le poids du patient</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>19. Dans un ordre commun de pose de digue, on commence par...</h2>
+            <div class="test-options">
+              <button type="button">Retirer la digue avant de choisir le crampon</button>
+              <button type="button" data-correct="true">Verifier le point de contact, choisir la dent et le materiel</button>
+              <button type="button">Polir la restauration finale</button>
+              <button type="button">Noter directement ICDAS 6</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>20. La technique parachute correspond a...</h2>
+            <div class="test-options">
+              <button type="button">Poser seulement le cadre sans feuille</button>
+              <button type="button">Mettre la digue apres la restauration</button>
+              <button type="button" data-correct="true">Placer digue et crampon ensemble sur la dent</button>
+              <button type="button">Utiliser uniquement une digue liquide</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>
+            Test reussi. Tu peux terminer la le&ccedil;on puis valider le monde.
+          </p>
+        </article>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>

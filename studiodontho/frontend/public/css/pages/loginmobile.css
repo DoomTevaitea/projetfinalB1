@@ -1,0 +1,113 @@
+.status-bar {
+  height: 18px;
+}
+
+.login-panel {
+  height: calc(100% - 18px);
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  gap: 7px;
+  padding: 15px 10px 10px;
+}
+
+.mobile-header {
+  gap: 4px;
+}
+
+.mobile-header h1 {
+  margin-bottom: 3px;
+}
+
+.choice-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.choice-button {
+  min-height: 28px;
+  padding: 5px 3px;
+  color: #082f7f;
+  background: #ffffff;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 0 rgba(8, 47, 127, 0.14);
+  font-size: 7.2px;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.choice-button.active {
+  color: #ffffff;
+  background: #00a6a6;
+  box-shadow: 0 2px 0 #008585;
+}
+
+.auth-message {
+  --auth-message-min-height: 14px;
+  --auth-message-size: 7px;
+}
+
+.auth-content {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 9px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(8, 47, 127, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(8, 47, 127, 0.12);
+}
+
+.auth-content::-webkit-scrollbar {
+  width: 0;
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: grid;
+}
+
+.auth-form h2 {
+  margin: 0 0 8px;
+  color: #082f7f;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.12;
+}
+
+label {
+  --auth-label-margin-bottom: 3px;
+  --auth-label-size: 7.5px;
+}
+
+input {
+  --auth-input-min-height: 28px;
+  --auth-input-margin-bottom: 7px;
+}
+
+.password-field {
+  --auth-password-margin-bottom: 7px;
+}
+
+.submit-button {
+  --auth-action-min-height: 31px;
+  --auth-action-margin-top: 2px;
+}
+
+.link-button {
+  --auth-action-min-height: 25px;
+  --auth-action-margin-top: 5px;
+  font-size: 7.5px;
+}
+
+.form-help,
+.guest-panel p {
+  margin: 0 0 9px;
+  color: #213c61;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1.35;
+}

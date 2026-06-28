@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1m1c1l3p1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script>
+      document.documentElement.classList.add(`mobile-transition-${sessionStorage.getItem("studiodonthoTransitionMode") || "content"}`, "mobile-enter");
+    </script>
+    <link rel="stylesheet" href="css/mobile-core.css" />
+    <link rel="stylesheet" href="css/mobile-transition.css" />
+    <link rel="stylesheet" href="css/pro-recap-mobile.css" />
+    <link rel="stylesheet" href="css/dental-final-test-mobile.css" />
+  </head>
+  <body data-requires-auth="true">
+    <main
+      class="phone pro-recap-page pdf-course-page dental-final-test-page"
+      aria-label="Test rapide sur les outils de digue"
+      data-lesson-page
+      data-lesson-mode="professionnel"
+      data-lesson-world="1"
+      data-lesson-path="1"
+      data-lesson-key="1m1c1l3"
+      data-dental-final-test
+    >
+      <section class="content">
+        <a class="top-link back-link" href="cheminmobil.html?world=1&id=1" aria-label="Retour">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a
+          class="top-link next-link recap-finish-link"
+          href="cheminmobil.html?world=1&id=1"
+          aria-label="Terminer la lecon"
+          data-complete-lesson
+          hidden
+        >
+          Terminer la le&ccedil;on
+        </a>
+        <span class="page-number">1/1</span>
+
+        <article class="course-sheet">
+          <p class="course-kicker">Test rapide - plateau technique</p>
+          <h1>Outils de digue</h1>
+          <p class="course-lead">
+            Reponds aux questions pour verifier que tu sais relier les outils de digue a leur role clinique.
+          </p>
+
+          <p class="test-score" id="dental-test-score">0/10 bonnes r&eacute;ponses</p>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>1. Qui a invente la digue dentaire en 1864 ?</h2>
+            <div class="test-options">
+              <button type="button">D. Palmer</button>
+              <button type="button" data-correct="true">S. C. Barnum</button>
+              <button type="button">S. S. White</button>
+              <button type="button">Nygaard-Ostby</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>2. Quel outil sert a creer des trous nets dans la feuille de digue ?</h2>
+            <div class="test-options">
+              <button type="button">La pince de Brewer</button>
+              <button type="button">Le cadre de Young</button>
+              <button type="button" data-correct="true">La pince a perforer</button>
+              <button type="button">Le Wedget</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>3. A quoi sert la pince de Brewer ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Ecarter les mors du crampon pour le placer autour de la dent.</button>
+              <button type="button">Faire glisser la digue sous les points de contact.</button>
+              <button type="button">Decouper la feuille de digue.</button>
+              <button type="button">Boucher une zone non hermetique.</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>4. Quel type de crampon est moins volumineux et laisse plus de place au matri&ccedil;age ?</h2>
+            <div class="test-options">
+              <button type="button">Crampon a ailettes</button>
+              <button type="button">Crampon papillon</button>
+              <button type="button" data-correct="true">Crampon sans ailettes</button>
+              <button type="button">Crampon a mors plats uniquement</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>5. Quel materiau sert au calfatage des zones moins hermetiques ?</h2>
+            <div class="test-options">
+              <button type="button">Le fil dentaire cire</button>
+              <button type="button" data-correct="true">La digue liquide</button>
+              <button type="button">La pince d'Ainsworth</button>
+              <button type="button">Le cadre de Sauveur</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>6. Quel element permet de tendre la feuille de digue autour de la bouche ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Le cadre a digue</button>
+              <button type="button">La sonde droite</button>
+              <button type="button">Le crampon seul</button>
+              <button type="button">La turbine</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>7. A quoi sert le fil dentaire pendant la pose de digue ?</h2>
+            <div class="test-options">
+              <button type="button">A coller la digue sur la joue</button>
+              <button type="button" data-correct="true">A verifier les contacts et aider le passage interdentaire</button>
+              <button type="button">A remplacer le crampon</button>
+              <button type="button">A couper la feuille</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>8. Pourquoi attache-t-on souvent le crampon avec un fil de securite ?</h2>
+            <div class="test-options">
+              <button type="button">Pour le rendre plus joli</button>
+              <button type="button">Pour mesurer la dent</button>
+              <button type="button" data-correct="true">Pour eviter son ingestion ou inhalation s'il se detache</button>
+              <button type="button">Pour remplacer la digue liquide</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>9. Quel role principal a le crampon ?</h2>
+            <div class="test-options">
+              <button type="button" data-correct="true">Stabiliser la digue autour de la dent</button>
+              <button type="button">Polir le composite</button>
+              <button type="button">Faire une radio</button>
+              <button type="button">Aspirer la salive</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <section class="dental-test-card" data-test-question>
+            <h2>10. Quel est l'objectif principal de la digue pendant un soin ?</h2>
+            <div class="test-options">
+              <button type="button">Colorer les dents</button>
+              <button type="button" data-correct="true">Isoler la dent, proteger le patient et garder le champ sec</button>
+              <button type="button">Remplacer l'anesthesie</button>
+              <button type="button">Augmenter la douleur</button>
+            </div>
+            <p class="test-feedback"></p>
+          </section>
+
+          <p class="tool-note dental-test-success" id="dental-test-success" hidden>
+            Test reussi. Tu peux terminer la le&ccedil;on et revenir au chemin.
+          </p>
+        </article>
+      </section>
+
+      <footer class="footer-nav" aria-label="Navigation mobile">
+        <a class="active" href="entrainementmobil.html" aria-label="Entrainement">
+          <img class="footer-icon-img" src="/img/entrainement.png" alt="" />
+        </a>
+        <a href="coursmobil.html" aria-label="Cours">
+          <img class="footer-icon-img" src="/img/cours.png" alt="" />
+        </a>
+        <a href="profilmobil.html" aria-label="Profil">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="classementmobil.html" aria-label="Classement">
+          <img class="footer-icon-img" src="/img/classement.png" alt="" />
+        </a>
+        <a href="#" aria-label="Menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+      </footer>
+    </main>
+
+    <script src="js/dental-final-test-mobile.js"></script>
+    <script src="js/path-progress-mobile.js"></script>
+    <script src="js/mobile-transition.js"></script>
+  </body>
+</html>
