@@ -21,7 +21,7 @@ if (quizPage) {
       if (nextPageLink.classList.contains("quiz-finish-link")) {
         nextPageLink.classList.remove("top-link", "next-link", "quiz-next-link");
         nextPageLink.classList.add("quiz-final-button");
-        nextPageLink.textContent = "Terminer la lecon";
+        nextPageLink.textContent = "Retour au chemin";
         document.querySelector(".quiz-options")?.after(nextPageLink);
       }
 

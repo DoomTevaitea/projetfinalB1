@@ -177,7 +177,7 @@ if (finishLessonLink) {
     }
 
     if (!isTestPassed()) {
-      showProgressMessage("Reussis le test avant de terminer cette lecon.");
+      showProgressMessage("Reussis le test avant de valider ce chemin.");
       return;
     }
 
@@ -187,7 +187,7 @@ if (finishLessonLink) {
       await syncCompletedPath();
     } catch (error) {
       finishLessonLink.classList.remove("saving");
-      showProgressMessage(error.message || "Impossible de terminer cette lecon.");
+      showProgressMessage(error.message || "Impossible de valider ce chemin.");
       return;
     }
 

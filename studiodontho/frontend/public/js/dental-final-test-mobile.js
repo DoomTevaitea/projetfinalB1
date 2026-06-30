@@ -48,7 +48,7 @@
     }
 
     finishLink.hidden = false;
-    finishLink.textContent = finishLink.dataset.completionLabel || "Terminer la le\u00e7on";
+    finishLink.textContent = finishLink.dataset.completionLabel || "Chemin suivant";
 
     if (!successMessage) {
       return;

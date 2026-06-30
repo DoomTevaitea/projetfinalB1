@@ -103,19 +103,11 @@
               <strong id="stats-points">0</strong>
             </div>
           </div>
-          <p class="stats-section-title">Cas pratiques faits</p>
+          <p class="stats-section-title">Progression des chemins</p>
           <div class="stats-list">
             <div class="stats-row">
-              <span>Facile</span>
-              <strong id="stats-easy">0/10</strong>
-            </div>
-            <div class="stats-row">
-              <span>Normal</span>
-              <strong id="stats-normal">0/10</strong>
-            </div>
-            <div class="stats-row">
-              <span>Difficile</span>
-              <strong id="stats-hard">0/10</strong>
+              <span>Chemins effectues</span>
+              <strong id="stats-paths">0/15</strong>
             </div>
           </div>
           <button class="stats-close" type="button" id="stats-close">Fermer</button>
@@ -204,19 +196,17 @@
         decouverte: {
           level: 1,
           points: 0,
-          easyCasesDone: 0,
-          normalCasesDone: 0,
-          hardCasesDone: 0
+          completedPathsDone: 0
         },
         professionnel: {
           level: 1,
           points: 0,
-          easyCasesDone: 0,
-          normalCasesDone: 0,
-          hardCasesDone: 0
+          completedPathsDone: 0
         }
       };
-      const practiceCasesTotal = 10;
+      const statsWorldCount = 3;
+      const pathsPerWorld = 5;
+      const totalStatsPaths = statsWorldCount * pathsPerWorld;
       const avatarElement = document.querySelector(".avatar");
       const avatarImage = document.querySelector("#profile-avatar-image");
       const prenomElement = document.querySelector("#profile-prenom");
@@ -229,9 +219,7 @@
       const statsMode = document.querySelector("#stats-mode");
       const statsLevel = document.querySelector("#stats-level");
       const statsPoints = document.querySelector("#stats-points");
-      const statsEasy = document.querySelector("#stats-easy");
-      const statsNormal = document.querySelector("#stats-normal");
-      const statsHard = document.querySelector("#stats-hard");
+      const statsPaths = document.querySelector("#stats-paths");
       const switchModeButton = document.querySelector("#switch-mode-button");
       const switchModeText = document.querySelector("#switch-mode-text");
       const modeOverlay = document.querySelector("#mode-overlay");
@@ -605,22 +593,51 @@
         securityMessage.className = `security-message ${type}`.trim();
       }
 
-      function formatPracticeProgress(done) {
-        const safeDone = Math.max(0, Math.min(Number(done) || 0, practiceCasesTotal));
+      function formatPathProgress(done) {
+        const safeDone = Math.max(0, Math.min(Number(done) || 0, totalStatsPaths));
 
-        return `${safeDone}/${practiceCasesTotal}`;
+        return `${safeDone}/${totalStatsPaths}`;
       }
 
-      function updateStatsMenu(profile) {
+      async function fetchCompletedPathCount(mode) {
+        const worlds = Array.from({ length: statsWorldCount }, (_, index) => index + 1);
+        const progressByWorld = await Promise.all(worlds.map(async (world) => {
+          const response = await fetch(`/api/path-progress?mode=${mode}&world=${world}`, {
+            credentials: "same-origin"
+          });
+
+          if (!response.ok) {
+            throw new Error("Impossible de charger les chemins.");
+          }
+
+          const result = await response.json();
+
+          return Array.isArray(result.completedPaths) ? result.completedPaths.length : 0;
+        }));
+
+        return progressByWorld.reduce((total, count) => total + count, 0);
+      }
+
+      async function updateStatsMenu(profile) {
         const currentMode = getStoredModeKey(profile);
         const modeStats = getModeStats(profile)[currentMode];
 
         statsMode.textContent = statsModeLabels[currentMode];
         statsLevel.textContent = modeStats.level;
         statsPoints.textContent = modeStats.points;
-        statsEasy.textContent = formatPracticeProgress(modeStats.easyCasesDone);
-        statsNormal.textContent = formatPracticeProgress(modeStats.normalCasesDone);
-        statsHard.textContent = formatPracticeProgress(modeStats.hardCasesDone);
+        statsPaths.textContent = formatPathProgress(modeStats.completedPathsDone);
+
+        try {
+          const completedPathCount = await fetchCompletedPathCount(currentMode);
+          modeStats.completedPathsDone = completedPathCount;
+          saveModeStats(profile, {
+            ...getModeStats(profile),
+            [currentMode]: modeStats
+          });
+          statsPaths.textContent = formatPathProgress(completedPathCount);
+        } catch (error) {
+          statsPaths.textContent = "Indisponible";
+        }
       }
 
       let activeProfile = {

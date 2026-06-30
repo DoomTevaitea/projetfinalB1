@@ -305,7 +305,7 @@ document.querySelectorAll("[data-technique-quiz]").forEach((quiz) => {
 
       if (nextLink) {
         nextLink.dataset.testPassed = "true";
-        showDamActionLink(nextLink, feedback, "Terminer la le\u00e7on");
+        showDamActionLink(nextLink, feedback, "Retour au chemin");
       }
     });
   });
